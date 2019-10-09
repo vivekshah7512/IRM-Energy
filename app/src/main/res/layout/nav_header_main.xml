@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_18sdp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:orientation="vertical">
+
+            <com.vbs.irmenergy.utilities.CustomTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello,"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_13sdp"
+                app:fontName="@string/font_regular" />
+
+            <com.vbs.irmenergy.utilities.CustomTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="John Carter"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_13sdp"
+                app:fontName="@string/font_regular" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
