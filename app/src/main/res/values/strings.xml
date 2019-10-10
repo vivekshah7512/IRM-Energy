@@ -16,9 +16,9 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
-    <string name="font_bold">POPPINS-BOLD.TTF</string>
-    <string name="font_light">POPPINS-LIGHT.TTF</string>
-    <string name="font_regular">POPPINS-REGULAR.TTF</string>
-    <string name="font_semibold">POPPINS-SEMIBOLD.TTF</string>
+    <string name="font_bold">POPPINS-BOLD.ttf</string>
+    <string name="font_light">POPPINS-LIGHT.ttf</string>
+    <string name="font_regular">POPPINS-REGULAR.ttf</string>
+    <string name="font_semibold">POPPINS-SEMIBOLD.ttf</string>
 
 </resources>

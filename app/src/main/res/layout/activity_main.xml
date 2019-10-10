@@ -20,16 +20,17 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
+        app:itemBackground="@drawable/drawer_bg_item"
         app:itemIconTint="@color/drawer_item"
         app:itemTextColor="@color/drawer_item"
-        app:itemBackground="@drawable/drawer_bg_item"
-        app:menu="@menu/activity_main_drawer">
+        app:menu="@menu/activity_main_drawer"
+        app:theme="@style/NavigationDrawerStyle">
 
         <com.vbs.irmenergy.utilities.CustomTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginBottom="8dp"
             android:text="Version 1.0"
             android:textColor="@color/colorLightGray"
             android:textSize="@dimen/_10sdp"

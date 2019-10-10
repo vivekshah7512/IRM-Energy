@@ -6,36 +6,36 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_dashboard"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Dashboard"
-            android:checked="true"/>
+            android:checked="true"
+            android:icon="@drawable/dashboard"
+            android:title="Dashboard" />
         <item
             android:id="@+id/nav_reg"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/customer_registration"
             android:title="Customer Registration" />
         <item
             android:id="@+id/nav_estimation"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/estimation"
             android:title="Extra Material Estimation" />
         <item
             android:id="@+id/nav_jobsheet"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/upload"
             android:title="Job Sheet Upload" />
         <item
             android:id="@+id/nav_commission"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/commisioning"
             android:title="Commissioning" />
         <item
             android:id="@+id/nav_survey"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/survey"
             android:title="Customer Survey" />
         <item
             android:id="@+id/nav_change_pass"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/password"
             android:title="Change Password" />
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/logout"
             android:title="Logout" />
     </group>
 

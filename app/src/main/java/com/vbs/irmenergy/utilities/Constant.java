@@ -22,9 +22,9 @@ public class Constant {
     public static String USER_TYPE = "user_type";
     public static String isLogin = "is_login";
 
-    public static String fontPath1 = "fonts/POPPINS-BOLD.TTF";
-    public static String fontPath2 = "fonts/POPPINS-REGULAR.TTF";
-    public static String fontPath4 = "fonts/POPPINS-LIGHT.TTF";
-    public static String fontPath5 = "fonts/POPPINS-SEMIBOLD.TTF";
+    public static String fontPath1 = "fonts/POPPINS-BOLD.ttf";
+    public static String fontPath2 = "fonts/POPPINS-REGULAR.ttf";
+    public static String fontPath4 = "fonts/POPPINS-LIGHT.ttf";
+    public static String fontPath5 = "fonts/POPPINS-SEMIBOLD.ttf";
 
 }

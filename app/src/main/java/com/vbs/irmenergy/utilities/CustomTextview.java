@@ -34,11 +34,11 @@ public class CustomTextview extends TextView {
     public void init() {
         if (this.mFont != null) {
             Typeface tf;
-            if (this.mFont.equals("POPPINS-BOLD.TTF")) {
+            if (this.mFont.equals("POPPINS-BOLD.ttf")) {
                 tf = Typeface.createFromAsset(this.mContext.getAssets(), Constant.fontPath1);
-            } else if (this.mFont.equals("POPPINS-REGULAR.TTF")) {
+            } else if (this.mFont.equals("POPPINS-REGULAR.ttf")) {
                 tf = Typeface.createFromAsset(this.mContext.getAssets(), Constant.fontPath2);
-            } else if (this.mFont.equals("POPPINS-LIGHT.TTF")) {
+            } else if (this.mFont.equals("POPPINS-LIGHT.ttf")) {
                 tf = Typeface.createFromAsset(this.mContext.getAssets(), Constant.fontPath4);
             } else {
                 tf = Typeface.createFromAsset(this.mContext.getAssets(), Constant.fontPath5);
