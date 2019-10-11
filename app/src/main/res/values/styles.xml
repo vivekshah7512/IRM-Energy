@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -21,6 +21,24 @@
     <style name="NavigationDrawerStyle">
         <item name="android:textSize">@dimen/_12sdp</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="spinner_style1">
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="android:background">@drawable/spinner_bg</item>
+    </style>
+
+    <style name="SpinnerItem">
+        <item name="android:textColor">@color/colorLightBlack</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
 </resources>

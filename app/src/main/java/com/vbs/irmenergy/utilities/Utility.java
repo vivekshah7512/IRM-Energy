@@ -405,7 +405,7 @@ public class Utility {
     }
 
     public static void setTitle(final Context context, String title) {
-//        ((TextView) ((Activity) context).findViewById(R.id.toolbar_title)).setText(title);
+        ((TextView) ((Activity) context).findViewById(R.id.toolbar_title)).setText(title);
     }
 
 }
