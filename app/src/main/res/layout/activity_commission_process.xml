@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f1f0f9"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:padding="12dp"
+            android:src="@drawable/back" />
+
+        <com.vbs.irmenergy.utilities.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Commissioning Process"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp"
+            app:fontName="@string/font_semibold" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardBackgroundColor="@color/colorWhite"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.vbs.irmenergy.utilities.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Contractor"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_border_box1">
+
+                            <Spinner
+                                style="@style/spinner_style1"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:paddingEnd="42dp"
+                                android:spinnerMode="dropdown" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="40dp"
+                                android:background="@color/colorLightViolet" />
+
+                        </RelativeLayout>
+
+                        <com.vbs.irmenergy.utilities.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="House Type"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_border_box1">
+
+                            <Spinner
+                                style="@style/spinner_style1"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:paddingEnd="42dp"
+                                android:spinnerMode="dropdown" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="40dp"
+                                android:background="@color/colorLightViolet" />
+
+                        </RelativeLayout>
+
+                        <com.vbs.irmenergy.utilities.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Commission Date"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_border_box1"
+                            android:gravity="center_vertical"
+                            android:hint="Select Date"
+                            android:padding="8dp"
+                            android:editable="false"
+                            android:singleLine="true"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Meter Serial No."
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_border_box1"
+                            android:gravity="center_vertical"
+                            android:hint="Enter meter sr. no."
+                            android:padding="8dp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Initial Meter Reading"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_border_box1"
+                            android:gravity="center_vertical"
+                            android:hint="Enter initial meter reading"
+                            android:padding="8dp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Latitude"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_border_box1"
+                            android:gravity="center_vertical"
+                            android:hint="Enter latitude"
+                            android:padding="8dp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Longitude"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rounded_border_box1"
+                            android:gravity="center_vertical"
+                            android:hint="Enter longitude"
+                            android:padding="8dp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Remarks"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                        <com.vbs.irmenergy.utilities.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/rounded_border_box1"
+                            android:gravity="top"
+                            android:hint="Enter remarks"
+                            android:minLines="3"
+                            android:padding="8dp"
+                            android:textColor="@color/colorLightBlack"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <com.vbs.irmenergy.utilities.CustomButton
+                android:id="@+id/btn_comm_submit"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@drawable/rounded_rectangle_button1"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14sdp"
+                app:fontName="@string/font_semibold" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

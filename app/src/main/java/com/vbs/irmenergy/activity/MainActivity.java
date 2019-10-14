@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_reg) {
             fr = new FragmentCustomerRegistration();
-            Utility.writeSharedPreferences(mContext, "searchFlag", "estimation");
+            Utility.writeSharedPreferences(mContext, "searchFlag", "cust_reg");
             if (fr != null) {
                 fm = getSupportFragmentManager();
                 fm.popBackStack(BACK_STACK_ROOT_TAG, 1);
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_change_pass) {
             fr = new FragmentChangePassword();
-            Utility.writeSharedPreferences(mContext, "searchFlag", "survey");
+            Utility.writeSharedPreferences(mContext, "searchFlag", "change_pass");
             if (fr != null) {
                 fm = getSupportFragmentManager();
                 fm.popBackStack(BACK_STACK_ROOT_TAG, 1);
