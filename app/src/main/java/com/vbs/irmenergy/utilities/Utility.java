@@ -247,7 +247,7 @@ public class Utility {
     }
 
     public static void showDialogOK(Context c, String message, OnClickListener okListener) {
-        new Builder(c).setTitle("Brother Printer").setMessage(message).setPositiveButton("OK", okListener).setNegativeButton("Cancel", okListener).create().show();
+        new Builder(c).setTitle("IMR Energy").setMessage(message).setPositiveButton("OK", okListener).setNegativeButton("Cancel", okListener).create().show();
     }
 
     public static void writeToFile(String data, Context context) {
