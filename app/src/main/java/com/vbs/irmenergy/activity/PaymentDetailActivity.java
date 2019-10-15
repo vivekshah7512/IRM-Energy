@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.vbs.irmenergy.R;
 
@@ -18,6 +19,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
 
     private Context mContext;
     private Button btn_next;
+    private ImageView img_back;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -36,11 +38,17 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
     private void initUI() {
         btn_next = findViewById(R.id.btn_cust_next);
         btn_next.setOnClickListener(this);
+
+        img_back = (ImageView) findViewById(R.id.img_back);
+        img_back.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.img_back:
+                finish();
+                break;
             case R.id.btn_cust_next:
                 Intent intent = new Intent(mContext,VerifyPaymentDetailActivity.class);
                 startActivity(intent);

@@ -14,6 +14,8 @@ import android.widget.EditText;
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.activity.CommissionProcessActivity;
 import com.vbs.irmenergy.activity.CustomerDetailActivity;
+import com.vbs.irmenergy.activity.ExtraMaterialEstimationActivity;
+import com.vbs.irmenergy.activity.JobsheetDetailsActivity;
 import com.vbs.irmenergy.utilities.Utility;
 
 public class FragmentSearch extends Fragment implements OnClickListener {
@@ -66,6 +68,12 @@ public class FragmentSearch extends Fragment implements OnClickListener {
                     startActivity(intent);
                 } else if (flag.equalsIgnoreCase("commission")) {
                     Intent intent = new Intent(getActivity(), CommissionProcessActivity.class);
+                    startActivity(intent);
+                } else if (flag.equalsIgnoreCase("jobsheet")) {
+                    Intent intent = new Intent(getActivity(), JobsheetDetailsActivity.class);
+                    startActivity(intent);
+                } else if (flag.equalsIgnoreCase("estimation")) {
+                    Intent intent = new Intent(getActivity(), ExtraMaterialEstimationActivity.class);
                     startActivity(intent);
                 }
                 break;

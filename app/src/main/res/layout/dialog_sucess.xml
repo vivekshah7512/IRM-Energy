@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:src="@drawable/success" />
+
+        <com.vbs.irmenergy.utilities.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Success"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="@dimen/_25sdp"
+            app:fontName="@string/font_semibold" />
+
+        <com.vbs.irmenergy.utilities.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="Job Sheet Uploaded Successfully"
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/_15sdp"
+            app:fontName="@string/font_semibold" />
+
+        <com.vbs.irmenergy.utilities.CustomButton
+            android:id="@+id/btn_dashboard"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/rounded_border_box2"
+            android:text="Dashboard"
+            android:textAllCaps="false"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="@dimen/_13sdp"
+            app:fontName="@string/font_regular" />
+
+    </LinearLayout>
+
+</RelativeLayout>

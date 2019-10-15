@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.vbs.irmenergy.R;
 
 public class CustomerDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
+    private ImageView img_back;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -32,11 +34,18 @@ public class CustomerDetailActivity extends AppCompatActivity implements View.On
     }
 
     private void initUI() {
+
+        img_back = (ImageView) findViewById(R.id.img_back);
+        img_back.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.img_back:
+                finish();
+                break;
             default:
                 break;
         }

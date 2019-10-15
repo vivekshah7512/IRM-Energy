@@ -16,6 +16,7 @@
         android:background="@color/colorPrimary">
 
         <ImageView
+            android:id="@+id/img_back"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerVertical="true"
