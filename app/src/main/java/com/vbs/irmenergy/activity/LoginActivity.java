@@ -1,6 +1,7 @@
 package com.vbs.irmenergy.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
@@ -24,14 +26,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vbs.irmenergy.R;
+import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.Utility;
+import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
+import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,
+        VolleyResponseInterface {
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private Context mContext;
@@ -39,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btn_login;
     private TextView tv_forgot;
     private CheckBox cb_pass, check_remember;
+    private ProgressDialog mProgressDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -89,23 +99,55 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, "android.permission.READ_PHONE_STATE") == 0) {
+            Utility.writeSharedPreferences(mContext, "Device_id", telephonyManager.getDeviceId());
+        }
+
+        mProgressDialog = new ProgressDialog(mContext, R.style.MyAlertDialogStyle);
+        mProgressDialog.setMessage("Please wait...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+    }
+
+    private void createLogin() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("username", et_username.getText().toString().trim());
+            params.put("password", et_password.getText().toString());
+            params.put("device_id", Utility.getAppPrefString(mContext, "Device_id"));
+            params.put("device_type", "android");
+            params.put("device_token", "");
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.LOGIN,
+                    Constant.URL_CREATE_LOGIN, params);
+        } else
+            Utility.toast("No Internet Connection", mContext);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                if (check_remember.isChecked()) {
-                    Utility.writeSharedPreferences(mContext, "username", et_username.getText().toString());
-                    Utility.writeSharedPreferences(mContext, "password", et_password.getText().toString());
-                    Utility.writeSharedPreferences(mContext, "check_flag", "true");
+                if (et_username.getText().toString().equalsIgnoreCase("")) {
+                    Utility.toast("Please enter username", mContext);
+                } else if (et_password.getText().toString().equalsIgnoreCase("")) {
+                    Utility.toast("Please enter password", mContext);
                 } else {
-                    Utility.writeSharedPreferences(mContext, "username", "");
-                    Utility.writeSharedPreferences(mContext, "password", "");
-                    Utility.writeSharedPreferences(mContext, "check_flag", "false");
+                    if (check_remember.isChecked()) {
+                        Utility.writeSharedPreferences(mContext, "username", et_username.getText().toString());
+                        Utility.writeSharedPreferences(mContext, "password", et_password.getText().toString());
+                        Utility.writeSharedPreferences(mContext, "check_flag", "true");
+                    } else {
+                        Utility.writeSharedPreferences(mContext, "username", "");
+                        Utility.writeSharedPreferences(mContext, "password", "");
+                        Utility.writeSharedPreferences(mContext, "check_flag", "false");
+                    }
+                    createLogin();
                 }
-                Intent i = new Intent(mContext, MainActivity.class);
-                startActivity(i);
                 break;
             case R.id.tv_forgot:
                 Intent i1 = new Intent(mContext, ForgotPasswordActivity.class);
@@ -169,4 +211,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @Override
+    public void vResponse(int reqCode, String result) {
+        String response, message;
+        try {
+            JSONObject jObject = new JSONObject(result);
+            Log.i("Response : ", jObject.toString());
+            if (reqCode == Constant.LOGIN) {
+                response = jObject.getString("response");
+                message = jObject.getString("message");
+                if (response.equalsIgnoreCase("true")) {
+                    Utility.writeSharedPreferences(mContext, Constant.USER_ID,
+                            jObject.getString("user_id"));
+                    Utility.writeSharedPreferences(mContext, Constant.USER_NAME,
+                            jObject.getString("user_name"));
+                    Utility.writeSharedPreferences(mContext, Constant.USER_EMAIL,
+                            jObject.getString("user_email"));
+                    Utility.writeSharedPreferences(mContext, Constant.USER_PHONE,
+                            jObject.getString("user_mobile"));
+                    Utility.writeSharedPreferences(mContext, Constant.USER_TYPE,
+                            jObject.getString("user_type"));
+                    Utility.writeSharedPreferences(mContext, Constant.isLogin, "true");
+                    Utility.toast(message, mContext);
+                    Intent i = new Intent(mContext, MainActivity.class);
+                    startActivity(i);
+                } else {
+                    Utility.toast(message, mContext);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void vErrorMsg(int reqCode, String error) {
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
 }

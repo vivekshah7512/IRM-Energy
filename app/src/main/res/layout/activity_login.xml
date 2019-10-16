@@ -31,7 +31,7 @@
                 android:layout_marginTop="@dimen/_65sdp"
                 android:background="@drawable/rounded_border_box"
                 android:gravity="center_vertical"
-                android:hint="Enter Mobile No/Email Id"
+                android:hint="Enter Username"
                 android:padding="8dp"
                 android:singleLine="true"
                 android:textColor="@color/colorWhite"

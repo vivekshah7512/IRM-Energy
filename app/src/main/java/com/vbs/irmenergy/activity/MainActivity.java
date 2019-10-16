@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.fragments.FragmentChangePassword;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment fr = null;
     private FragmentManager fm;
     private FragmentTransaction fragmentTransaction;
+    private TextView tv_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,11 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+
+        View hView = navigationView.getHeaderView(0);
+        tv_name = (TextView) hView.findViewById(R.id.tv_menu_name);
+        tv_name.setText(Utility.getAppPrefString(mContext, Constant.USER_NAME));
 
         fr = new FragmentDashboard();
         if (fr != null) {

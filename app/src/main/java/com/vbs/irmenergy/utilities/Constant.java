@@ -5,10 +5,10 @@ public class Constant {
     public static String TAG = "IMREnergy";
     public static int MY_SOCKET_TIMEOUT_MS = 30000;
 
-    public static String URL_PARENT = ""; // Testing
+    public static String URL_PARENT = "http://pngnet.irmenergy.com/IRMEPLTest/IRMEPL_MobileApp_API_Test/IRMMobileAppService/"; // Testing
 
     // URL
-    public static String URL_CREATE_LOGIN = URL_PARENT + "EngineerLoginInfo";
+    public static String URL_CREATE_LOGIN = URL_PARENT + "createLogin";
 
     // API CODE
     public static int LOGIN = 1;
