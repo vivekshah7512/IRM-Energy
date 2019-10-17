@@ -39,9 +39,11 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
     private String[] type_id, type_name, category_id, category_name, corporate_id,
-            corporate_name, property_id, property_name, ownership_id, ownership_name;
+            corporate_name, property_id, property_name, ownership_id, ownership_name,
+            contractor_id, contractor_name;
     private String stringTypeId = "0", stringCategoryId = "0",
-            stringCorporateId = "0", stringPropertyId = "0", stringOwnerId = "0";
+            stringCorporateId = "0", stringPropertyId = "0", stringOwnerId = "0",
+            stringContractorId = "0";
     private Spinner sp_customer_type, sp_customer_category, sp_corporate_name,
             sp_owner_type, sp_property_type, sp_contractor;
 
@@ -127,6 +129,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 img_reg3.setRotation(90);
                 getPropertyType();
                 getOwnershipType();
+                getContractorName();
                 break;
             default:
                 return;
@@ -195,6 +198,20 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             volleyAPIClass.volleyGetJsonAPI(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_OWNER_TYPE,
                     Constant.URL_GET_OWNER_TYPE);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
+    private void getContractorName() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("center_code", "BKPP10");
+            volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
+                    Constant.GET_CONTRACTOR,
+                    Constant.URL_GET_CONTRACTOR, params);
         } else
             Utility.toast("No Internet Connection", getActivity());
     }
@@ -294,6 +311,24 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     sp_owner_type.setAdapter(adapter);
 
                 }
+            } else if (reqCode == Constant.GET_CONTRACTOR) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("contractor_data");
+                    int lenth = jsonArray.length();
+                    contractor_id = new String[lenth];
+                    contractor_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        jsonObjectMessage = jsonArray.getJSONObject(a);
+                        contractor_id[a] = jsonObjectMessage.getString("contractor_id");
+                        contractor_name[a] = jsonObjectMessage.getString("contractor_name");
+                    }
+                    ll_corporate.setVisibility(View.VISIBLE);
+                    ArrayAdapter adapter = new ArrayAdapter<String>(
+                            getActivity(), R.layout.spinner_item, contractor_name);
+                    sp_contractor.setAdapter(adapter);
+
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -335,7 +370,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 stringOwnerId = ownership_id[position];
                 break;
             case R.id.sp_contractor:
-
+                stringContractorId = contractor_id[position];
                 break;
             default:
                 break;
