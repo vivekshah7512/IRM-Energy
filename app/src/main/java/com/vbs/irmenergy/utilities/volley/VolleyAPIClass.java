@@ -82,4 +82,49 @@ public class VolleyAPIClass {
             e.printStackTrace();
         }
     }
+
+    public void volleyGetJsonAPI(final Context mContext, Fragment fragment, final int req,
+                                 String mUrl) {
+        try {
+            if (fragment == null) {
+                volleyResponseInterface = (VolleyResponseInterface) mContext;
+            } else {
+                volleyResponseInterface = (VolleyResponseInterface) fragment;
+            }
+            Log.d(Constant.TAG, "Request URL: " + mUrl);
+            JsonObjectRequest cacheRequest = new JsonObjectRequest(mUrl, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Log.d(Constant.TAG, "Response: " + response.toString());
+                                volleyResponseInterface.vResponse(req, response.toString());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(Constant.TAG, "Error: " + error.getMessage());
+                    volleyResponseInterface.vErrorMsg(req, error.getMessage());
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    return headers;
+                }
+            };
+
+            cacheRequest.setRetryPolicy(new DefaultRetryPolicy(Constant.MY_SOCKET_TIMEOUT_MS,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            RequestQueue queue = Volley.newRequestQueue(mContext);
+            queue.add(cacheRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

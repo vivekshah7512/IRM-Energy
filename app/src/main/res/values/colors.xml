@@ -11,5 +11,6 @@
     <color name="colorLightViolet">#e5e3f5</color>
     <color name="colorLightGray">#b3b3b3</color>
     <color name="colorGray">#808080</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

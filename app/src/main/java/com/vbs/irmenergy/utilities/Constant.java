@@ -9,9 +9,25 @@ public class Constant {
 
     // URL
     public static String URL_CREATE_LOGIN = URL_PARENT + "createLogin";
+    public static String URL_FORGOT_PASS = URL_PARENT + "forgotPassword";
+    public static String URL_SEARCH_APPLICATION_NO = URL_PARENT + "searchApplicationNo";
+    public static String URL_GET_CUSTOMER_TYPE = URL_PARENT + "getCustomerType";
+    public static String URL_GET_CUSTOMER_CATEGORY = URL_PARENT + "getCustomerCategory";
+    public static String URL_GET_CORPORATE_NAME = URL_PARENT + "getCorporateName";
+    public static String URL_GET_PROPERTY_TYPE = URL_PARENT + "getPropertyType";
+    public static String URL_GET_OWNER_TYPE = URL_PARENT + "getOwnershipType";
+    public static String URL_GET_CONTRACTOR = URL_PARENT + "getDMAContarctor";
 
     // API CODE
     public static int LOGIN = 1;
+    public static int FORGOT_PASS = 2;
+    public static int SEARCH_APPLICATION_NO = 3;
+    public static int GET_CUSTOMER_TYPE = 4;
+    public static int GET_CUSTOMER_CATEGORY = 5;
+    public static int GET_CORPORATE_NAME = 6;
+    public static int GET_PROPERTY_TYPE = 7;
+    public static int GET_OWNER_TYPE = 8;
+    public static int GET_CONTRACTOR = 9;
 
     // Constant
     public static String USER_EMAIL = "user_email";

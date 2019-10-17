@@ -33,6 +33,7 @@
         android:drawablePadding="8dp"
         android:drawableTint="@color/colorLightViolet"
         android:hint="Search Application No."
+        android:inputType="textCapCharacters"
         android:padding="8dp"
         android:singleLine="true"
         android:textColor="@color/colorLightBlack"

@@ -1,7 +1,6 @@
 package com.vbs.irmenergy.activity;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vbs.irmenergy.R;
+import com.vbs.irmenergy.utilities.APIProgressDialog;
 import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.Utility;
 import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btn_login;
     private TextView tv_forgot;
     private CheckBox cb_pass, check_remember;
-    private ProgressDialog mProgressDialog;
+    private APIProgressDialog mProgressDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         setContentView(R.layout.activity_login);
         mContext = this;
 
@@ -72,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initUI() {
+        mProgressDialog = new APIProgressDialog(mContext, R.style.DialogStyle);
         et_username = findViewById(R.id.et_username);
         et_password = findViewById(R.id.et_password);
         btn_login = findViewById(R.id.btn_login);
@@ -104,11 +104,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (ActivityCompat.checkSelfPermission(this, "android.permission.READ_PHONE_STATE") == 0) {
             Utility.writeSharedPreferences(mContext, "Device_id", telephonyManager.getDeviceId());
         }
-
-        mProgressDialog = new ProgressDialog(mContext, R.style.MyAlertDialogStyle);
-        mProgressDialog.setMessage("Please wait...");
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.setCanceledOnTouchOutside(false);
     }
 
     private void createLogin() {

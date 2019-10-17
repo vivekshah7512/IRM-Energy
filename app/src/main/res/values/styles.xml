@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
     </style>
 
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -31,6 +31,10 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="DialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
     <style name="spinner_style1">
         <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
         <item name="android:background">@drawable/spinner_bg</item>
@@ -44,5 +48,14 @@
         <item name="android:paddingRight">8dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+
+    <style name="Widget.GifView" parent="@android:style/Widget"></style>
+    <declare-styleable name="GifView">
+        <attr name="gif" format="reference" />
+        <attr name="paused" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CustomTheme">
+        <attr name="gifViewStyle" format="reference" />
+    </declare-styleable>
 
 </resources>

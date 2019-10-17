@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,15 +17,29 @@ import com.vbs.irmenergy.activity.CommissionProcessActivity;
 import com.vbs.irmenergy.activity.CustomerDetailActivity;
 import com.vbs.irmenergy.activity.ExtraMaterialEstimationActivity;
 import com.vbs.irmenergy.activity.JobsheetDetailsActivity;
+import com.vbs.irmenergy.utilities.APIProgressDialog;
+import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.Utility;
+import com.vbs.irmenergy.utilities.volley.VolleyAPIClass;
+import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
+import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
-public class FragmentSearch extends Fragment implements OnClickListener {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class FragmentSearch extends Fragment implements OnClickListener,
+        VolleyResponseInterface {
 
     private View view;
     private Button btn_search, btn_verify;
     private CardView cardView_data;
     private EditText et_app_no;
     private String flag = "";
+    private APIProgressDialog mProgressDialog;
+    private VolleyAPIClass volleyAPIClass;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
@@ -35,6 +50,9 @@ public class FragmentSearch extends Fragment implements OnClickListener {
     }
 
     public void init() {
+        mProgressDialog = new APIProgressDialog(getActivity(), R.style.DialogStyle);
+        volleyAPIClass = new VolleyAPIClass();
+
         if (Utility.getAppPrefString(getActivity(), "searchFlag")
                 .equalsIgnoreCase("estimation"))
             Utility.setTitle(getActivity(), "Extra Material Estimation");
@@ -60,7 +78,11 @@ public class FragmentSearch extends Fragment implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_search:
-                cardView_data.setVisibility(View.VISIBLE);
+                if (et_app_no.getText().toString().equalsIgnoreCase("")) {
+                    Utility.toast("Please enter application no", getActivity());
+                } else {
+                    searchApplicationNo();
+                }
                 break;
             case R.id.btn_verify:
                 if (flag.equalsIgnoreCase("survey")) {
@@ -82,4 +104,48 @@ public class FragmentSearch extends Fragment implements OnClickListener {
         }
     }
 
+    private void searchApplicationNo() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("user_id", Utility.getAppPrefString(getActivity(), Constant.USER_ID));
+            params.put("user_type", Utility.getAppPrefString(getActivity(), Constant.USER_TYPE));
+            params.put("application _no", et_app_no.getText().toString().trim());
+            volleyAPIClass.volleyAPICall(getActivity(), FragmentSearch.this,
+                    Constant.SEARCH_APPLICATION_NO,
+                    Constant.URL_SEARCH_APPLICATION_NO, params);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
+    @Override
+    public void vResponse(int reqCode, String result) {
+        String response, message;
+        try {
+            JSONObject jObject = new JSONObject(result);
+            if (reqCode == Constant.SEARCH_APPLICATION_NO) {
+                response = jObject.getString("response");
+                message = jObject.getString("message");
+                if (response.equalsIgnoreCase("true")) {
+                    cardView_data.setVisibility(View.VISIBLE);
+                } else {
+                    Utility.toast(message, getActivity());
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void vErrorMsg(int reqCode, String error) {
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
 }
