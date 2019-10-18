@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.activity.CommissionProcessActivity;
@@ -21,7 +21,6 @@ import com.vbs.irmenergy.utilities.APIProgressDialog;
 import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.Utility;
 import com.vbs.irmenergy.utilities.volley.VolleyAPIClass;
-import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
 import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
 import org.json.JSONException;
@@ -40,6 +39,8 @@ public class FragmentSearch extends Fragment implements OnClickListener,
     private String flag = "";
     private APIProgressDialog mProgressDialog;
     private VolleyAPIClass volleyAPIClass;
+    private TextView tv_application_no, tv_customer_name, tv_address, tv_area, tv_city,
+            tv_contact_no, tv_email;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
@@ -73,6 +74,14 @@ public class FragmentSearch extends Fragment implements OnClickListener,
         btn_verify.setOnClickListener(this);
         cardView_data = (CardView) view.findViewById(R.id.cv_search_data);
         et_app_no = (EditText) view.findViewById(R.id.et_app_no);
+
+        tv_application_no = (TextView) view.findViewById(R.id.tv_application_no);
+        tv_customer_name = (TextView) view.findViewById(R.id.tv_customer_name);
+        tv_address = (TextView) view.findViewById(R.id.tv_address);
+        tv_area = (TextView) view.findViewById(R.id.tv_area);
+        tv_city = (TextView) view.findViewById(R.id.tv_city);
+        tv_contact_no = (TextView) view.findViewById(R.id.tv_contact_no);
+        tv_email = (TextView) view.findViewById(R.id.tv_email_id);
     }
 
     public void onClick(View view) {
@@ -112,7 +121,7 @@ public class FragmentSearch extends Fragment implements OnClickListener,
             Map<String, Object> params = new HashMap<>();
             params.put("user_id", Utility.getAppPrefString(getActivity(), Constant.USER_ID));
             params.put("user_type", Utility.getAppPrefString(getActivity(), Constant.USER_TYPE));
-            params.put("application _no", et_app_no.getText().toString().trim());
+            params.put("application_no", et_app_no.getText().toString().trim());
             volleyAPIClass.volleyAPICall(getActivity(), FragmentSearch.this,
                     Constant.SEARCH_APPLICATION_NO,
                     Constant.URL_SEARCH_APPLICATION_NO, params);
@@ -130,6 +139,13 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                 message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
                     cardView_data.setVisibility(View.VISIBLE);
+                    tv_application_no.setText(jObject.getString("application_no"));
+                    tv_customer_name.setText(jObject.getString("customer_name"));
+                    tv_address.setText(jObject.getString("customer_address"));
+                    tv_area.setText(jObject.getString("customer_area"));
+                    tv_city.setText(jObject.getString("customer_city"));
+                    tv_contact_no.setText(jObject.getString("customer_mobille"));
+                    tv_email.setText(jObject.getString("customer_email"));
                 } else {
                     Utility.toast(message, getActivity());
                 }

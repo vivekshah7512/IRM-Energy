@@ -99,11 +99,11 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_application_no"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_weight="0.65"
-                    android:text="B12540047"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_light" />
@@ -127,11 +127,11 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_customer_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_weight="0.65"
-                    android:text="Vivek Shah"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_light" />
@@ -155,11 +155,11 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_address"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_weight="0.65"
-                    android:text="29, Gyanmandir Soc"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_light" />
@@ -183,11 +183,11 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_area"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_weight="0.65"
-                    android:text="Vasna"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_light" />
@@ -211,11 +211,11 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_city"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_weight="0.65"
-                    android:text="Ahmedabad"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_light" />
@@ -239,11 +239,11 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_contact_no"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_weight="0.65"
-                    android:text="7874603496"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_light" />
@@ -267,11 +267,11 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_email_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_weight="0.65"
-                    android:text="vivek.007shah@gmail.com"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_light" />
