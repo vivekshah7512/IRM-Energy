@@ -50,6 +50,7 @@
     </style>
 
     <style name="Widget.GifView" parent="@android:style/Widget"></style>
+
     <declare-styleable name="GifView">
         <attr name="gif" format="reference" />
         <attr name="paused" format="boolean" />
