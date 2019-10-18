@@ -18,6 +18,8 @@ public class Constant {
     public static String URL_GET_OWNER_TYPE = URL_PARENT + "getOwnershipType";
     public static String URL_GET_CONTRACTOR = URL_PARENT + "getDMAContarctor";
     public static String URL_SAVE_REGISTRATION = URL_PARENT + "userRegistration";
+    public static String URL_REGISTRATION_PAYMENT = URL_PARENT + "userRegPayment";
+    public static String URL_CHANGE_PASSWORD = URL_PARENT + "changePassword";
 
     // API CODE
     public static int LOGIN = 1;
@@ -30,6 +32,8 @@ public class Constant {
     public static int GET_OWNER_TYPE = 8;
     public static int GET_CONTRACTOR = 9;
     public static int SAVE_REGISTRATION = 10;
+    public static int REGISTRATION_PAYMENT = 11;
+    public static int CHANGE_PASSWORD = 12;
 
     // Constant
     public static String USER_EMAIL = "user_email";

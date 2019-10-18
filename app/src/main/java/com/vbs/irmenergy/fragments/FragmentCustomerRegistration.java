@@ -61,7 +61,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             et_mobile_no, et_email, et_lpg_no, et_lpg_distributor, et_lpg_omc, et_property_name,
             et_owner_name, et_owner_contact_no, et_remarks;
     private RadioGroup rg_payment;
-    private String paymentType;
+    private String paymentType = "online";
     private Calendar myCalendar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -197,8 +197,11 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 break;
             case R.id.btn_cust_payment:
 //                saveRegistrationDetails();
-                Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
-                startActivity(intent);
+                if (paymentType.equalsIgnoreCase("cheque")) {
+                    Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
+                    intent.putExtra("app_no",et_application_no.getText().toString().trim());
+                    startActivity(intent);
+                }
                 break;
             case R.id.img_reg1:
                 ll_reg1.setVisibility(View.VISIBLE);

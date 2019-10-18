@@ -75,6 +75,7 @@
                         android:background="@drawable/rounded_border_box1">
 
                         <Spinner
+                            android:id="@+id/sp_payment_plan"
                             style="@style/spinner_style1"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
@@ -100,6 +101,7 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_receipt_type"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -123,11 +125,12 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_receipt_date"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rounded_border_box1"
-                        android:enabled="false"
+                        android:editable="false"
                         android:gravity="center_vertical"
                         android:padding="8dp"
                         android:singleLine="true"
@@ -146,6 +149,7 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_type"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -169,6 +173,7 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_inst_no"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -191,6 +196,7 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_inst_date"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -198,6 +204,7 @@
                         android:gravity="center_vertical"
                         android:hint="Select inst. date"
                         android:padding="8dp"
+                        android:editable="false"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
                         android:textSize="@dimen/_11sdp"
@@ -213,6 +220,7 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_amount"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -221,7 +229,7 @@
                         android:gravity="center_vertical"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:text="₹ 5000"
+                        android:text="₹ 0"
                         android:textColor="@color/colorLightBlack"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -236,6 +244,7 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_micr_no"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -258,6 +267,7 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_bank_name"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
@@ -280,6 +290,7 @@
                         app:fontName="@string/font_light" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
+                        android:id="@+id/et_payment_remarks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -298,7 +309,7 @@
             </android.support.v7.widget.CardView>
 
             <com.vbs.irmenergy.utilities.CustomButton
-                android:id="@+id/btn_cust_next"
+                android:id="@+id/btn_payment_submit"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
