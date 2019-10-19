@@ -47,7 +47,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
     private APIProgressDialog mProgressDialog;
     private String[] type_id, type_name, category_id, category_name, corporate_id,
             corporate_name, property_id, property_name, ownership_id, ownership_name,
-            contractor_id, contractor_name, billing_id, billing_name;
+            contractor_id, contractor_name, billing_id, billing_name, state_id, state_name,
+            city_id, city_name, area_id, area_name;
     private String stringTypeId = "0", stringCategoryId = "0",
             stringCorporateId = "0", stringPropertyId = "0", stringOwnerId = "0",
             stringContractorId = "0", stringBillingTo = "0", stringState = "0",
@@ -226,6 +227,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 img_reg2.setRotation(90);
                 img_reg3.setImageResource(R.drawable.right);
                 img_reg3.setRotation(0);
+                getState();
                 break;
             case R.id.img_reg3:
                 ll_reg1.setVisibility(View.GONE);
@@ -336,6 +338,51 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
+    private void getState() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("center_code", "1");
+            volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
+                    Constant.GET_STATE,
+                    Constant.URL_GET_STATE, params);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
+    private void getCity() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("center_code", "1");
+            params.put("state_id", stringState);
+            volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
+                    Constant.GET_CITY,
+                    Constant.URL_GET_CITY, params);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
+    private void getArea() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("center_code", "1");
+            params.put("state_id", stringState);
+            params.put("city_id", stringCity);
+            volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
+                    Constant.GET_AREA,
+                    Constant.URL_GET_AREA, params);
         } else
             Utility.toast("No Internet Connection", getActivity());
     }
@@ -481,6 +528,63 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_billing_to, billing_name);
                 }
+            } else if (reqCode == Constant.GET_STATE) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("state_data");
+                    int lenth = jsonArray.length() + 1;
+                    state_id = new String[lenth];
+                    state_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            state_id[0] = "0";
+                            state_name[0] = "Select State";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            state_id[a] = jsonObjectMessage.getString("state_id");
+                            state_name[a] = jsonObjectMessage.getString("state_name");
+                        }
+                    }
+                    Utility.setSpinnerAdapter(getActivity(), sp_state, state_name);
+                }
+            } else if (reqCode == Constant.GET_CITY) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("city_data");
+                    int lenth = jsonArray.length() + 1;
+                    city_id = new String[lenth];
+                    city_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            city_id[0] = "0";
+                            city_name[0] = "Select City";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            city_id[a] = jsonObjectMessage.getString("city_id");
+                            city_name[a] = jsonObjectMessage.getString("city_name");
+                        }
+                    }
+                    Utility.setSpinnerAdapter(getActivity(), sp_city, city_name);
+                }
+            } else if (reqCode == Constant.GET_AREA) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("area_data");
+                    int lenth = jsonArray.length() + 1;
+                    area_id = new String[lenth];
+                    area_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            area_id[0] = "0";
+                            area_name[0] = "Select Area";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            area_id[a] = jsonObjectMessage.getString("area_id");
+                            area_name[a] = jsonObjectMessage.getString("area_name");
+                        }
+                    }
+                    Utility.setSpinnerAdapter(getActivity(), sp_area, area_name);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -557,24 +661,51 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 }
                 break;
             case R.id.sp_cust_category:
-                stringCategoryId = category_id[position];
-                if (category_name[position].equalsIgnoreCase("corporate"))
-                    getCorporateName();
-                else
-                    ll_corporate.setVisibility(View.GONE);
-                getBillingInfo();
+                if (!category_id[position].equalsIgnoreCase("0")) {
+                    stringCategoryId = category_id[position];
+                    if (category_name[position].equalsIgnoreCase("corporate"))
+                        getCorporateName();
+                    else
+                        ll_corporate.setVisibility(View.GONE);
+                    getBillingInfo();
+                }
                 break;
             case R.id.sp_corporate_name:
-                stringCorporateId = corporate_id[position];
+                if (!corporate_id[position].equalsIgnoreCase("0")) {
+                    stringCorporateId = corporate_id[position];
+                }
                 break;
             case R.id.sp_property_type:
-                stringPropertyId = property_id[position];
+                if (!property_id[position].equalsIgnoreCase("0")) {
+                    stringPropertyId = property_id[position];
+                }
                 break;
             case R.id.sp_owner_type:
-                stringOwnerId = ownership_id[position];
+                if (!ownership_id[position].equalsIgnoreCase("0")) {
+                    stringOwnerId = ownership_id[position];
+                }
                 break;
             case R.id.sp_contractor:
-                stringContractorId = contractor_id[position];
+                if (!contractor_id[position].equalsIgnoreCase("0")) {
+                    stringContractorId = contractor_id[position];
+                }
+                break;
+            case R.id.sp_reg_state:
+                if (!state_id[position].equalsIgnoreCase("0")) {
+                    stringState = state_id[position];
+                    getCity();
+                }
+                break;
+            case R.id.sp_reg_city:
+                if (!city_id[position].equalsIgnoreCase("0")) {
+                    stringCity = city_id[position];
+                    getArea();
+                }
+                break;
+            case R.id.sp_reg_area:
+                if (!area_id[position].equalsIgnoreCase("0")) {
+                    stringArea = area_id[position];
+                }
                 break;
             default:
                 break;

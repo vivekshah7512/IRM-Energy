@@ -102,9 +102,11 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                     startActivity(intent);
                 } else if (flag.equalsIgnoreCase("commission")) {
                     Intent intent = new Intent(getActivity(), CommissionProcessActivity.class);
+                    intent.putExtra("app_no",et_app_no.getText().toString().trim());
                     startActivity(intent);
                 } else if (flag.equalsIgnoreCase("jobsheet")) {
                     Intent intent = new Intent(getActivity(), JobsheetDetailsActivity.class);
+                    intent.putExtra("app_no",et_app_no.getText().toString().trim());
                     startActivity(intent);
                 } else if (flag.equalsIgnoreCase("estimation")) {
                     Intent intent = new Intent(getActivity(), ExtraMaterialEstimationActivity.class);

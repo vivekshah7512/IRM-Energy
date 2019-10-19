@@ -71,6 +71,7 @@
                             app:fontName="@string/font_light" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_app_no"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
@@ -79,7 +80,6 @@
                             android:gravity="center_vertical"
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:text="B14870003"
                             android:textColor="@color/colorLightBlack"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
@@ -101,6 +101,7 @@
                             android:background="@drawable/rounded_border_box1">
 
                             <Spinner
+                                android:id="@+id/sp_job_contractor"
                                 style="@style/spinner_style1"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
@@ -132,6 +133,7 @@
                             android:background="@drawable/rounded_border_box1">
 
                             <Spinner
+                                android:id="@+id/sp_job_house_type"
                                 style="@style/spinner_style1"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
@@ -157,6 +159,7 @@
                             app:fontName="@string/font_light" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_job_inst_date"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
@@ -181,6 +184,7 @@
                             app:fontName="@string/font_light" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_job_test_date"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
@@ -205,6 +209,7 @@
                             app:fontName="@string/font_light" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_job_material_no"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
@@ -225,15 +230,18 @@
                             android:text="Regulator"
                             android:textColor="@color/colorLightBlack"
                             android:textSize="@dimen/_11sdp"
+                            android:visibility="gone"
                             app:fontName="@string/font_light" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rounded_border_box1">
+                            android:background="@drawable/rounded_border_box1"
+                            android:visibility="gone">
 
                             <Spinner
+                                android:id="@+id/sp_job_regulator"
                                 style="@style/spinner_style1"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
@@ -259,10 +267,12 @@
                             app:fontName="@string/font_light" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_job_latitude"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rounded_border_box1"
+                            android:editable="false"
                             android:gravity="center_vertical"
                             android:hint="Enter latitude"
                             android:padding="8dp"
@@ -282,10 +292,12 @@
                             app:fontName="@string/font_light" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_job_longitude"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rounded_border_box1"
+                            android:editable="false"
                             android:gravity="center_vertical"
                             android:hint="Enter longitude"
                             android:padding="8dp"
@@ -305,6 +317,7 @@
                             app:fontName="@string/font_light" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_job_remarks"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"

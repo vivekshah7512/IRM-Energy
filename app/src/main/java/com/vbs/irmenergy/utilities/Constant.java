@@ -21,6 +21,10 @@ public class Constant {
     public static String URL_REGISTRATION_PAYMENT = URL_PARENT + "userRegPayment";
     public static String URL_CHANGE_PASSWORD = URL_PARENT + "changePassword";
     public static String URL_GET_BILLING_INFO = URL_PARENT + "getBillingTo";
+    public static String URL_GET_STATE = URL_PARENT + "getState";
+    public static String URL_GET_CITY = URL_PARENT + "getCity";
+    public static String URL_GET_AREA = URL_PARENT + "getArea";
+    public static String URL_GET_HOUSE_TYPE = URL_PARENT + "getHouseType";
 
     // API CODE
     public static int LOGIN = 1;
@@ -36,6 +40,10 @@ public class Constant {
     public static int REGISTRATION_PAYMENT = 11;
     public static int CHANGE_PASSWORD = 12;
     public static int GET_BILLING_INFO = 13;
+    public static int GET_STATE = 14;
+    public static int GET_CITY = 15;
+    public static int GET_AREA = 16;
+    public static int GET_HOUSE_TYPE = 17;
 
     // Constant
     public static String USER_EMAIL = "user_email";
