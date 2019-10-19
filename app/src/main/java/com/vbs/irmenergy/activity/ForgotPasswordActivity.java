@@ -49,6 +49,9 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     private void initUI() {
         mProgressDialog = new APIProgressDialog(mContext, R.style.DialogStyle);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+
         et_email = findViewById(R.id.et_email);
         btn_send = findViewById(R.id.btn_send);
         btn_send.setOnClickListener(this);
@@ -87,7 +90,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         String response, message;
         try {
             JSONObject jObject = new JSONObject(result);
-            Log.i("Response : ", jObject.toString());
             if (reqCode == Constant.FORGOT_PASS) {
                 response = jObject.getString("response");
                 message = jObject.getString("message");

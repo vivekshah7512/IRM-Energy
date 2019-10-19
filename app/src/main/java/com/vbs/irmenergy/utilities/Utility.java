@@ -23,6 +23,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +76,35 @@ public class Utility {
 
     public static void snackBarShow(View container, String msg) {
         Snackbar.make(container, msg, 0).show();
+    }
+
+    public static void setSpinnerAdapter(Context context, Spinner spinner, String[] spinnerData) {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                context, R.layout.spinner_item, spinnerData) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(context.getResources().getColor(R.color.colorGray));
+                } else {
+                    tv.setTextColor(context.getResources().getColor(R.color.colorLightBlack));
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner.setAdapter(spinnerArrayAdapter);
     }
 
     public static void writeSharedPreferences(Context mContext, String key, String value) {

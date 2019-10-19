@@ -52,6 +52,9 @@ public class FragmentSearch extends Fragment implements OnClickListener,
 
     public void init() {
         mProgressDialog = new APIProgressDialog(getActivity(), R.style.DialogStyle);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+
         volleyAPIClass = new VolleyAPIClass();
 
         if (Utility.getAppPrefString(getActivity(), "searchFlag")
@@ -142,8 +145,8 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                     tv_application_no.setText(jObject.getString("application_no"));
                     tv_customer_name.setText(jObject.getString("customer_name"));
                     tv_address.setText(jObject.getString("customer_address"));
-                    tv_area.setText(jObject.getString("customer_area"));
-                    tv_city.setText(jObject.getString("customer_city"));
+                    tv_area.setText(jObject.getString("customer_areaname"));
+                    tv_city.setText(jObject.getString("customer_cityname"));
                     tv_contact_no.setText(jObject.getString("customer_mobille"));
                     tv_email.setText(jObject.getString("customer_email"));
                 } else {

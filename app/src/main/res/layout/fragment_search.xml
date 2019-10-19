@@ -37,7 +37,7 @@
         android:padding="8dp"
         android:singleLine="true"
         android:textColor="@color/colorLightBlack"
-        android:textCursorDrawable="@null"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="@dimen/_13sdp"
         app:fontName="@string/font_light" />
 

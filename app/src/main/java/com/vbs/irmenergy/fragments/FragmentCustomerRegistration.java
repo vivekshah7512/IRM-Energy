@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -48,7 +47,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
     private APIProgressDialog mProgressDialog;
     private String[] type_id, type_name, category_id, category_name, corporate_id,
             corporate_name, property_id, property_name, ownership_id, ownership_name,
-            contractor_id, contractor_name;
+            contractor_id, contractor_name, billing_id, billing_name;
     private String stringTypeId = "0", stringCategoryId = "0",
             stringCorporateId = "0", stringPropertyId = "0", stringOwnerId = "0",
             stringContractorId = "0", stringBillingTo = "0", stringState = "0",
@@ -88,6 +87,9 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
     public void init() {
         Utility.setTitle(getActivity(), "Registration");
         mProgressDialog = new APIProgressDialog(getActivity(), R.style.DialogStyle);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+
         volleyAPIClass = new VolleyAPIClass();
         myCalendar = Calendar.getInstance();
 
@@ -199,7 +201,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
 //                saveRegistrationDetails();
                 if (paymentType.equalsIgnoreCase("cheque")) {
                     Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
-                    intent.putExtra("app_no",et_application_no.getText().toString().trim());
+                    intent.putExtra("app_no", et_application_no.getText().toString().trim());
                     startActivity(intent);
                 }
                 break;
@@ -278,10 +280,24 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             Map<String, Object> params = new HashMap<>();
             params.put("type_id", stringTypeId);
             params.put("category_id", stringCategoryId);
-            params.put("center_code", "BKPP10");
+            params.put("center_code", "1");
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CORPORATE_NAME,
                     Constant.URL_GET_CORPORATE_NAME, params);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
+    private void getBillingInfo() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("category_id", stringCategoryId);
+            volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
+                    Constant.GET_BILLING_INFO,
+                    Constant.URL_GET_BILLING_INFO, params);
         } else
             Utility.toast("No Internet Connection", getActivity());
     }
@@ -316,7 +332,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", "BKPP10");
+            params.put("center_code", "1");
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);
@@ -335,107 +351,135 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray = jObject.getJSONArray("type_data");
-                    int lenth = jsonArray.length();
+                    int lenth = jsonArray.length() + 1;
                     type_id = new String[lenth];
                     type_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
-                        jsonObjectMessage = jsonArray.getJSONObject(a);
-                        type_id[a] = jsonObjectMessage.getString("type_id");
-                        type_name[a] = jsonObjectMessage.getString("type_name");
+                        if (a == 0) {
+                            type_id[0] = "0";
+                            type_name[0] = "Select Customer Type";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            type_id[a] = jsonObjectMessage.getString("type_id");
+                            type_name[a] = jsonObjectMessage.getString("type_name");
+                        }
                     }
-                    ArrayAdapter adapter = new ArrayAdapter<String>(
-                            getActivity(), R.layout.spinner_item, type_name);
-                    sp_customer_type.setAdapter(adapter);
-                    getCustomerCategory();
+                    Utility.setSpinnerAdapter(getActivity(), sp_customer_type, type_name);
                 }
             } else if (reqCode == Constant.GET_CUSTOMER_CATEGORY) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray = jObject.getJSONArray("category_data");
-                    int lenth = jsonArray.length();
+                    int lenth = jsonArray.length() + 1;
                     category_id = new String[lenth];
                     category_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
-                        jsonObjectMessage = jsonArray.getJSONObject(a);
-                        category_id[a] = jsonObjectMessage.getString("category_id");
-                        category_name[a] = jsonObjectMessage.getString("category_name");
+                        if (a == 0) {
+                            category_id[0] = "0";
+                            category_name[0] = "Select Customer Category";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            category_id[a] = jsonObjectMessage.getString("category_id");
+                            category_name[a] = jsonObjectMessage.getString("category_name");
+                        }
                     }
-                    ArrayAdapter adapter = new ArrayAdapter<String>(
-                            getActivity(), R.layout.spinner_item, category_name);
-                    sp_customer_category.setAdapter(adapter);
-
+                    Utility.setSpinnerAdapter(getActivity(), sp_customer_category, category_name);
                 }
             } else if (reqCode == Constant.GET_CORPORATE_NAME) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray = jObject.getJSONArray("corporate_data");
-                    int lenth = jsonArray.length();
+                    int lenth = jsonArray.length() + 1;
                     corporate_id = new String[lenth];
                     corporate_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
-                        jsonObjectMessage = jsonArray.getJSONObject(a);
-                        corporate_id[a] = jsonObjectMessage.getString("corporate_id");
-                        corporate_name[a] = jsonObjectMessage.getString("corporate_name");
+                        if (a == 0) {
+                            corporate_id[0] = "0";
+                            corporate_name[0] = "Select Corporate Name";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            corporate_id[a] = jsonObjectMessage.getString("corporate_id");
+                            corporate_name[a] = jsonObjectMessage.getString("corporate_name");
+                        }
                     }
                     ll_corporate.setVisibility(View.VISIBLE);
-                    ArrayAdapter adapter = new ArrayAdapter<String>(
-                            getActivity(), R.layout.spinner_item, corporate_name);
-                    sp_corporate_name.setAdapter(adapter);
-
+                    Utility.setSpinnerAdapter(getActivity(), sp_corporate_name, corporate_name);
                 }
             } else if (reqCode == Constant.GET_PROPERTY_TYPE) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray = jObject.getJSONArray("property_data");
-                    int lenth = jsonArray.length();
+                    int lenth = jsonArray.length() + 1;
                     property_id = new String[lenth];
                     property_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
-                        jsonObjectMessage = jsonArray.getJSONObject(a);
-                        property_id[a] = jsonObjectMessage.getString("property_id");
-                        property_name[a] = jsonObjectMessage.getString("property_name");
+                        if (a == 0) {
+                            property_id[0] = "0";
+                            property_name[0] = "Select Property Type";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            property_id[a] = jsonObjectMessage.getString("property_id");
+                            property_name[a] = jsonObjectMessage.getString("property_name");
+                        }
                     }
-                    ll_corporate.setVisibility(View.VISIBLE);
-                    ArrayAdapter adapter = new ArrayAdapter<String>(
-                            getActivity(), R.layout.spinner_item, property_name);
-                    sp_property_type.setAdapter(adapter);
-
+                    Utility.setSpinnerAdapter(getActivity(), sp_property_type, property_name);
                 }
             } else if (reqCode == Constant.GET_OWNER_TYPE) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray = jObject.getJSONArray("ownership_data");
-                    int lenth = jsonArray.length();
+                    int lenth = jsonArray.length() + 1;
                     ownership_id = new String[lenth];
                     ownership_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
-                        jsonObjectMessage = jsonArray.getJSONObject(a);
-                        ownership_id[a] = jsonObjectMessage.getString("ownership_id");
-                        ownership_name[a] = jsonObjectMessage.getString("ownership_name");
+                        if (a == 0) {
+                            ownership_id[0] = "0";
+                            ownership_name[0] = "Select Owner Type";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            ownership_id[a] = jsonObjectMessage.getString("ownership_id");
+                            ownership_name[a] = jsonObjectMessage.getString("ownership_name");
+                        }
                     }
-                    ll_corporate.setVisibility(View.VISIBLE);
-                    ArrayAdapter adapter = new ArrayAdapter<String>(
-                            getActivity(), R.layout.spinner_item, ownership_name);
-                    sp_owner_type.setAdapter(adapter);
-
+                    Utility.setSpinnerAdapter(getActivity(), sp_owner_type, ownership_name);
                 }
             } else if (reqCode == Constant.GET_CONTRACTOR) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray = jObject.getJSONArray("contractor_data");
-                    int lenth = jsonArray.length();
+                    int lenth = jsonArray.length() + 1;
                     contractor_id = new String[lenth];
                     contractor_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
-                        jsonObjectMessage = jsonArray.getJSONObject(a);
-                        contractor_id[a] = jsonObjectMessage.getString("contractor_id");
-                        contractor_name[a] = jsonObjectMessage.getString("contractor_name");
+                        if (a == 0) {
+                            contractor_id[0] = "0";
+                            contractor_name[0] = "Select DMA Contractor";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            contractor_id[a] = jsonObjectMessage.getString("contractor_id");
+                            contractor_name[a] = jsonObjectMessage.getString("contractor_name");
+                        }
                     }
-                    ll_corporate.setVisibility(View.VISIBLE);
-                    ArrayAdapter adapter = new ArrayAdapter<String>(
-                            getActivity(), R.layout.spinner_item, contractor_name);
-                    sp_contractor.setAdapter(adapter);
-
+                    Utility.setSpinnerAdapter(getActivity(), sp_contractor, contractor_name);
+                }
+            } else if (reqCode == Constant.GET_BILLING_INFO) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("billing_data");
+                    int lenth = jsonArray.length() + 1;
+                    billing_id = new String[lenth];
+                    billing_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            billing_id[0] = "0";
+                            billing_name[0] = "Select Billing To";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            billing_id[a] = jsonObjectMessage.getString("billing_id");
+                            billing_name[a] = jsonObjectMessage.getString("billing_name");
+                        }
+                    }
+                    Utility.setSpinnerAdapter(getActivity(), sp_billing_to, billing_name);
                 }
             }
         } catch (JSONException e) {
@@ -507,8 +551,10 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
         String selectedText = adapterView.getItemAtPosition(position).toString();
         switch (adapterView.getId()) {
             case R.id.sp_cust_type:
-                stringTypeId = type_id[position];
-                getCustomerCategory();
+                if (!type_id[position].equalsIgnoreCase("0")) {
+                    stringTypeId = type_id[position];
+                    getCustomerCategory();
+                }
                 break;
             case R.id.sp_cust_category:
                 stringCategoryId = category_id[position];
@@ -516,6 +562,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     getCorporateName();
                 else
                     ll_corporate.setVisibility(View.GONE);
+                getBillingInfo();
                 break;
             case R.id.sp_corporate_name:
                 stringCorporateId = corporate_id[position];

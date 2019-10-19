@@ -77,6 +77,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -95,12 +96,13 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rounded_border_box1"
+                        android:editable="false"
                         android:gravity="center_vertical"
                         android:hint="Select Application Date"
                         android:padding="8dp"
-                        android:editable="false"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -172,8 +174,8 @@
                         android:id="@+id/ll_corporate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <com.vbs.irmenergy.utilities.CustomTextview
                             android:layout_width="wrap_content"
@@ -261,6 +263,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -284,6 +287,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -307,6 +311,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -325,12 +330,13 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rounded_border_box1"
+                        android:editable="false"
                         android:gravity="center_vertical"
                         android:hint="Select DOB"
                         android:padding="8dp"
-                        android:editable="false"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -419,6 +425,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -493,6 +500,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -516,6 +524,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -539,6 +548,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -658,6 +668,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -681,6 +692,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -704,6 +716,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -727,6 +740,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -750,6 +764,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -773,6 +788,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -797,6 +813,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -903,6 +920,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -958,6 +976,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -981,6 +1000,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 
@@ -1037,6 +1057,7 @@
                         android:minLines="3"
                         android:padding="8dp"
                         android:textColor="@color/colorLightBlack"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
 

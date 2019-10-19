@@ -20,6 +20,7 @@ public class Constant {
     public static String URL_SAVE_REGISTRATION = URL_PARENT + "userRegistration";
     public static String URL_REGISTRATION_PAYMENT = URL_PARENT + "userRegPayment";
     public static String URL_CHANGE_PASSWORD = URL_PARENT + "changePassword";
+    public static String URL_GET_BILLING_INFO = URL_PARENT + "getBillingTo";
 
     // API CODE
     public static int LOGIN = 1;
@@ -34,6 +35,7 @@ public class Constant {
     public static int SAVE_REGISTRATION = 10;
     public static int REGISTRATION_PAYMENT = 11;
     public static int CHANGE_PASSWORD = 12;
+    public static int GET_BILLING_INFO = 13;
 
     // Constant
     public static String USER_EMAIL = "user_email";

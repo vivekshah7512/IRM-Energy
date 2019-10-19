@@ -80,6 +80,7 @@
                             android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack"
+                            android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 
@@ -102,6 +103,7 @@
                             android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack"
+                            android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 
@@ -124,6 +126,7 @@
                             android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack"
+                            android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 
@@ -146,6 +149,7 @@
                             android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack"
+                            android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 
@@ -168,6 +172,7 @@
                             android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack"
+                            android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 
@@ -191,6 +196,7 @@
                             android:minLines="3"
                             android:padding="8dp"
                             android:textColor="@color/colorLightBlack"
+                            android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 

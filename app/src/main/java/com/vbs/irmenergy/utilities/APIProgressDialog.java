@@ -18,17 +18,11 @@ public class APIProgressDialog extends ProgressDialog {
 
     public APIProgressDialog(Context context, int theme) {
         super(context, theme);
-        APIProgressDialog dialog = new APIProgressDialog(context);
-        dialog.setIndeterminate(true);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
     }
 
     public static APIProgressDialog ctor(Context context) {
         APIProgressDialog dialog = new APIProgressDialog(context);
         dialog.setIndeterminate(true);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 

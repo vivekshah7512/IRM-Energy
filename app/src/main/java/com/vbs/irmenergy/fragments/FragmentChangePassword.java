@@ -44,6 +44,9 @@ public class FragmentChangePassword extends Fragment implements OnClickListener,
     public void init() {
         Utility.setTitle(getActivity(), "Change Password");
         mProgressDialog = new APIProgressDialog(getActivity(), R.style.DialogStyle);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+
         volleyAPIClass = new VolleyAPIClass();
 
         et_old = (EditText) view.findViewById(R.id.et_old_pass);
@@ -88,7 +91,7 @@ public class FragmentChangePassword extends Fragment implements OnClickListener,
 
             Map<String, Object> params = new HashMap<>();
             params.put("user_id", Utility.getAppPrefString(getActivity(), Constant.USER_ID));
-            params.put("center_code", "");
+            params.put("center_code", "1");
             params.put("old_password", et_old.getText().toString());
             params.put("new_password", et_new.getText().toString());
             volleyAPIClass.volleyAPICall(getActivity(), FragmentChangePassword.this,

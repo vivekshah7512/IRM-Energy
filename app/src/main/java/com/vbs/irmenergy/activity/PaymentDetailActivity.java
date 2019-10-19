@@ -54,6 +54,9 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
 
     private void initUI() {
         mProgressDialog = new APIProgressDialog(mContext, R.style.DialogStyle);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+
         btn_payment_submit = findViewById(R.id.btn_payment_submit);
         btn_payment_submit.setOnClickListener(this);
 

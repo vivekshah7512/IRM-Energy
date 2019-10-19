@@ -42,6 +42,7 @@
             android:padding="8dp"
             android:singleLine="true"
             android:textColor="@color/colorLightBlack"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/_13sdp"
             app:fontName="@string/font_light" />
 
@@ -59,6 +60,7 @@
             android:padding="8dp"
             android:singleLine="true"
             android:textColor="@color/colorLightBlack"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/_13sdp"
             app:fontName="@string/font_light" />
 
@@ -76,6 +78,7 @@
             android:padding="8dp"
             android:singleLine="true"
             android:textColor="@color/colorLightBlack"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/_13sdp"
             app:fontName="@string/font_light" />
 
@@ -83,10 +86,10 @@
             android:id="@+id/btn_change_pass"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:background="@drawable/rounded_rectangle_button1"
             android:text="Change"
-            android:layout_gravity="center_horizontal"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_14sdp"

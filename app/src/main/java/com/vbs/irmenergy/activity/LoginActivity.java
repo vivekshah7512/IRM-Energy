@@ -72,6 +72,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initUI() {
         mProgressDialog = new APIProgressDialog(mContext, R.style.DialogStyle);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+
         et_username = findViewById(R.id.et_username);
         et_password = findViewById(R.id.et_password);
         btn_login = findViewById(R.id.btn_login);
@@ -211,7 +214,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String response, message;
         try {
             JSONObject jObject = new JSONObject(result);
-            Log.i("Response : ", jObject.toString());
             if (reqCode == Constant.LOGIN) {
                 response = jObject.getString("response");
                 message = jObject.getString("message");
