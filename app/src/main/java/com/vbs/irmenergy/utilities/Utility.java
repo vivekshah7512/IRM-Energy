@@ -107,6 +107,35 @@ public class Utility {
         spinner.setAdapter(spinnerArrayAdapter);
     }
 
+    public static void setSpinnerAdapter1(Context context, Spinner spinner, String[] spinnerData) {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                context, R.layout.spinner_item1, spinnerData) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(context.getResources().getColor(R.color.colorGray));
+                } else {
+                    tv.setTextColor(context.getResources().getColor(R.color.colorLightBlack));
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+    }
+
     public static void writeSharedPreferences(Context mContext, String key, String value) {
         try {
             Editor editor = mContext.getSharedPreferences(Constant.PREFS_NAME, 0).edit();

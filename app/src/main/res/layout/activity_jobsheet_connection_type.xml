@@ -49,6 +49,7 @@
                 card_view:cardBackgroundColor="@color/colorWhite"
                 card_view:cardCornerRadius="4dp"
                 card_view:cardElevation="3dp"
+                android:visibility="gone"
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -123,6 +124,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         android:weightSum="1">
 
                         <com.vbs.irmenergy.utilities.CustomTextview
@@ -157,6 +159,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:visibility="gone"
                         android:background="@color/colorGray" />
 
                     <com.vbs.irmenergy.utilities.ExpandableHeightListView
@@ -164,7 +167,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:dividerHeight="1dp"
-                        android:divider="@color/colorLightViolet"
+                        android:divider="@color/colorGray"
                         android:background="@color/colorWhite"
                         android:scrollbars="none" />
 

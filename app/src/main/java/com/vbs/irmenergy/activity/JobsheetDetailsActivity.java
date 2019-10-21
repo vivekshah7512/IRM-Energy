@@ -181,7 +181,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                 mProgressDialog.show();
 
             Map<String, String> params = new HashMap<>();
-            params.put("center_code", "1");
+            params.put("center_code", Utility.getAppPrefString(mContext,"center_code"));
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);
         } else

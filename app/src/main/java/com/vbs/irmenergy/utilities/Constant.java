@@ -25,6 +25,7 @@ public class Constant {
     public static String URL_GET_CITY = URL_PARENT + "getCity";
     public static String URL_GET_AREA = URL_PARENT + "getArea";
     public static String URL_GET_HOUSE_TYPE = URL_PARENT + "getHouseType";
+    public static String URL_GET_CENTER = URL_PARENT + "getCenters";
 
     // API CODE
     public static int LOGIN = 1;
@@ -44,6 +45,7 @@ public class Constant {
     public static int GET_CITY = 15;
     public static int GET_AREA = 16;
     public static int GET_HOUSE_TYPE = 17;
+    public static int GET_CENTER = 18;
 
     // Constant
     public static String USER_EMAIL = "user_email";

@@ -4,6 +4,48 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/ll_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <com.vbs.irmenergy.utilities.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Switch Center"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="@dimen/_12sdp"
+            app:fontName="@string/font_light" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_border_box1">
+
+            <Spinner
+                android:id="@+id/sp_center"
+                style="@style/spinner_style1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingEnd="42dp"
+                android:spinnerMode="dropdown" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="40dp"
+                android:background="@color/colorLightViolet" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

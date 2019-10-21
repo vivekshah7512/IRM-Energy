@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item android:right="5dp">
+                <bitmap android:gravity="center|right"
+                    android:src="@drawable/down"
+                    android:tint="@color/colorLightViolet"/>
+            </item>
+        </layer-list>
+    </item>
+</selector>

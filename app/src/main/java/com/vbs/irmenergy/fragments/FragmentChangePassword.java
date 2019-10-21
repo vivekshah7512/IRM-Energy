@@ -91,7 +91,7 @@ public class FragmentChangePassword extends Fragment implements OnClickListener,
 
             Map<String, Object> params = new HashMap<>();
             params.put("user_id", Utility.getAppPrefString(getActivity(), Constant.USER_ID));
-            params.put("center_code", "1");
+            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
             params.put("old_password", et_old.getText().toString());
             params.put("new_password", et_new.getText().toString());
             volleyAPIClass.volleyAPICall(getActivity(), FragmentChangePassword.this,

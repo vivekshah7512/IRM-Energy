@@ -55,8 +55,6 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         arrayList.add("GI Pipe");
         arrayList.add("PEO inside");
         arrayList.add("PEO outside");
-        arrayList.add("PEB inside");
-        arrayList.add("PEB outside");
         listView = (ExpandableHeightListView) findViewById(R.id.list_connection);
         listView.setAdapter(new ConnectionAdapter(mContext, arrayList));
         listView.setExpanded(true);

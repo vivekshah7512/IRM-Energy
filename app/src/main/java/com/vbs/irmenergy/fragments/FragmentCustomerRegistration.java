@@ -282,7 +282,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             Map<String, Object> params = new HashMap<>();
             params.put("type_id", stringTypeId);
             params.put("category_id", stringCategoryId);
-            params.put("center_code", "1");
+            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CORPORATE_NAME,
                     Constant.URL_GET_CORPORATE_NAME, params);
@@ -334,7 +334,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", "1");
+            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);
@@ -348,7 +348,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", "1");
+            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_STATE,
                     Constant.URL_GET_STATE, params);
@@ -362,7 +362,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", "1");
+            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
             params.put("state_id", stringState);
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CITY,
@@ -377,7 +377,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", "1");
+            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
             params.put("state_id", stringState);
             params.put("city_id", stringCity);
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
