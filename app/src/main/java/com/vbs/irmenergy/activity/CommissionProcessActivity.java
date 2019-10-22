@@ -111,7 +111,9 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
         et_meter_no = (EditText) findViewById(R.id.et_com_meter_no);
         et_initial_meter_reading = (EditText) findViewById(R.id.et_com_initial_meter_reading);
         et_latitude = (EditText) findViewById(R.id.et_com_latitude);
+        et_latitude.setText(Utility.getAppPrefString(mContext,"latitude"));
         et_longitude = (EditText) findViewById(R.id.et_com_longitude);
+        et_longitude.setText(Utility.getAppPrefString(mContext,"longitude"));
         et_remarks = (EditText) findViewById(R.id.et_com_remarks);
         sp_contractor = (Spinner) findViewById(R.id.sp_com_contractor);
         sp_contractor.setOnItemSelectedListener(this);

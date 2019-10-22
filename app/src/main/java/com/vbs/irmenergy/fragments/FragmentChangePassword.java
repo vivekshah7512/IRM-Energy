@@ -94,6 +94,7 @@ public class FragmentChangePassword extends Fragment implements OnClickListener,
             params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
             params.put("old_password", et_old.getText().toString());
             params.put("new_password", et_new.getText().toString());
+            params.put("confirm_password", et_confirm.getText().toString());
             volleyAPIClass.volleyAPICall(getActivity(), FragmentChangePassword.this,
                     Constant.CHANGE_PASSWORD, Constant.URL_CHANGE_PASSWORD, params);
         } else
