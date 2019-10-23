@@ -5,7 +5,7 @@
             <item android:right="12dp">
                 <bitmap android:gravity="center|right"
                     android:src="@drawable/down"
-                    android:tint="@color/colorLightViolet"/>
+                    android:tint="@color/colorLightViolet1"/>
             </item>
         </layer-list>
     </item>

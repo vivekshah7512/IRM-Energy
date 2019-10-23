@@ -150,7 +150,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Total Amount"
                                 android:textColor="@color/colorLightBlack"
-                                android:textSize="@dimen/_11sdp"
+                                android:textSize="@dimen/_12sdp"
                                 app:fontName="@string/font_regular" />
 
                             <com.vbs.irmenergy.utilities.CustomTextview
@@ -217,7 +217,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Customer's Signature"
                                 android:textColor="@color/colorLightBlack"
-                                android:textSize="@dimen/_11sdp"
+                                android:textSize="@dimen/_12sdp"
                                 app:fontName="@string/font_regular" />
 
                             <com.vbs.irmenergy.utilities.CustomTextview

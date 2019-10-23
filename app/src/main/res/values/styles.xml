@@ -46,7 +46,7 @@
     </style>
 
     <style name="SpinnerItem">
-        <item name="android:textColor">@color/colorLightBlack</item>
+        <item name="android:textColor">@color/colorLightBlack1</item>
         <item name="android:textSize">@dimen/_11sdp</item>
         <item name="android:fontFamily">@font/poppins_light</item>
         <item name="android:paddingLeft">8dp</item>
@@ -55,7 +55,7 @@
     </style>
 
     <style name="SpinnerItem1">
-        <item name="android:textColor">@color/colorLightBlack</item>
+        <item name="android:textColor">@color/colorLightBlack1</item>
         <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:fontFamily">@font/poppins_light</item>
         <item name="android:paddingLeft">6dp</item>

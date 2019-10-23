@@ -21,7 +21,7 @@
             android:text="Switch Center"
             android:textColor="@color/colorLightBlack"
             android:textSize="@dimen/_12sdp"
-            app:fontName="@string/font_light" />
+            app:fontName="@string/font_regular" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="40dp"
-                android:background="@color/colorLightViolet" />
+                android:background="@color/colorLightViolet1" />
 
         </RelativeLayout>
 

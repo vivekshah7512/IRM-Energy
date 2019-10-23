@@ -67,8 +67,8 @@
                             android:layout_height="wrap_content"
                             android:text="Application No."
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_app_no"
@@ -80,7 +80,7 @@
                             android:gravity="center_vertical"
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:textColor="@color/colorLightBlack"
+                            android:textColor="@color/colorGray"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
@@ -91,8 +91,8 @@
                             android:layout_marginTop="8dp"
                             android:text="Contractor"
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="40dp"
-                                android:background="@color/colorLightViolet" />
+                                android:background="@color/colorLightViolet1" />
 
                         </RelativeLayout>
 
@@ -123,8 +123,8 @@
                             android:layout_marginTop="8dp"
                             android:text="House Type"
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -145,7 +145,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="40dp"
-                                android:background="@color/colorLightViolet" />
+                                android:background="@color/colorLightViolet1" />
 
                         </RelativeLayout>
 
@@ -155,8 +155,8 @@
                             android:layout_marginTop="8dp"
                             android:text="Installation Date"
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_job_inst_date"
@@ -169,7 +169,7 @@
                             android:hint="Select Date"
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:textColor="@color/colorLightBlack"
+                            android:textColor="@color/colorLightBlack1"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
@@ -180,8 +180,8 @@
                             android:layout_marginTop="8dp"
                             android:text="Testing Date"
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_job_test_date"
@@ -194,7 +194,7 @@
                             android:hint="Select Date"
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:textColor="@color/colorLightBlack"
+                            android:textColor="@color/colorLightBlack1"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
@@ -205,8 +205,8 @@
                             android:layout_marginTop="8dp"
                             android:text="Meter Serial No."
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_job_material_no"
@@ -218,7 +218,7 @@
                             android:hint="Enter meter sr. no."
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:textColor="@color/colorLightBlack"
+                            android:textColor="@color/colorLightBlack1"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
@@ -263,8 +263,8 @@
                             android:layout_marginTop="8dp"
                             android:text="Latitude"
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_job_latitude"
@@ -277,7 +277,7 @@
                             android:hint="Enter latitude"
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:textColor="@color/colorLightBlack"
+                            android:textColor="@color/colorGray"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
@@ -288,8 +288,8 @@
                             android:layout_marginTop="8dp"
                             android:text="Longitude"
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_job_longitude"
@@ -302,7 +302,7 @@
                             android:hint="Enter longitude"
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:textColor="@color/colorLightBlack"
+                            android:textColor="@color/colorGray"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
@@ -313,8 +313,8 @@
                             android:layout_marginTop="8dp"
                             android:text="Remarks"
                             android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:textSize="@dimen/_12sdp"
+                            app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_job_remarks"
@@ -327,7 +327,7 @@
                             android:hint="Enter remarks"
                             android:minLines="3"
                             android:padding="8dp"
-                            android:textColor="@color/colorLightBlack"
+                            android:textColor="@color/colorLightBlack1"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
@@ -377,7 +377,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Take Meter Counter Photo"
                                 android:textColor="@color/colorLightBlack"
-                                android:textSize="@dimen/_11sdp"
+                                android:textSize="@dimen/_12sdp"
                                 app:fontName="@string/font_regular" />
 
                             <com.vbs.irmenergy.utilities.CustomTextview

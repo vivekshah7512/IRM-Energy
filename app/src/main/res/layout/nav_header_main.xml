@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hello,"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 app:fontName="@string/font_regular" />
 
             <com.vbs.irmenergy.utilities.CustomTextview

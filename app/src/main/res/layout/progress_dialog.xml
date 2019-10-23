@@ -5,13 +5,25 @@
     android:layout_height="wrap_content"
     android:background="@drawable/rectangle">
 
-    <com.vbs.irmenergy.utilities.GifView
-        android:id="@+id/progress_iv"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:scaleType="centerCrop"
-        custom:gif="@raw/progress" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.vbs.irmenergy.utilities.GifView
+            android:id="@+id/progress_iv"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            custom:gif="@raw/progress" />
+
+        <ImageView
+            android:layout_width="58dp"
+            android:layout_height="52dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

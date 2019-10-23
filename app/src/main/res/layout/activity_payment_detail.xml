@@ -65,8 +65,8 @@
                         android:layout_height="wrap_content"
                         android:text="Plan"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -97,8 +97,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Receipt Type"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_receipt_type"
@@ -111,7 +111,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:text="Registration"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorGray"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -122,8 +122,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Receipt Date"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_receipt_date"
@@ -136,7 +136,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:text="11 Oct 2019"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorGray"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -147,8 +147,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Payment Mode"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_type"
@@ -161,7 +161,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:text="Cheque / Swipe Card"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorGray"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -172,8 +172,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Inst. No"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_inst_no"
@@ -185,7 +185,7 @@
                         android:hint="Enter inst. no"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -196,8 +196,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Inst. Date"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_inst_date"
@@ -210,7 +210,7 @@
                         android:hint="Select inst. date"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -221,8 +221,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Amount"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_amount"
@@ -235,7 +235,7 @@
                         android:padding="8dp"
                         android:singleLine="true"
                         android:text="₹ 0"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorGray"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -246,8 +246,8 @@
                         android:layout_marginTop="8dp"
                         android:text="MICR No."
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_micr_no"
@@ -259,7 +259,7 @@
                         android:hint="Enter MICR no."
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -270,8 +270,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Bank Name"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_bank_name"
@@ -283,7 +283,7 @@
                         android:hint="Enter bank name"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -294,8 +294,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Remarks"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_payment_remarks"
@@ -308,7 +308,7 @@
                         android:hint="Enter remarks"
                         android:minLines="3"
                         android:padding="8dp"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />

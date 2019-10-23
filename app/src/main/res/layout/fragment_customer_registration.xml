@@ -63,8 +63,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Application No. *"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_application_no"
@@ -76,7 +76,7 @@
                         android:hint="Enter Application No."
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -86,9 +86,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Application Date *"
-                        android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textColor="@color/colorLightBlack1"
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_application_date"
@@ -112,8 +112,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Customer Type *"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -134,7 +134,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -144,8 +144,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Customer Category"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -205,7 +205,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="40dp"
-                                android:background="@color/colorLightViolet" />
+                                android:background="@color/colorLightViolet1" />
 
                         </RelativeLayout>
 
@@ -217,8 +217,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Billing To *"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -239,7 +239,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -249,8 +249,8 @@
                         android:layout_marginTop="8dp"
                         android:text="First Name *"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_first_name"
@@ -262,7 +262,7 @@
                         android:hint="Enter First Name"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -273,8 +273,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Middle Name"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_middle_name"
@@ -286,7 +286,7 @@
                         android:hint="Enter Middle Name"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -297,8 +297,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Last Name *"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_last_name"
@@ -310,7 +310,7 @@
                         android:hint="Enter Last Name"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -321,8 +321,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Date of Birth"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_dob"
@@ -335,7 +335,7 @@
                         android:hint="Select DOB"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -346,8 +346,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Document1 Submitted *"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -368,7 +368,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -378,8 +378,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Document2 Submitted"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -400,7 +400,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -410,8 +410,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Aadhar Card No."
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_aadhar_no"
@@ -421,10 +421,10 @@
                         android:layout_marginBottom="5dp"
                         android:background="@drawable/rounded_border_box1"
                         android:gravity="center_vertical"
-                        android:hint="Enter Last Name"
+                        android:hint="Enter Aadhar Card No."
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -486,8 +486,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Block No. / Flat No. / House No."
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_block_no"
@@ -499,7 +499,7 @@
                         android:hint="Enter block no. / flat no. / house no."
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -510,8 +510,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Address Line1"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_address1"
@@ -523,7 +523,7 @@
                         android:hint="Enter building / society name"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -534,8 +534,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Address Line2"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_address2"
@@ -547,7 +547,7 @@
                         android:hint="Enter landmark"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -558,8 +558,8 @@
                         android:layout_marginTop="8dp"
                         android:text="State"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -580,7 +580,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -590,8 +590,8 @@
                         android:layout_marginTop="8dp"
                         android:text="City"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -612,7 +612,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -622,8 +622,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Area"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -644,7 +644,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -654,8 +654,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Pincode"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_pincode"
@@ -667,7 +667,7 @@
                         android:hint="Enter area pincode"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -678,8 +678,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Contact Number"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_contact_no"
@@ -691,7 +691,7 @@
                         android:hint="Enter contact number"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -702,8 +702,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Mobile Number"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_mobile_no"
@@ -715,7 +715,7 @@
                         android:hint="Enter mobile number"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -726,8 +726,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Email Id"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_email_id"
@@ -739,7 +739,7 @@
                         android:hint="Enter email id"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -750,8 +750,8 @@
                         android:layout_marginTop="8dp"
                         android:text="LPG Consumer No."
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_lpg_no"
@@ -763,7 +763,7 @@
                         android:hint="Enter consumer no."
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -774,8 +774,8 @@
                         android:layout_marginTop="8dp"
                         android:text="LPG Distributor"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_distributor"
@@ -787,7 +787,7 @@
                         android:hint="Enter distributor"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -798,8 +798,8 @@
                         android:layout_marginTop="8dp"
                         android:text="LPG OMC"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_lpg_omc"
@@ -812,7 +812,7 @@
                         android:hint="Enter LPG OMC"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -874,8 +874,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Property Type"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -896,7 +896,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -906,8 +906,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Property Name"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_property_name"
@@ -919,7 +919,7 @@
                         android:hint="Enter property name"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -930,8 +930,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Ownership Type"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -952,7 +952,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -962,8 +962,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Owner Name"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_owner_name"
@@ -975,7 +975,7 @@
                         android:hint="Enter owner name"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -986,8 +986,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Owner Contact No."
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_owner_contact_no"
@@ -999,7 +999,7 @@
                         android:hint="Enter owner contact no."
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -1010,8 +1010,8 @@
                         android:layout_marginTop="8dp"
                         android:text="DMA Contractor"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -1032,7 +1032,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="40dp"
-                            android:background="@color/colorLightViolet" />
+                            android:background="@color/colorLightViolet1" />
 
                     </RelativeLayout>
 
@@ -1042,8 +1042,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Remarks"
                         android:textColor="@color/colorLightBlack"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:textSize="@dimen/_12sdp"
+                        app:fontName="@string/font_regular" />
 
                     <com.vbs.irmenergy.utilities.CustomEditText
                         android:id="@+id/et_reg_remarks"
@@ -1056,7 +1056,7 @@
                         android:hint="Enter remarks"
                         android:minLines="3"
                         android:padding="8dp"
-                        android:textColor="@color/colorLightBlack"
+                        android:textColor="@color/colorLightBlack1"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/_11sdp"
                         app:fontName="@string/font_light" />
@@ -1128,55 +1128,6 @@
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
-
-        <!--<android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardBackgroundColor="@color/colorWhite"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="3dp"
-            card_view:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="vertical">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Payment Mode"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_13sdp"
-                    app:fontName="@string/font_regular" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_border_box1">
-
-                    <Spinner
-                        style="@style/spinner_style1"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:entries="@array/array_payment"
-                        android:paddingEnd="42dp"
-                        android:spinnerMode="dropdown" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="40dp"
-                        android:background="@color/colorLightViolet" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>-->
 
         <com.vbs.irmenergy.utilities.CustomButton
             android:id="@+id/btn_cust_payment"

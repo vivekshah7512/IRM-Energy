@@ -31,15 +31,15 @@
         android:background="@drawable/rounded_border_box1"
         android:drawableRight="@android:drawable/ic_menu_search"
         android:drawablePadding="8dp"
-        android:drawableTint="@color/colorLightViolet"
+        android:drawableTint="@color/colorLightViolet1"
         android:hint="Search Application No."
         android:inputType="textCapCharacters"
         android:padding="8dp"
         android:singleLine="true"
-        android:textColor="@color/colorLightBlack"
+        android:textColor="@color/colorLightBlack1"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:textSize="@dimen/_13sdp"
-        app:fontName="@string/font_light" />
+        android:textSize="@dimen/_12sdp"
+        app:fontName="@string/font_regular" />
 
     <com.vbs.irmenergy.utilities.CustomButton
         android:id="@+id/btn_search"
@@ -79,7 +79,7 @@
                 android:text="Customer Details"
                 android:textColor="@color/colorLightBlack"
                 android:textSize="@dimen/_13sdp"
-                app:fontName="@string/font_regular" />
+                app:fontName="@string/font_semibold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
