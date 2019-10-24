@@ -26,6 +26,9 @@ public class Constant {
     public static String URL_GET_AREA = URL_PARENT + "getArea";
     public static String URL_GET_HOUSE_TYPE = URL_PARENT + "getHouseType";
     public static String URL_GET_CENTER = URL_PARENT + "getCenters";
+    public static String URL_GET_WORK_TYPE = URL_PARENT + "getWorkorderType";
+    public static String URL_GET_CONNECTION_TYPE = URL_PARENT + "getConnectionType";
+    public static String URL_GET_MATERIAL_DATA = URL_PARENT + "getMaterialData";
 
     // API CODE
     public static int LOGIN = 1;
@@ -46,6 +49,9 @@ public class Constant {
     public static int GET_AREA = 16;
     public static int GET_HOUSE_TYPE = 17;
     public static int GET_CENTER = 18;
+    public static int GET_WORK_TYPE = 19;
+    public static int GET_CONNECTION_TYPE = 20;
+    public static int GET_MATERIAL_DATA = 21;
 
     // Constant
     public static String USER_EMAIL = "user_email";

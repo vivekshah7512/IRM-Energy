@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -39,6 +40,7 @@ import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.fragments.FragmentChangePassword;
 import com.vbs.irmenergy.fragments.FragmentCustomerRegistration;
 import com.vbs.irmenergy.fragments.FragmentDashboard;
+import com.vbs.irmenergy.fragments.FragmentProfile;
 import com.vbs.irmenergy.fragments.FragmentSearch;
 import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.GPSTracker1;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity
     private Handler handler;
     private Runnable runnable;
     private GoogleApiClient mGoogleApiClient;
+    private LinearLayout ll_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,23 @@ public class MainActivity extends AppCompatActivity
         View hView = navigationView.getHeaderView(0);
         tv_name = (TextView) hView.findViewById(R.id.tv_menu_name);
         tv_name.setText(Utility.getAppPrefString(mContext, Constant.USER_NAME));
+        ll_profile = (LinearLayout) hView.findViewById(R.id.ll_profile);
+        ll_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                fr = new FragmentProfile();
+                if (fr != null) {
+                    fm = getSupportFragmentManager();
+                    fm.popBackStack(BACK_STACK_ROOT_TAG, 1);
+                    fragmentTransaction = fm.beginTransaction();
+                    fragmentTransaction.replace(R.id.container, fr);
+                    fragmentTransaction.addToBackStack(BACK_STACK_ROOT_TAG);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
 
         fr = new FragmentDashboard();
         if (fr != null) {

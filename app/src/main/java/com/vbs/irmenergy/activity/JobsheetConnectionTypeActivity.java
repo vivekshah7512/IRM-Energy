@@ -19,11 +19,24 @@ import android.widget.RadioGroup;
 
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.adapter.ConnectionAdapter;
+import com.vbs.irmenergy.utilities.APIProgressDialog;
+import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.ExpandableHeightListView;
+import com.vbs.irmenergy.utilities.Utility;
+import com.vbs.irmenergy.utilities.volley.VolleyAPIClass;
+import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
+import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class JobsheetConnectionTypeActivity extends Activity implements View.OnClickListener {
+public class JobsheetConnectionTypeActivity extends Activity implements View.OnClickListener,
+        VolleyResponseInterface {
 
     private Context mContext;
     private Button btn_comm_submit;
@@ -31,6 +44,9 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     private ExpandableHeightListView listView;
     private ArrayList<String> arrayList;
     private ImageView img_back;
+    private VolleyAPIClass volleyAPIClass;
+    private APIProgressDialog mProgressDialog;
+    private String[] material_id, material_name, material_amount, workorder_id, workorder_name;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -47,6 +63,11 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     }
 
     private void initUI() {
+        mProgressDialog = new APIProgressDialog(mContext, R.style.DialogStyle);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+        volleyAPIClass = new VolleyAPIClass();
+
         btn_comm_submit = (Button) findViewById(R.id.btn_jobsheet_submit);
         btn_comm_submit.setOnClickListener(this);
         rg_connection = (RadioGroup) findViewById(R.id.rg_connection);
@@ -61,6 +82,8 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
 
         img_back = (ImageView) findViewById(R.id.img_back);
         img_back.setOnClickListener(this);
+
+        getWorkType();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -100,6 +123,81 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                 break;
             default:
                 break;
+        }
+    }
+
+    private void getWorkType() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("WOtype", "1");
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_WORK_TYPE,
+                    Constant.URL_GET_WORK_TYPE, params);
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
+    @Override
+    public void vResponse(int reqCode, String result) {
+        String response, message;
+        JSONObject jsonObjectMessage;
+        JSONArray jsonArray;
+        try {
+            JSONObject jObject = new JSONObject(result);
+            if (reqCode == Constant.GET_WORK_TYPE) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("workorder_data");
+                    int lenth = jsonArray.length() + 1;
+                    workorder_id = new String[lenth];
+                    workorder_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            workorder_id[0] = "0";
+                            workorder_name[0] = "Select Work Type";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            workorder_id[a] = jsonObjectMessage.getString("workorder_id");
+                            workorder_name[a] = jsonObjectMessage.getString("workorder_name");
+                        }
+                    }
+                }
+            } else if (reqCode == Constant.GET_MATERIAL_DATA) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("material_data");
+                    int lenth = jsonArray.length() + 1;
+                    material_id = new String[lenth];
+                    material_name = new String[lenth];
+                    material_amount = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            material_id[0] = "0";
+                            material_name[0] = "Select House Type";
+                            material_amount[0] = "0";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            material_id[a] = jsonObjectMessage.getString("material_id");
+                            material_name[a] = jsonObjectMessage.getString("material_name");
+                            material_amount[a] = jsonObjectMessage.getString("material_amount");
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void vErrorMsg(int reqCode, String error) {
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
         }
     }
 }
