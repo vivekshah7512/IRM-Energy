@@ -24,7 +24,7 @@ import org.json.JSONObject;
 public class FragmentDashboard extends Fragment implements OnClickListener,
         VolleyResponseInterface {
 
-    View view;
+    private View view;
     private Spinner sp_center;
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
