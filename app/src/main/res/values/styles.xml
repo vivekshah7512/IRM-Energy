@@ -45,6 +45,11 @@
         <item name="android:background">@drawable/spinner_bg</item>
     </style>
 
+    <style name="spinner_style3">
+        <item name="android:spinnerItemStyle">@style/SpinnerItem3</item>
+        <item name="android:background">@drawable/spinner_bg2</item>
+    </style>
+
     <style name="SpinnerItem">
         <item name="android:textColor">@color/colorLightBlack1</item>
         <item name="android:textSize">@dimen/_11sdp</item>
@@ -60,6 +65,15 @@
         <item name="android:fontFamily">@font/poppins_light</item>
         <item name="android:paddingLeft">6dp</item>
         <item name="android:paddingRight">6dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="SpinnerItem3">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 

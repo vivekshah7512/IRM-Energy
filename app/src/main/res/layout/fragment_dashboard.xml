@@ -1,51 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/colorWhite"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
     <LinearLayout
-        android:id="@+id/ll_center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="vertical">
-
-        <com.vbs.irmenergy.utilities.CustomTextview
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Switch Center"
-            android:textColor="@color/colorLightBlack"
-            android:textSize="@dimen/_12sdp"
-            app:fontName="@string/font_regular" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/rounded_border_box1">
+            android:layout_height="0dp"
+            android:layout_weight="0.25">
 
-            <Spinner
-                android:id="@+id/sp_center"
-                style="@style/spinner_style1"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingEnd="42dp"
-                android:spinnerMode="dropdown" />
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/banner" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="40dp"
-                android:background="@color/colorLightViolet1" />
+                android:background="#B32b2073"/>
+
+            <LinearLayout
+                android:id="@+id/ll_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:visibility="gone">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Switch Center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_13sdp"
+                    app:fontName="@string/font_regular" />
+
+                <RelativeLayout
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/colorWhite"
+                    android:background="@drawable/rounded_border_box1">
+
+                    <Spinner
+                        android:id="@+id/sp_center"
+                        style="@style/spinner_style3"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingEnd="42dp"
+                        android:spinnerMode="dropdown" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_no_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                android:backgroundTint="@color/colorWhite"
+                android:background="@drawable/rounded_border_box1">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PNG Domestic"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_14sdp"
+                    app:fontName="@string/font_regular" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.75"
+            android:padding="50dp"
+            android:src="@drawable/png_benifit" />
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

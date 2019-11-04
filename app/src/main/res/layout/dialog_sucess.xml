@@ -41,7 +41,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/rounded_border_box2"
-            android:text="Dashboard"
+            android:text="Home"
             android:textAllCaps="false"
             android:textColor="@color/colorLightBlack"
             android:textSize="@dimen/_13sdp"

@@ -16,7 +16,7 @@
             android:id="@+id/imageView"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            app:srcCompat="@drawable/profile_one" />
+            app:srcCompat="@drawable/user" />
 
         <LinearLayout
             android:id="@+id/ll_profile"
@@ -38,7 +38,7 @@
                 android:id="@+id/tv_menu_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="John Carter"
+                android:text="Guest"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_13sdp"
                 app:fontName="@string/font_regular" />

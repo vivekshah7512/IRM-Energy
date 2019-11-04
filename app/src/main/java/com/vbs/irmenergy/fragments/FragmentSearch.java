@@ -1,5 +1,6 @@
 package com.vbs.irmenergy.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -94,6 +96,7 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                     Utility.toast("Please enter application no", getActivity());
                 } else {
                     searchApplicationNo();
+//                    searchApplicationNo1();
                 }
                 break;
             case R.id.btn_verify:
@@ -134,6 +137,21 @@ public class FragmentSearch extends Fragment implements OnClickListener,
             Utility.toast("No Internet Connection", getActivity());
     }
 
+    private void searchApplicationNo1() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
+            params.put("application_no", et_app_no.getText().toString().trim());
+            volleyAPIClass.volleyAPICall(getActivity(), FragmentSearch.this,
+                    Constant.GET_WORK_ORDER_LIST,
+                    Constant.URL_GET_WORK_ORDER_LIST, params);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
     @Override
     public void vResponse(int reqCode, String result) {
         String response, message;
@@ -143,6 +161,9 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                 response = jObject.getString("response");
                 message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
+                    et_app_no.clearFocus();
+                    InputMethodManager in = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    in.hideSoftInputFromWindow(et_app_no.getWindowToken(), 0);
                     cardView_data.setVisibility(View.VISIBLE);
                     tv_application_no.setText(jObject.getString("application_no"));
                     tv_customer_name.setText(jObject.getString("customer_name"));
@@ -154,6 +175,9 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                 } else {
                     Utility.toast(message, getActivity());
                 }
+            } else if (reqCode == Constant.GET_WORK_ORDER_LIST) {
+                response = jObject.getString("response");
+                message = jObject.getString("message");
             }
         } catch (JSONException e) {
             e.printStackTrace();

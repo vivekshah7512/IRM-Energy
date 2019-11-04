@@ -29,7 +29,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_70sdp"
-                    android:src="@drawable/profile_one" />
+                    android:src="@drawable/user" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
                     android:id="@+id/tv_profile_name"

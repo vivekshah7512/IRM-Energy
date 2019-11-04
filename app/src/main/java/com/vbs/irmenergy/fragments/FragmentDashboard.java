@@ -29,7 +29,7 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
     private String[] center_code, center_name;
-    private LinearLayout ll_center;
+    private LinearLayout ll_center, ll_no_center;
     private String stringCenterId = "0";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
     }
 
     public void init() {
-        Utility.setTitle(getActivity(), "Dashboard");
+        Utility.setTitle(getActivity(), "Home");
 
         mProgressDialog = new APIProgressDialog(getActivity(), R.style.DialogStyle);
         mProgressDialog.setCanceledOnTouchOutside(false);
@@ -66,13 +66,16 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
         volleyAPIClass = new VolleyAPIClass();
         sp_center = (Spinner) view.findViewById(R.id.sp_center);
         ll_center = (LinearLayout) view.findViewById(R.id.ll_center);
+        ll_no_center = (LinearLayout) view.findViewById(R.id.ll_no_center);
 
         if (Utility.getAppPrefString(getActivity(), Constant.USER_TYPE)
                 .equalsIgnoreCase("1")) {
             ll_center.setVisibility(View.VISIBLE);
+            ll_no_center.setVisibility(View.GONE);
             getCenter();
         } else {
             ll_center.setVisibility(View.GONE);
+            ll_no_center.setVisibility(View.VISIBLE);
         }
     }
 
@@ -118,7 +121,7 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
                             center_name[a] = jsonObjectMessage.getString("center_name");
                         }
                     }
-                    Utility.setSpinnerAdapter(getActivity(), sp_center, center_name);
+                    Utility.setSpinnerAdapter2(getActivity(), sp_center, center_name);
                     Utility.writeSharedPreferences(getActivity(),"center_code",
                             "1");
                     sp_center.setSelection(1);

@@ -199,12 +199,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 dialog1.show();
                 break;
             case R.id.btn_cust_payment:
-//                saveRegistrationDetails();
-                if (paymentType.equalsIgnoreCase("cheque")) {
-                    Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
-                    intent.putExtra("app_no", et_application_no.getText().toString().trim());
-                    startActivity(intent);
-                }
+                saveRegistrationDetails();
                 break;
             case R.id.img_reg1:
                 ll_reg1.setVisibility(View.VISIBLE);
@@ -282,7 +277,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             Map<String, Object> params = new HashMap<>();
             params.put("type_id", stringTypeId);
             params.put("category_id", stringCategoryId);
-            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
+            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CORPORATE_NAME,
                     Constant.URL_GET_CORPORATE_NAME, params);
@@ -334,7 +329,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
+            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);
@@ -348,7 +343,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
+            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_STATE,
                     Constant.URL_GET_STATE, params);
@@ -362,7 +357,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
+            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
             params.put("state_id", stringState);
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CITY,
@@ -377,7 +372,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.show();
 
             Map<String, Object> params = new HashMap<>();
-            params.put("center_code", Utility.getAppPrefString(getActivity(),"center_code"));
+            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
             params.put("state_id", stringState);
             params.put("city_id", stringCity);
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
@@ -584,6 +579,21 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_area, area_name);
+                }
+            } else if (reqCode == Constant.SAVE_REGISTRATION) {
+                response = jObject.getString("response");
+                message = jObject.getString("message");
+                if (response.equalsIgnoreCase("true")) {
+                    Utility.toast(message, getActivity());
+                    if (paymentType.equalsIgnoreCase("cheque")) {
+                        Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
+                        intent.putExtra("app_no", et_application_no.getText().toString().trim());
+                        startActivity(intent);
+                    } else {
+                        getActivity().finish();
+                    }
+                } else {
+                    Utility.toast(message, getActivity());
                 }
             }
         } catch (JSONException e) {

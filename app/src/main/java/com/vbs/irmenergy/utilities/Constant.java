@@ -29,6 +29,7 @@ public class Constant {
     public static String URL_GET_WORK_TYPE = URL_PARENT + "getWorkorderType";
     public static String URL_GET_CONNECTION_TYPE = URL_PARENT + "getConnectionType";
     public static String URL_GET_MATERIAL_DATA = URL_PARENT + "getMaterialData";
+    public static String URL_GET_WORK_ORDER_LIST = URL_PARENT + "getPendingWorkOrderList";
 
     // API CODE
     public static int LOGIN = 1;
@@ -52,6 +53,7 @@ public class Constant {
     public static int GET_WORK_TYPE = 19;
     public static int GET_CONNECTION_TYPE = 20;
     public static int GET_MATERIAL_DATA = 21;
+    public static int GET_WORK_ORDER_LIST = 22;
 
     // Constant
     public static String USER_EMAIL = "user_email";

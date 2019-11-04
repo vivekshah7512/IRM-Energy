@@ -36,16 +36,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JobsheetConnectionTypeActivity extends Activity implements View.OnClickListener,
-        VolleyResponseInterface {
+        VolleyResponseInterface, ConnectionAdapter.GetMaterial {
 
     private Context mContext;
     private Button btn_comm_submit;
     private RadioGroup rg_connection;
     private ExpandableHeightListView listView;
-    private ArrayList<String> arrayList;
     private ImageView img_back;
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
+    private String woType = "0";
     private String[] material_id, material_name, material_amount, workorder_id, workorder_name;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -72,18 +72,14 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         btn_comm_submit.setOnClickListener(this);
         rg_connection = (RadioGroup) findViewById(R.id.rg_connection);
 
-        arrayList = new ArrayList<>();
-        arrayList.add("GI Pipe");
-        arrayList.add("PEO inside");
-        arrayList.add("PEO outside");
         listView = (ExpandableHeightListView) findViewById(R.id.list_connection);
-        listView.setAdapter(new ConnectionAdapter(mContext, arrayList));
+        listView.setAdapter(new ConnectionAdapter(mContext, new String[] {"1","2","3"}));
         listView.setExpanded(true);
 
         img_back = (ImageView) findViewById(R.id.img_back);
         img_back.setOnClickListener(this);
 
-        getWorkType();
+//        getWorkType();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -132,9 +128,22 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                 mProgressDialog.show();
 
             Map<String, String> params = new HashMap<>();
-            params.put("WOtype", "1");
+            params.put("WOtype", "0");
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_WORK_TYPE,
                     Constant.URL_GET_WORK_TYPE, params);
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
+    private void getMaterial() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("WOtype", woType);
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_MATERIAL_DATA,
+                    Constant.URL_GET_MATERIAL_DATA, params);
         } else
             Utility.toast("No Internet Connection", mContext);
     }
@@ -143,14 +152,15 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     public void vResponse(int reqCode, String result) {
         String response, message;
         JSONObject jsonObjectMessage;
-        JSONArray jsonArray;
+        JSONArray jsonArray1 = null;
+        JSONArray jsonArray2 = null;
         try {
             JSONObject jObject = new JSONObject(result);
             if (reqCode == Constant.GET_WORK_TYPE) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
-                    jsonArray = jObject.getJSONArray("workorder_data");
-                    int lenth = jsonArray.length() + 1;
+                    jsonArray1 = jObject.getJSONArray("workorder_data");
+                    int lenth = jsonArray1.length() + 1;
                     workorder_id = new String[lenth];
                     workorder_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
@@ -158,17 +168,18 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                             workorder_id[0] = "0";
                             workorder_name[0] = "Select Work Type";
                         } else {
-                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            jsonObjectMessage = jsonArray1.getJSONObject(a - 1);
                             workorder_id[a] = jsonObjectMessage.getString("workorder_id");
                             workorder_name[a] = jsonObjectMessage.getString("workorder_name");
                         }
                     }
                 }
+                getMaterial();
             } else if (reqCode == Constant.GET_MATERIAL_DATA) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
-                    jsonArray = jObject.getJSONArray("material_data");
-                    int lenth = jsonArray.length() + 1;
+                    jsonArray2 = jObject.getJSONArray("material_data");
+                    int lenth = jsonArray2.length() + 1;
                     material_id = new String[lenth];
                     material_name = new String[lenth];
                     material_amount = new String[lenth];
@@ -178,12 +189,14 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                             material_name[0] = "Select House Type";
                             material_amount[0] = "0";
                         } else {
-                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            jsonObjectMessage = jsonArray2.getJSONObject(a - 1);
                             material_id[a] = jsonObjectMessage.getString("material_id");
                             material_name[a] = jsonObjectMessage.getString("material_name");
                             material_amount[a] = jsonObjectMessage.getString("material_amount");
                         }
                     }
+//                    listView.setAdapter(new ConnectionAdapter(mContext, jsonArray1, jsonArray2));
+//                    listView.setExpanded(true);
                 }
             }
         } catch (JSONException e) {
@@ -199,5 +212,11 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
+    }
+
+    @Override
+    public void selectWO(String id) {
+        woType = id;
+        getMaterial();
     }
 }
