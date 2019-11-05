@@ -31,6 +31,7 @@ import com.vbs.irmenergy.utilities.Utility;
 import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
 import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -229,12 +230,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void vResponse(int reqCode, String result) {
         String response, message;
+        JSONArray jsonArray;
+        JSONObject jsonObjectMessage;
+
         try {
             JSONObject jObject = new JSONObject(result);
             if (reqCode == Constant.LOGIN) {
                 response = jObject.getString("response");
                 message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("user_rights");
+
                     Utility.writeSharedPreferences(mContext, Constant.USER_ID,
                             jObject.getString("user_id"));
                     Utility.writeSharedPreferences(mContext, Constant.USER_NAME,
@@ -248,6 +254,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Utility.writeSharedPreferences(mContext, Constant.isLogin, "true");
                     Utility.toast(message, mContext);
                     Intent i = new Intent(mContext, MainActivity.class);
+                    Utility.writeSharedPreferences(mContext,"menuArray",jsonArray.toString());
                     startActivity(i);
                 } else {
                     Utility.toast(message, mContext);

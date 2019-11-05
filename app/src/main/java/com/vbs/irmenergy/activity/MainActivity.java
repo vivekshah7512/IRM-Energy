@@ -19,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -46,9 +47,12 @@ import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.GPSTracker1;
 import com.vbs.irmenergy.utilities.Utility;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String BACK_STACK_ROOT_TAG = "main_fragment";
     private Context mContext;
@@ -62,6 +66,11 @@ public class MainActivity extends AppCompatActivity
     private Runnable runnable;
     private GoogleApiClient mGoogleApiClient;
     private LinearLayout ll_profile;
+    private String[] screen_name, view;
+    private JSONArray jsonArray;
+    private JSONObject jsonObjectMessage;
+    private MenuItem menuItem;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +87,7 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        menu = navigationView.getMenu();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -119,6 +129,71 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+        try {
+            String jsonArray1 = Utility.getAppPrefString(mContext, "menuArray");
+            jsonArray = new JSONArray(jsonArray1);
+            int lenth = jsonArray.length();
+            screen_name = new String[lenth];
+            view = new String[lenth];
+            for (int a = 0; a < lenth; a++) {
+                jsonObjectMessage = jsonArray.getJSONObject(a);
+                screen_name[a] = jsonObjectMessage.getString("screen_name");
+                view[a] = jsonObjectMessage.getString("view");
+            }
+            if (screen_name.length > 0) {
+                for (int a = 0; a < screen_name.length; a++) {
+                    String title = screen_name[a];
+                    String isShow = view[a];
+                    if (title.equalsIgnoreCase("Home")) {
+                    } else if (title.equalsIgnoreCase("Normal Registration")) {
+                        if (isShow.equalsIgnoreCase("true")) {
+                            menuItem = menu.findItem(R.id.nav_reg);
+                            menuItem.setVisible(true);
+                        } else {
+                            menuItem = menu.findItem(R.id.nav_reg);
+                            menuItem.setVisible(false);
+                        }
+                    } else if (title.equalsIgnoreCase("Job Sheet Generation")) {
+                        if (isShow.equalsIgnoreCase("true")) {
+                            menuItem = menu.findItem(R.id.nav_jobsheet);
+                            menuItem.setVisible(true);
+                        } else {
+                            menuItem = menu.findItem(R.id.nav_jobsheet);
+                            menuItem.setVisible(false);
+                        }
+                    } else if (title.equalsIgnoreCase("Commissioning Process")) {
+                        if (isShow.equalsIgnoreCase("true")) {
+                            menuItem = menu.findItem(R.id.nav_commission);
+                            menuItem.setVisible(true);
+                        } else {
+                            menuItem = menu.findItem(R.id.nav_commission);
+                            menuItem.setVisible(false);
+                        }
+                    } else if (title.equalsIgnoreCase("Customer Survey")) {
+                        if (isShow.equalsIgnoreCase("true")) {
+                            menuItem = menu.findItem(R.id.nav_survey);
+                            menuItem.setVisible(true);
+                        } else {
+                            menuItem = menu.findItem(R.id.nav_survey);
+                            menuItem.setVisible(false);
+                        }
+                    } else if (title.equalsIgnoreCase("Extra Material Estimation")) {
+                        if (isShow.equalsIgnoreCase("true")) {
+                            menuItem = menu.findItem(R.id.nav_estimation);
+                            menuItem.setVisible(true);
+                        } else {
+                            menuItem = menu.findItem(R.id.nav_estimation);
+                            menuItem.setVisible(false);
+                        }
+                    } else if (title.equalsIgnoreCase("Change Password")) {
+
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         fr = new FragmentDashboard();
         if (fr != null) {

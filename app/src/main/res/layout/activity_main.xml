@@ -32,7 +32,7 @@
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="8dp"
             android:text="Version 1.0"
-            android:textColor="@color/colorLightGray"
+            android:textColor="@color/colorGray"
             android:textSize="@dimen/_10sdp"
             app:fontName="@string/font_regular" />
 
