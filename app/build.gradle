@@ -47,6 +47,15 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.kyanogen.signatureview:signature-view:1.2'
     implementation 'com.github.travijuu:numberpicker:1.0.7'
-    implementation 'com.google.android.gms:play-services-plus:16.0.0'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services:12.0.1'
+//    implementation 'com.google.android.gms:play-services-plus:16.0.0'
+//    implementation 'com.google.android.gms:play-services-location:16.0.0'
+//    implementation 'com.google.android.gms:play-services-vision:11.8.0'
+    implementation 'com.github.pinball83:masked-edittext:1.0.4'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.javiersantos:BottomDialogs:1.2.1'
+    implementation 'commons-net:commons-net:3.3'
+    // vision barcode scanner
+    implementation 'info.androidhive:barcode-reader:1.1.5'
+
 }

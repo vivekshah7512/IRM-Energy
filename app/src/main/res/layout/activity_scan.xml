@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:padding="12dp"
+            android:src="@drawable/back" />
+
+        <com.vbs.irmenergy.utilities.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Scan QR Code"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp"
+            app:fontName="@string/font_semibold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_scan"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true">
+
+        <fragment
+            android:id="@+id/barcode_scanner"
+            android:name="info.androidhive.barcode.BarcodeReader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:auto_focus="true"
+            app:use_flash="false" />
+
+        <info.androidhive.barcode.ScannerOverlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#44000000"
+            app:line_color="@color/colorPrimary"
+            app:line_speed="6"
+            app:line_width="5"
+            app:square_height="230"
+            app:square_width="230" />
+
+    </RelativeLayout>
+
+    <com.vbs.irmenergy.utilities.CustomTextview
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_scan"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="Align Aadhar QR Code within frame\nto scan"
+        android:textColor="@color/colorLightBlack1"
+        android:textSize="@dimen/_13sdp"
+        app:fontName="@string/font_regular" />
+
+</RelativeLayout>

@@ -105,11 +105,11 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                     startActivity(intent);
                 } else if (flag.equalsIgnoreCase("commission")) {
                     Intent intent = new Intent(getActivity(), CommissionProcessActivity.class);
-                    intent.putExtra("app_no",et_app_no.getText().toString().trim());
+                    intent.putExtra("app_no", et_app_no.getText().toString().trim());
                     startActivity(intent);
                 } else if (flag.equalsIgnoreCase("jobsheet")) {
                     Intent intent = new Intent(getActivity(), JobsheetDetailsActivity.class);
-                    intent.putExtra("app_no",et_app_no.getText().toString().trim());
+                    intent.putExtra("app_no", et_app_no.getText().toString().trim());
                     startActivity(intent);
                 } else if (flag.equalsIgnoreCase("estimation")) {
                     Intent intent = new Intent(getActivity(), ExtraMaterialEstimationActivity.class);
@@ -162,7 +162,7 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                 message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
                     et_app_no.clearFocus();
-                    InputMethodManager in = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(et_app_no.getWindowToken(), 0);
                     cardView_data.setVisibility(View.VISIBLE);
                     tv_application_no.setText(jObject.getString("application_no"));

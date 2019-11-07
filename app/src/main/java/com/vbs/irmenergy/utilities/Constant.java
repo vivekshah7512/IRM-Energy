@@ -6,6 +6,9 @@ public class Constant {
     public static int MY_SOCKET_TIMEOUT_MS = 30000;
 
     public static String URL_PARENT = "http://pngnet.irmenergy.com/IRMEPLTest/IRMEPL_MobileApp_API_Test/IRMMobileAppService/"; // Testing
+    public static String FTP_URL = "login.irmenergy.com";
+    public static String FTP_USERNAME = "ftpuser";
+    public static String FTP_PASSWORD = "S-#s&K2j6BS-k_N!";
 
     // URL
     public static String URL_CREATE_LOGIN = URL_PARENT + "createLogin";
@@ -30,6 +33,8 @@ public class Constant {
     public static String URL_GET_CONNECTION_TYPE = URL_PARENT + "getConnectionType";
     public static String URL_GET_MATERIAL_DATA = URL_PARENT + "getMaterialData";
     public static String URL_GET_WORK_ORDER_LIST = URL_PARENT + "getPendingWorkOrderList";
+    public static String URL_GET_DOCUMENT_LIST = URL_PARENT + "getDocumentsList";
+    public static String URL_GET_PLAN = URL_PARENT + "getPlan";
 
     // API CODE
     public static int LOGIN = 1;
@@ -54,6 +59,8 @@ public class Constant {
     public static int GET_CONNECTION_TYPE = 20;
     public static int GET_MATERIAL_DATA = 21;
     public static int GET_WORK_ORDER_LIST = 22;
+    public static int GET_DOCUMENT_LIST = 23;
+    public static int GET_PLAN = 24;
 
     // Constant
     public static String USER_EMAIL = "user_email";

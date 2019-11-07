@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        try {
+        /*try {
             String jsonArray1 = Utility.getAppPrefString(mContext, "menuArray");
             jsonArray = new JSONArray(jsonArray1);
             int lenth = jsonArray.length();
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         fr = new FragmentDashboard();
         if (fr != null) {
@@ -269,6 +269,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_reg) {
             fr = new FragmentCustomerRegistration();
+            Utility.writeSharedPreferences(this, "uid", "");
             Utility.writeSharedPreferences(mContext, "searchFlag", "cust_reg");
             if (fr != null) {
                 fm = getSupportFragmentManager();

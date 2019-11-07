@@ -161,6 +161,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int openCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         int finePermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
         int crossPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+        int writeStoragePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int readStoragePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
         List<String> listPermissionsNeeded = new ArrayList<>();
 
@@ -172,6 +174,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         if (crossPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (writeStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (readStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         }
 
         if (!listPermissionsNeeded.isEmpty()) {
@@ -190,12 +198,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 perms.put(Manifest.permission.CAMERA, PackageManager.PERMISSION_GRANTED);
                 perms.put(android.Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
                 perms.put(android.Manifest.permission.ACCESS_COARSE_LOCATION, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.READ_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
                 if (grantResults.length > 0) {
                     for (int i = 0; i < permissions.length; i++)
                         perms.put(permissions[i], grantResults[i]);
                     if (perms.get(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
                             && perms.get(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                            && perms.get(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            && perms.get(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                            && perms.get(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                            && perms.get(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         recreate();
                     } else {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -203,8 +215,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 ActivityCompat.shouldShowRequestPermissionRationale(this,
                                         android.Manifest.permission.ACCESS_FINE_LOCATION) ||
                                 ActivityCompat.shouldShowRequestPermissionRationale(this,
-                                        android.Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                            Utility.showDialogOK(mContext, "Camera, Location Permission required for this app",
+                                        android.Manifest.permission.ACCESS_COARSE_LOCATION)||
+                                ActivityCompat.shouldShowRequestPermissionRationale(this,
+                                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+                                ActivityCompat.shouldShowRequestPermissionRationale(this,
+                                        android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            Utility.showDialogOK(mContext, "Camera, Location and Storage Permission required for this app",
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

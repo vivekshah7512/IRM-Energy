@@ -2,9 +2,18 @@ package com.vbs.irmenergy.fragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,52 +26,74 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.github.javiersantos.bottomdialogs.BottomDialog;
+import com.github.pinball83.maskededittext.MaskedEditText;
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.activity.PaymentDetailActivity;
+import com.vbs.irmenergy.activity.ScanActivity;
 import com.vbs.irmenergy.utilities.APIProgressDialog;
 import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.Utility;
 import com.vbs.irmenergy.utilities.volley.VolleyAPIClass;
 import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
+
 public class FragmentCustomerRegistration extends Fragment implements OnClickListener,
         VolleyResponseInterface, AdapterView.OnItemSelectedListener {
 
     private View view;
-    private LinearLayout ll_reg1, ll_reg2, ll_reg3, ll_corporate;
-    private ImageView img_reg1, img_reg2, img_reg3;
+    private LinearLayout ll_reg1, ll_reg2, ll_reg3, ll_corporate, ll_scan, ll_data,
+            ll_barcode, ll_attachment1, ll_attachment2, ll_browse1, ll_browse2;
+    private ImageView img_reg1, img_reg2, img_reg3, img_remove1, img_remove2;
+    private TextView tv_attachment_name1, tv_attachment_name2;
     private Button btn_save;
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
     private String[] type_id, type_name, category_id, category_name, corporate_id,
             corporate_name, property_id, property_name, ownership_id, ownership_name,
             contractor_id, contractor_name, billing_id, billing_name, state_id, state_name,
-            city_id, city_name, area_id, area_name;
+            city_id, city_name, area_id, area_name, doc_id, doc_name;
     private String stringTypeId = "0", stringCategoryId = "0",
             stringCorporateId = "0", stringPropertyId = "0", stringOwnerId = "0",
             stringContractorId = "0", stringBillingTo = "0", stringState = "0",
-            stringCity = "0", stringArea = "0", stringDoc1 = "0", stringDoc2 = "0";
+            stringCity = "0", stringArea = "0", stringDoc1 = "0", stringDoc2 = "0",
+            stringDocName1 = "", stringDocName2 = "";
     private Spinner sp_customer_type, sp_customer_category, sp_corporate_name,
             sp_owner_type, sp_property_type, sp_contractor, sp_billing_to,
             sp_doc1, sp_doc2, sp_state, sp_city, sp_area;
     private EditText et_application_no, et_date, et_firstname, et_middlename, et_lastname,
-            et_dob, et_aadhar_no, et_block_no, et_address1, et_address2, et_pincode, et_contact_no,
+            et_dob, et_block_no, et_address1, et_address2, et_pincode, et_contact_no,
             et_mobile_no, et_email, et_lpg_no, et_lpg_distributor, et_lpg_omc, et_property_name,
             et_owner_name, et_owner_contact_no, et_remarks;
+    private MaskedEditText et_aadhar_no;
     private RadioGroup rg_payment;
     private String paymentType = "online";
     private Calendar myCalendar;
+    private String filePath, fileName, ftpDirectory;
+    private Uri mCapturedImageURI;
+    private File[] fileImage;
+    private int imageType = 0;
+    private String[] ftpFileName;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_customer_registration, container, false);
@@ -91,9 +122,34 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(false);
 
+        fileImage = new File[2];
+        fileImage[0] = null;
+        fileImage[1] = null;
+
+        ftpFileName = new String[2];
+        ftpFileName[0] = "";
+        ftpFileName[1] = "";
+
         volleyAPIClass = new VolleyAPIClass();
         myCalendar = Calendar.getInstance();
 
+        ll_attachment1 = view.findViewById(R.id.ll_doc_attach1);
+        ll_attachment2 = view.findViewById(R.id.ll_doc_attach2);
+        tv_attachment_name1 = view.findViewById(R.id.tv_doc1_attachment);
+        tv_attachment_name2 = view.findViewById(R.id.tv_doc2_attachment);
+        img_remove1 = view.findViewById(R.id.img_doc1_remove);
+        img_remove1.setOnClickListener(this);
+        img_remove2 = view.findViewById(R.id.img_doc2_remove);
+        img_remove2.setOnClickListener(this);
+
+        ll_data = view.findViewById(R.id.ll_data);
+        ll_barcode = view.findViewById(R.id.ll_barcode);
+        ll_scan = view.findViewById(R.id.ll_scan);
+        ll_scan.setOnClickListener(this);
+        ll_browse1 = view.findViewById(R.id.ll_browse1);
+        ll_browse1.setOnClickListener(this);
+        ll_browse2 = view.findViewById(R.id.ll_browse2);
+        ll_browse2.setOnClickListener(this);
         ll_corporate = view.findViewById(R.id.ll_corporate);
         ll_reg1 = view.findViewById(R.id.ll_reg1);
         ll_reg2 = view.findViewById(R.id.ll_reg2);
@@ -140,7 +196,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
         et_lastname = (EditText) view.findViewById(R.id.et_reg_last_name);
         et_dob = (EditText) view.findViewById(R.id.et_reg_dob);
         et_dob.setOnClickListener(this);
-        et_aadhar_no = (EditText) view.findViewById(R.id.et_reg_aadhar_no);
+        et_aadhar_no = (MaskedEditText) view.findViewById(R.id.et_reg_aadhar_no);
         et_block_no = (EditText) view.findViewById(R.id.et_reg_block_no);
         et_address1 = (EditText) view.findViewById(R.id.et_reg_address1);
         et_address2 = (EditText) view.findViewById(R.id.et_reg_address2);
@@ -158,10 +214,106 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
         rg_payment = (RadioGroup) view.findViewById(R.id.rg_payment);
 
         getCustomerType();
+        getDocumentList();
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.ll_scan:
+                startActivity(new Intent(getActivity(), ScanActivity.class));
+                break;
+            case R.id.img_doc1_remove:
+                tv_attachment_name1.setText("");
+                ll_attachment1.setVisibility(View.GONE);
+                break;
+            case R.id.img_doc2_remove:
+                tv_attachment_name2.setText("");
+                ll_attachment2.setVisibility(View.GONE);
+                break;
+            case R.id.ll_browse1:
+                View sheetView = getLayoutInflater().
+                        inflate(R.layout.dialog_picker, null);
+
+                BottomDialog bottomDialog = new BottomDialog.Builder(getActivity())
+                        .setTitle("Upload Document")
+                        .setContent("")
+                        .setCustomView(sheetView)
+                        .autoDismiss(true)
+                        .show();
+
+                LinearLayout camera = (LinearLayout) sheetView.findViewById(R.id.ll_cam);
+                LinearLayout gallery = (LinearLayout) sheetView.findViewById(R.id.ll_gallery);
+
+                camera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bottomDialog.dismiss();
+                        imageType = 1;
+                        filePath = Utility.getTimeStamp() + ".jpg";
+                        ContentValues values = new ContentValues();
+                        values.put(MediaStore.Images.Media.TITLE, filePath);
+                        mCapturedImageURI = getActivity().getContentResolver()
+                                .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
+                        startActivityForResult(intent, 101);
+                    }
+                });
+
+                gallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bottomDialog.dismiss();
+                        imageType = 1;
+                        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(pickPhoto, 102);
+                    }
+                });
+                break;
+            case R.id.ll_browse2:
+                View sheetView1 = getLayoutInflater().
+                        inflate(R.layout.dialog_picker, null);
+
+                BottomDialog bottomDialog1 = new BottomDialog.Builder(getActivity())
+                        .setTitle("Upload Document")
+                        .setContent("")
+                        .setCustomView(sheetView1)
+                        .autoDismiss(true)
+                        .show();
+
+                LinearLayout camera1 = (LinearLayout) sheetView1.findViewById(R.id.ll_cam);
+                LinearLayout gallery1 = (LinearLayout) sheetView1.findViewById(R.id.ll_gallery);
+
+                camera1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bottomDialog1.dismiss();
+                        imageType = 2;
+                        filePath = Utility.getTimeStamp() + ".jpg";
+                        ContentValues values = new ContentValues();
+                        values.put(MediaStore.Images.Media.TITLE, filePath);
+                        mCapturedImageURI = getActivity().getContentResolver()
+                                .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
+                        startActivityForResult(intent, 101);
+                    }
+                });
+
+                gallery1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bottomDialog1.dismiss();
+                        imageType = 2;
+                        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(pickPhoto, 102);
+                    }
+                });
+                break;
             case R.id.et_reg_application_date:
                 DatePickerDialog dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
                         new DatePickerDialog.OnDateSetListener() {
@@ -199,7 +351,12 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 dialog1.show();
                 break;
             case R.id.btn_cust_payment:
-                saveRegistrationDetails();
+                if (!TextUtils.isEmpty(fileName)) {
+                    ftpDirectory = "IRMenrgy_Test/" + et_application_no.getText().toString().trim();
+                    new uploadFileFTP().execute();
+                } else {
+                    saveRegistrationDetails();
+                }
                 break;
             case R.id.img_reg1:
                 ll_reg1.setVisibility(View.VISIBLE);
@@ -378,6 +535,18 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_AREA,
                     Constant.URL_GET_AREA, params);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
+    private void getDocumentList() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            volleyAPIClass.volleyGetJsonAPI(getActivity(), FragmentCustomerRegistration.this,
+                    Constant.GET_DOCUMENT_LIST,
+                    Constant.URL_GET_DOCUMENT_LIST);
         } else
             Utility.toast("No Internet Connection", getActivity());
     }
@@ -580,6 +749,26 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_area, area_name);
                 }
+            } else if (reqCode == Constant.GET_DOCUMENT_LIST) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("doc_data");
+                    int lenth = jsonArray.length() + 1;
+                    doc_id = new String[lenth];
+                    doc_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            doc_id[0] = "0";
+                            doc_name[0] = "Select Document";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            doc_id[a] = jsonObjectMessage.getString("doc_id");
+                            doc_name[a] = jsonObjectMessage.getString("doc_name");
+                        }
+                    }
+                    Utility.setSpinnerAdapter(getActivity(), sp_doc1, doc_name);
+                    Utility.setSpinnerAdapter(getActivity(), sp_doc2, doc_name);
+                }
             } else if (reqCode == Constant.SAVE_REGISTRATION) {
                 response = jObject.getString("response");
                 message = jObject.getString("message");
@@ -618,6 +807,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
 
             Map<String, Object> params = new HashMap<>();
             params.put("user_id", Utility.getAppPrefString(getActivity(), Constant.USER_ID));
+            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
             params.put("application_no", et_application_no.getText().toString().trim());
             params.put("application_date", et_date.getText().toString().trim());
             params.put("customer_type", stringTypeId);
@@ -628,7 +818,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             params.put("middle_name", et_middlename.getText().toString());
             params.put("last_name", et_lastname.getText().toString());
             params.put("dob", et_dob.getText().toString().trim());
-            params.put("adhar_no", et_aadhar_no.getText().toString().trim());
+            params.put("adhar_no", et_aadhar_no.getUnmaskedText());
             params.put("block_no", et_block_no.getText().toString().trim());
             params.put("address", "");
             params.put("society", et_address1.getText().toString());
@@ -652,6 +842,10 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             params.put("remarks", et_remarks.getText().toString());
             params.put("doc1", stringDoc1);
             params.put("doc2", stringDoc2);
+            if (!ftpFileName[0].equalsIgnoreCase(""))
+                params.put("doc1_filename", ftpFileName[0]);
+            if (!ftpFileName[1].equalsIgnoreCase(""))
+                params.put("doc2_filename", ftpFileName[1]);
             params.put("payment_mode", paymentType);
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.SAVE_REGISTRATION,
@@ -717,6 +911,26 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     stringArea = area_id[position];
                 }
                 break;
+            case R.id.sp_doc1:
+                if (!doc_id[position].equalsIgnoreCase("0")) {
+                    stringDoc1 = doc_id[position];
+                    if (stringDoc1.equalsIgnoreCase(stringDoc2)) {
+                        stringDoc1 = "0";
+                        sp_doc1.setSelection(0);
+                        Utility.toast("Please select different document", getActivity());
+                    }
+                }
+                break;
+            case R.id.sp_doc2:
+                if (!doc_id[position].equalsIgnoreCase("0")) {
+                    stringDoc2 = doc_id[position];
+                    if (stringDoc2.equalsIgnoreCase(stringDoc1)) {
+                        stringDoc2 = "0";
+                        sp_doc2.setSelection(0);
+                        Utility.toast("Please select different document", getActivity());
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -725,5 +939,146 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 101:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        String[] projection = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getActivity().managedQuery(mCapturedImageURI, projection, null,
+                                null, null);
+                        int column_index_data = cursor
+                                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        cursor.moveToFirst();
+                        String capturedImageFilePath = cursor.getString(column_index_data);
+                        Bitmap bitmap = BitmapFactory.decodeFile(capturedImageFilePath);
+                        File file = new File(filePath);
+                        System.out.println(file.getName());
+
+                        File f = new File(getActivity().getCacheDir(), filePath);
+                        f.createNewFile();
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 40 /*ignored for PNG*/, bos);
+                        byte[] bitmapdata = bos.toByteArray();
+                        FileOutputStream fos = new FileOutputStream(f);
+                        fos.write(bitmapdata);
+                        fos.flush();
+                        fos.close();
+                        if (imageType == 1) {
+                            ftpFileName[0] = file.getName();
+                            fileImage[0] = f;
+                            ll_attachment1.setVisibility(View.VISIBLE);
+                            tv_attachment_name1.setText(file.getName());
+                        } else if (imageType == 2) {
+                            ftpFileName[1] = file.getName();
+                            fileImage[1] = f;
+                            ll_attachment2.setVisibility(View.VISIBLE);
+                            tv_attachment_name2.setText(file.getName());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                break;
+            case 102:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String picturePath = cursor.getString(columnIndex);
+                        cursor.close();
+
+                        Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
+                        String ext = picturePath.substring(picturePath.lastIndexOf("."));
+                        String filename = picturePath.substring(picturePath.lastIndexOf("/") + 1);
+                        filePath = Utility.getTimeStamp() + ext;
+
+                        File file = new File(filePath);
+                        System.out.println(file.getName());
+
+                        File f = new File(getActivity().getCacheDir(), filePath);
+                        f.createNewFile();
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 40 /*ignored for PNG*/, bos);
+                        byte[] bitmapdata = bos.toByteArray();
+                        FileOutputStream fos = new FileOutputStream(f);
+                        fos.write(bitmapdata);
+                        fos.flush();
+                        fos.close();
+                        if (imageType == 1) {
+                            ftpFileName[0] = file.getName();
+                            fileImage[0] = f;
+                            ll_attachment1.setVisibility(View.VISIBLE);
+                            tv_attachment_name1.setText(filename);
+                        } else if (imageType == 2) {
+                            ftpFileName[1] = file.getName();
+                            fileImage[1] = f;
+                            ll_attachment2.setVisibility(View.VISIBLE);
+                            tv_attachment_name2.setText(filename);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
+    }
+
+    public class uploadFileFTP extends AsyncTask<Void, Void, Void> {
+        protected void onPreExecute() {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+        }
+
+        protected Void doInBackground(Void... params) {
+            try {
+                FTPClient ftpClient = new FTPClient();
+                ftpClient.connect(Constant.FTP_URL);
+                ftpClient.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
+
+                for (int i = 0; i < fileImage.length; i++) {
+                    ftpClient.makeDirectory(ftpDirectory);
+                    ftpClient.changeWorkingDirectory(ftpDirectory);
+                    ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+                    BufferedInputStream buffIn = null;
+                    System.out.println("Name : " + ftpFileName[i]);
+                    buffIn = new BufferedInputStream(new FileInputStream(fileImage[i]));
+                    ftpClient.enterLocalPassiveMode();
+                    ftpClient.storeFile(ftpFileName[i], buffIn);
+                    buffIn.close();
+                }
+                ftpClient.logout();
+                ftpClient.disconnect();
+                if (mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            if (mProgressDialog.isShowing())
+                mProgressDialog.dismiss();
+            Log.v("FTP", "Successfully");
+            saveRegistrationDetails();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!Utility.getAppPrefString(getActivity(),"uid")
+                .equalsIgnoreCase("")) {
+            et_aadhar_no.setMaskedText(Utility.getAppPrefString(getActivity(),"uid"));
+        }
     }
 }
