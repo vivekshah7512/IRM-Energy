@@ -179,6 +179,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Testing Date"
+                            android:visibility="gone"
                             android:textColor="@color/colorLightBlack"
                             android:textSize="@dimen/_12sdp"
                             app:fontName="@string/font_regular" />
@@ -192,6 +193,7 @@
                             android:editable="false"
                             android:gravity="center_vertical"
                             android:hint="Select Date"
+                            android:visibility="gone"
                             android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack1"

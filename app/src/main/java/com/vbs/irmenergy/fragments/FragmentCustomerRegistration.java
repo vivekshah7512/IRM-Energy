@@ -576,6 +576,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_customer_type, type_name);
+                    sp_customer_type.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_CUSTOMER_CATEGORY) {
                 response = jObject.getString("response");
@@ -595,6 +596,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_customer_category, category_name);
+                    sp_customer_category.setSelection(2);
                 }
             } else if (reqCode == Constant.GET_CORPORATE_NAME) {
                 response = jObject.getString("response");
@@ -691,6 +693,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_billing_to, billing_name);
+                    sp_billing_to.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_STATE) {
                 response = jObject.getString("response");
