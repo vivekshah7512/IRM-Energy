@@ -15,7 +15,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.adapter.ConnectionAdapter;
@@ -31,7 +30,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,13 +38,13 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
 
     private Context mContext;
     private Button btn_comm_submit;
-    private RadioGroup rg_connection;
     private ExpandableHeightListView listView;
     private ImageView img_back;
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
     private String woType = "0";
     private String[] material_id, material_name, material_amount, workorder_id, workorder_name;
+    private JSONArray jsonArray1 = null, jsonArray2 = null;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -70,16 +68,12 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
 
         btn_comm_submit = (Button) findViewById(R.id.btn_jobsheet_submit);
         btn_comm_submit.setOnClickListener(this);
-        rg_connection = (RadioGroup) findViewById(R.id.rg_connection);
-
         listView = (ExpandableHeightListView) findViewById(R.id.list_connection);
-        listView.setAdapter(new ConnectionAdapter(mContext, new String[] {"1","2","3"}));
-        listView.setExpanded(true);
-
         img_back = (ImageView) findViewById(R.id.img_back);
         img_back.setOnClickListener(this);
+        woType = getIntent().getStringExtra("woType");
 
-//        getWorkType();
+        getWorkType();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -128,7 +122,7 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                 mProgressDialog.show();
 
             Map<String, String> params = new HashMap<>();
-            params.put("WOtype", "0");
+            params.put("WOtype", woType);
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_WORK_TYPE,
                     Constant.URL_GET_WORK_TYPE, params);
         } else
@@ -152,51 +146,21 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     public void vResponse(int reqCode, String result) {
         String response, message;
         JSONObject jsonObjectMessage;
-        JSONArray jsonArray1 = null;
-        JSONArray jsonArray2 = null;
         try {
             JSONObject jObject = new JSONObject(result);
             if (reqCode == Constant.GET_WORK_TYPE) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray1 = jObject.getJSONArray("workorder_data");
-                    int lenth = jsonArray1.length() + 1;
-                    workorder_id = new String[lenth];
-                    workorder_name = new String[lenth];
-                    for (int a = 0; a < lenth; a++) {
-                        if (a == 0) {
-                            workorder_id[0] = "0";
-                            workorder_name[0] = "Select Work Type";
-                        } else {
-                            jsonObjectMessage = jsonArray1.getJSONObject(a - 1);
-                            workorder_id[a] = jsonObjectMessage.getString("workorder_id");
-                            workorder_name[a] = jsonObjectMessage.getString("workorder_name");
-                        }
-                    }
                 }
                 getMaterial();
             } else if (reqCode == Constant.GET_MATERIAL_DATA) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray2 = jObject.getJSONArray("material_data");
-                    int lenth = jsonArray2.length() + 1;
-                    material_id = new String[lenth];
-                    material_name = new String[lenth];
-                    material_amount = new String[lenth];
-                    for (int a = 0; a < lenth; a++) {
-                        if (a == 0) {
-                            material_id[0] = "0";
-                            material_name[0] = "Select House Type";
-                            material_amount[0] = "0";
-                        } else {
-                            jsonObjectMessage = jsonArray2.getJSONObject(a - 1);
-                            material_id[a] = jsonObjectMessage.getString("material_id");
-                            material_name[a] = jsonObjectMessage.getString("material_name");
-                            material_amount[a] = jsonObjectMessage.getString("material_amount");
-                        }
-                    }
-//                    listView.setAdapter(new ConnectionAdapter(mContext, jsonArray1, jsonArray2));
-//                    listView.setExpanded(true);
+                    listView.setAdapter(new ConnectionAdapter(mContext, new String[] {"1"},
+                            jsonArray1, jsonArray2));
+                    listView.setExpanded(true);
                 }
             }
         } catch (JSONException e) {

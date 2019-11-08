@@ -487,6 +487,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
 
             Map<String, Object> params = new HashMap<>();
             params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
+            params.put("WO_type", "");
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);

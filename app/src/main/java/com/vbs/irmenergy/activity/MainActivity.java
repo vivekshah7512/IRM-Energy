@@ -41,6 +41,7 @@ import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.fragments.FragmentChangePassword;
 import com.vbs.irmenergy.fragments.FragmentCustomerRegistration;
 import com.vbs.irmenergy.fragments.FragmentDashboard;
+import com.vbs.irmenergy.fragments.FragmentJobsheetSearch;
 import com.vbs.irmenergy.fragments.FragmentProfile;
 import com.vbs.irmenergy.fragments.FragmentSearch;
 import com.vbs.irmenergy.utilities.Constant;
@@ -291,7 +292,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentTransaction.commit();
             }
         } else if (id == R.id.nav_jobsheet) {
-            fr = new FragmentSearch();
+            fr = new FragmentJobsheetSearch();
             Utility.writeSharedPreferences(mContext, "searchFlag", "jobsheet");
             if (fr != null) {
                 fm = getSupportFragmentManager();

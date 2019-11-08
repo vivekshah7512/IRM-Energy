@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/colorWhite"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,9 +19,9 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="35dp"
                 android:layout_weight="0.60"
-                android:background="@drawable/rounded_border_box1">
+                android:background="@drawable/rounded_border_box3">
 
                 <Spinner
                     android:id="@+id/sp_work_type"
@@ -45,10 +42,10 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="5dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="0.40"
-                android:background="@drawable/rounded_border_box1">
+                android:background="@drawable/rounded_border_box3">
 
                 <Spinner
                     android:id="@+id/sp_conn_type"
@@ -71,9 +68,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/rounded_border_box1">
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_border_box3">
 
             <Spinner
                 android:id="@+id/sp_material_name"
@@ -95,7 +92,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:weightSum="1">
@@ -103,7 +100,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.43"
+                android:layout_weight="0.40"
                 android:gravity="center">
 
                 <com.vbs.irmenergy.utilities.CustomTextview
@@ -111,27 +108,29 @@
                     android:layout_height="wrap_content"
                     android:text="Qty Used : "
                     android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
                     app:fontName="@string/font_light" />
 
-                <com.travijuu.numberpicker.library.NumberPicker
+                <com.vbs.irmenergy.utilities.CustomEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_marginStart="5dp"
-                    numberpicker:custom_layout="@layout/number_picker_custom_layout2"
-                    numberpicker:focusable="false"
-                    numberpicker:max="99"
-                    numberpicker:min="1"
-                    numberpicker:unit="1"
-                    numberpicker:value="1" />
+                    android:background="@drawable/rounded_border_box3"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorLightBlack1"
+                    android:textSize="@dimen/_11sdp"
+                    app:fontName="@string/font_light" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="0.49"
+                android:layout_marginStart="8dp"
+                android:layout_weight="0.45"
                 android:gravity="center">
 
                 <com.vbs.irmenergy.utilities.CustomTextview
@@ -139,30 +138,32 @@
                     android:layout_height="wrap_content"
                     android:text="No. of Conn : "
                     android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
                     app:fontName="@string/font_light" />
 
-                <com.travijuu.numberpicker.library.NumberPicker
+                <com.vbs.irmenergy.utilities.CustomEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_marginStart="5dp"
-                    numberpicker:custom_layout="@layout/number_picker_custom_layout2"
-                    numberpicker:focusable="false"
-                    numberpicker:max="99"
-                    numberpicker:min="1"
-                    numberpicker:unit="1"
-                    numberpicker:value="1" />
+                    android:background="@drawable/rounded_border_box3"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorLightBlack1"
+                    android:textSize="@dimen/_11sdp"
+                    app:fontName="@string/font_light" />
 
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/img_remove"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.08"
-                android:tint="@color/colorGreen"
-                android:src="@drawable/plus" />
+                android:layout_height="35dp"
+                android:padding="6dp"
+                android:layout_weight="0.15"
+                android:src="@drawable/plus"
+                android:tint="@color/colorGreen" />
 
         </LinearLayout>
 

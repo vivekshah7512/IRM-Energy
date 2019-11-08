@@ -28,20 +28,22 @@ public class ConnectionAdapter extends BaseAdapter {
     private String[] workorder_id, workorder_name, material_id, material_name, material_amount;
     private GetMaterial getMaterial;
 
-    /*public ConnectionAdapter(Context context, JSONArray jsonArray, JSONArray jsonArray2) {
+    public ConnectionAdapter(Context context, String[] id, JSONArray jsonArray,
+                             JSONArray jsonArray2) {
         this.context = context;
+        this.id = id;
         this.jsonArray = jsonArray;
         this.jsonArray2 = jsonArray2;
         getMaterial = (GetMaterial) (Activity) context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }*/
+    }
 
-    public ConnectionAdapter(Context context, String[] id) {
+    /*public ConnectionAdapter(Context context, String[] id) {
         this.context = context;
         this.id = id;
         getMaterial = (GetMaterial) (Activity) context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
+    }*/
 
     public int getCount() {
         return id.length;
@@ -68,7 +70,7 @@ public class ConnectionAdapter extends BaseAdapter {
             Utility.setSpinnerAdapter1(context, holder.sp_connection_type, new String[]
                     {"Select", "Geyser Point", "Kitchen Point"});
 
-            /*try {
+            try {
                 JSONObject jsonObjectMessage;
                 int lenth = jsonArray.length() + 1;
                 workorder_id = new String[lenth];
@@ -92,7 +94,7 @@ public class ConnectionAdapter extends BaseAdapter {
                 for (int a = 0; a < lenth2; a++) {
                     if (a == 0) {
                         material_id[0] = "0";
-                        material_name[0] = "Select House Type";
+                        material_name[0] = "Select Material Name";
                         material_amount[0] = "0";
                     } else {
                         jsonObjectMessage = jsonArray2.getJSONObject(a - 1);
@@ -104,12 +106,12 @@ public class ConnectionAdapter extends BaseAdapter {
                 Utility.setSpinnerAdapter1(context, holder.sp_material_name, material_name);
             } catch (Exception e) {
                 e.printStackTrace();
-            }*/
+            }
 
             holder.sp_work_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    getMaterial.selectWO(workorder_id[i]);
+//                    getMaterial.selectWO(workorder_id[i]);
                 }
 
                 @Override

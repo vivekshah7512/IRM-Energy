@@ -217,6 +217,7 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
 
             Map<String, String> params = new HashMap<>();
             params.put("center_code", Utility.getAppPrefString(mContext,"center_code"));
+            params.put("WO_type", "");
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);
         } else

@@ -102,9 +102,9 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
         et_testing_date.setOnClickListener(this);
         et_material_no = (EditText) findViewById(R.id.et_job_material_no);
         et_latitude = (EditText) findViewById(R.id.et_job_latitude);
-        et_latitude.setText(Utility.getAppPrefString(mContext,"latitude"));
+        et_latitude.setText(Utility.getAppPrefString(mContext, "latitude"));
         et_longitude = (EditText) findViewById(R.id.et_job_longitude);
-        et_longitude.setText(Utility.getAppPrefString(mContext,"longitude"));
+        et_longitude.setText(Utility.getAppPrefString(mContext, "longitude"));
         et_remarks = (EditText) findViewById(R.id.et_job_remarks);
         sp_contractor = (Spinner) findViewById(R.id.sp_job_contractor);
         sp_contractor.setOnItemSelectedListener(this);
@@ -170,6 +170,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                 break;
             case R.id.btn_jobsheet_submit:
                 Intent intent = new Intent(mContext, JobsheetConnectionTypeActivity.class);
+                intent.putExtra("woType", getIntent().getStringExtra("woType"));
                 startActivity(intent);
                 break;
             default:
@@ -183,7 +184,8 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                 mProgressDialog.show();
 
             Map<String, String> params = new HashMap<>();
-            params.put("center_code", Utility.getAppPrefString(mContext,"center_code"));
+            params.put("center_code", Utility.getAppPrefString(mContext, "center_code"));
+            params.put("WO_type", getIntent().getStringExtra("woType"));
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);
         } else

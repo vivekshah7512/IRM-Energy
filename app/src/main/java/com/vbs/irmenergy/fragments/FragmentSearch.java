@@ -96,7 +96,6 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                     Utility.toast("Please enter application no", getActivity());
                 } else {
                     searchApplicationNo();
-//                    searchApplicationNo1();
                 }
                 break;
             case R.id.btn_verify:
@@ -137,21 +136,6 @@ public class FragmentSearch extends Fragment implements OnClickListener,
             Utility.toast("No Internet Connection", getActivity());
     }
 
-    private void searchApplicationNo1() {
-        if (Utility.isNetworkAvaliable(getActivity())) {
-            if (!mProgressDialog.isShowing())
-                mProgressDialog.show();
-
-            Map<String, Object> params = new HashMap<>();
-            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
-            params.put("application_no", et_app_no.getText().toString().trim());
-            volleyAPIClass.volleyAPICall(getActivity(), FragmentSearch.this,
-                    Constant.GET_WORK_ORDER_LIST,
-                    Constant.URL_GET_WORK_ORDER_LIST, params);
-        } else
-            Utility.toast("No Internet Connection", getActivity());
-    }
-
     @Override
     public void vResponse(int reqCode, String result) {
         String response, message;
@@ -175,9 +159,6 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                 } else {
                     Utility.toast(message, getActivity());
                 }
-            } else if (reqCode == Constant.GET_WORK_ORDER_LIST) {
-                response = jObject.getString("response");
-                message = jObject.getString("message");
             }
         } catch (JSONException e) {
             e.printStackTrace();
