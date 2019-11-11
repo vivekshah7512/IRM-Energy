@@ -23,34 +23,33 @@ public class ConnectionAdapter extends BaseAdapter {
 
     Context context;
     private LayoutInflater inflater = null;
-    private String[] id;
+    private ArrayList<String> id;
     private JSONArray jsonArray, jsonArray2;
     private String[] workorder_id, workorder_name, material_id, material_name, material_amount;
-    private GetMaterial getMaterial;
+    private AddItem addItem;
 
-    public ConnectionAdapter(Context context, String[] id, JSONArray jsonArray,
+    public ConnectionAdapter(Context context, ArrayList<String> id, JSONArray jsonArray,
                              JSONArray jsonArray2) {
         this.context = context;
         this.id = id;
         this.jsonArray = jsonArray;
         this.jsonArray2 = jsonArray2;
-        getMaterial = (GetMaterial) (Activity) context;
+        addItem = (AddItem) (Activity) context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     /*public ConnectionAdapter(Context context, String[] id) {
         this.context = context;
         this.id = id;
-        getMaterial = (GetMaterial) (Activity) context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }*/
 
     public int getCount() {
-        return id.length;
+        return id.size();
     }
 
     public Object getItem(int position) {
-        return id[position];
+        return id.get(position);
     }
 
     public long getItemId(int position) {
@@ -120,13 +119,26 @@ public class ConnectionAdapter extends BaseAdapter {
                 }
             });
 
-
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
 
-        if (position + 1 == id.length) {
+        holder.img_remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (position + 1 == id.size()) {
+                    // Add More
+                    addItem.add(0, id.size());
+                } else {
+                    // Remove
+                    addItem.add(1, position);
+                }
+            }
+        });
+
+
+        if (position + 1 == id.size()) {
             holder.img_remove.setImageResource(R.drawable.plus);
             holder.img_remove.setColorFilter(ContextCompat.getColor(context, R.color.colorGreen));
         } else {
@@ -137,8 +149,8 @@ public class ConnectionAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public interface GetMaterial {
-        void selectWO(String id);
+    public interface AddItem {
+        void add(int type, int pos);
     }
 
     public class Holder {

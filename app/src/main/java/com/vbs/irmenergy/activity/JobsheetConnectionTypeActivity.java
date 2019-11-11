@@ -30,11 +30,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class JobsheetConnectionTypeActivity extends Activity implements View.OnClickListener,
-        VolleyResponseInterface, ConnectionAdapter.GetMaterial {
+        VolleyResponseInterface, ConnectionAdapter.AddItem {
 
     private Context mContext;
     private Button btn_comm_submit;
@@ -43,8 +44,9 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
     private String woType = "0";
-    private String[] material_id, material_name, material_amount, workorder_id, workorder_name;
     private JSONArray jsonArray1 = null, jsonArray2 = null;
+    private ArrayList<String> arrayList;
+    private ConnectionAdapter adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -65,6 +67,7 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(false);
         volleyAPIClass = new VolleyAPIClass();
+        arrayList = new ArrayList<>();
 
         btn_comm_submit = (Button) findViewById(R.id.btn_jobsheet_submit);
         btn_comm_submit.setOnClickListener(this);
@@ -158,8 +161,10 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray2 = jObject.getJSONArray("material_data");
-                    listView.setAdapter(new ConnectionAdapter(mContext, new String[] {"1"},
-                            jsonArray1, jsonArray2));
+                    arrayList.add("1");
+                    adapter = new ConnectionAdapter(mContext, arrayList,
+                            jsonArray1, jsonArray2);
+                    listView.setAdapter(adapter);
                     listView.setExpanded(true);
                 }
             }
@@ -179,8 +184,18 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     }
 
     @Override
-    public void selectWO(String id) {
-        woType = id;
-        getMaterial();
+    public void add(int type, int pos) {
+        if (type == 0) {
+            // Add
+            arrayList.add("1");
+            adapter = new ConnectionAdapter(mContext, arrayList,
+                    jsonArray1, jsonArray2);
+            listView.setAdapter(adapter);
+            listView.setExpanded(true);
+        } else {
+            // Remove
+            arrayList.remove(0);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
