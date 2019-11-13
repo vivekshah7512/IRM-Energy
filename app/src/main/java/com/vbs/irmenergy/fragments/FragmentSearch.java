@@ -101,6 +101,7 @@ public class FragmentSearch extends Fragment implements OnClickListener,
             case R.id.btn_verify:
                 if (flag.equalsIgnoreCase("survey")) {
                     Intent intent = new Intent(getActivity(), CustomerDetailActivity.class);
+                    intent.putExtra("app_no", et_app_no.getText().toString().trim());
                     startActivity(intent);
                 } else if (flag.equalsIgnoreCase("commission")) {
                     Intent intent = new Intent(getActivity(), CommissionProcessActivity.class);

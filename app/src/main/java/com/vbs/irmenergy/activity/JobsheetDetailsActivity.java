@@ -136,7 +136,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                             }
                         }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                dialog_date.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+                dialog_date.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog_date.show();
                 break;
             case R.id.et_job_test_date:
@@ -154,7 +154,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                             }
                         }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                dialog_date1.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+                dialog_date1.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog_date1.show();
                 break;
             case R.id.img_back:

@@ -35,6 +35,7 @@ public class Constant {
     public static String URL_GET_WORK_ORDER_LIST = URL_PARENT + "getPendingWorkOrderList";
     public static String URL_GET_DOCUMENT_LIST = URL_PARENT + "getDocumentsList";
     public static String URL_GET_PLAN = URL_PARENT + "getPlan";
+    public static String URL_SAVE_SURVEY = URL_PARENT + "saveCustomerSurvey";
 
     // API CODE
     public static int LOGIN = 1;
@@ -61,6 +62,7 @@ public class Constant {
     public static int GET_WORK_ORDER_LIST = 22;
     public static int GET_DOCUMENT_LIST = 23;
     public static int GET_PLAN = 24;
+    public static int SAVE_SURVEY = 25;
 
     // Constant
     public static String USER_EMAIL = "user_email";

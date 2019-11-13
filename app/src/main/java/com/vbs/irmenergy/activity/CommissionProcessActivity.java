@@ -143,7 +143,7 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
                             }
                         }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                dialog_date.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+                dialog_date.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog_date.show();
                 break;
             case R.id.img_back:

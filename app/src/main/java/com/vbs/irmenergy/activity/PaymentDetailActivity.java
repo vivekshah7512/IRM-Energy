@@ -112,7 +112,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                             }
                         }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                dialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+                dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog.show();
                 break;
             case R.id.et_payment_inst_date:
@@ -130,7 +130,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                             }
                         }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                dialog1.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+                dialog1.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog1.show();
                 break;
             case R.id.img_back:

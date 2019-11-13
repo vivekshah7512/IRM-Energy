@@ -71,6 +71,7 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_survey_meter_no"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
@@ -94,6 +95,7 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_survey_meter_reading"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
@@ -117,10 +119,12 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_survey_meter_latitude"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rounded_border_box1"
+                            android:editable="false"
                             android:gravity="center_vertical"
                             android:hint="Enter latitude"
                             android:padding="8dp"
@@ -140,10 +144,12 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_survey_meter_longitude"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rounded_border_box1"
+                            android:editable="false"
                             android:gravity="center_vertical"
                             android:hint="Enter longitude"
                             android:padding="8dp"
@@ -163,13 +169,15 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_survey_rubber_mf"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rounded_border_box1"
                             android:gravity="center_vertical"
-                            android:hint="MM/YYYY"
+                            android:hint="Enter length"
                             android:padding="8dp"
+                            android:inputType="number"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack1"
                             android:textCursorDrawable="@drawable/color_cursor"
@@ -186,6 +194,7 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_survey_remarks"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -207,7 +216,7 @@
             </android.support.v7.widget.CardView>
 
             <com.vbs.irmenergy.utilities.CustomButton
-                android:id="@+id/btn_cust_payment"
+                android:id="@+id/btn_survey_submit"
                 android:layout_width="@dimen/_110sdp"
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"

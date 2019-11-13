@@ -148,7 +148,6 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     @Override
     public void vResponse(int reqCode, String result) {
         String response, message;
-        JSONObject jsonObjectMessage;
         try {
             JSONObject jObject = new JSONObject(result);
             if (reqCode == Constant.GET_WORK_TYPE) {

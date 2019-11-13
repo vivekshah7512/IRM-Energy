@@ -27,6 +27,7 @@
             app:fontName="@string/font_semibold" />
 
         <com.vbs.irmenergy.utilities.CustomTextview
+            android:id="@+id/tv_success_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"

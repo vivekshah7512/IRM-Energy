@@ -329,7 +329,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                             }
                         }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                dialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+                dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog.show();
                 break;
             case R.id.et_reg_dob:
@@ -347,7 +347,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                             }
                         }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                dialog1.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+                dialog1.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog1.show();
                 break;
             case R.id.btn_cust_payment:
