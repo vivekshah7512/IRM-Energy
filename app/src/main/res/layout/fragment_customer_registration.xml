@@ -448,6 +448,37 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/ll_doc_attach12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:id="@+id/tv_doc12_attachment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorGray"
+                                android:textSize="@dimen/_11sdp"
+                                android:singleLine="true"
+                                android:ellipsize="end"
+                                app:fontName="@string/font_regular" />
+
+                            <ImageView
+                                android:id="@+id/img_doc12_remove"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="5dp"
+                                android:padding="10dp"
+                                android:src="@drawable/no"
+                                android:tint="@color/colorRed" />
+
+                        </LinearLayout>
+
                         <com.vbs.irmenergy.utilities.CustomTextview
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -541,6 +572,37 @@
 
                             <ImageView
                                 android:id="@+id/img_doc2_remove"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="5dp"
+                                android:padding="10dp"
+                                android:src="@drawable/no"
+                                android:tint="@color/colorRed" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_doc_attach22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:id="@+id/tv_doc22_attachment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorGray"
+                                android:textSize="@dimen/_11sdp"
+                                android:singleLine="true"
+                                android:ellipsize="end"
+                                app:fontName="@string/font_regular" />
+
+                            <ImageView
+                                android:id="@+id/img_doc22_remove"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_marginStart="5dp"

@@ -63,9 +63,12 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
 
     private View view;
     private LinearLayout ll_reg1, ll_reg2, ll_reg3, ll_corporate, ll_scan, ll_data,
-            ll_barcode, ll_attachment1, ll_attachment2, ll_browse1, ll_browse2;
-    private ImageView img_reg1, img_reg2, img_reg3, img_remove1, img_remove2;
-    private TextView tv_attachment_name1, tv_attachment_name2;
+            ll_barcode, ll_attachment1, ll_attachment2, ll_browse1, ll_browse2,
+            ll_attachment12, ll_attachment22;
+    private ImageView img_reg1, img_reg2, img_reg3, img_remove1, img_remove2,
+            img_remove12, img_remove22;
+    private TextView tv_attachment_name1, tv_attachment_name2, tv_attachment_name12,
+            tv_attachment_name22;
     private Button btn_save;
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
@@ -122,13 +125,17 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(false);
 
-        fileImage = new File[2];
+        fileImage = new File[4];
         fileImage[0] = null;
         fileImage[1] = null;
+        fileImage[2] = null;
+        fileImage[3] = null;
 
-        ftpFileName = new String[2];
+        ftpFileName = new String[4];
         ftpFileName[0] = "";
         ftpFileName[1] = "";
+        ftpFileName[2] = "";
+        ftpFileName[3] = "";
 
         volleyAPIClass = new VolleyAPIClass();
         myCalendar = Calendar.getInstance();
@@ -141,6 +148,15 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
         img_remove1.setOnClickListener(this);
         img_remove2 = view.findViewById(R.id.img_doc2_remove);
         img_remove2.setOnClickListener(this);
+
+        ll_attachment12 = view.findViewById(R.id.ll_doc_attach12);
+        ll_attachment22 = view.findViewById(R.id.ll_doc_attach22);
+        tv_attachment_name12 = view.findViewById(R.id.tv_doc12_attachment);
+        tv_attachment_name22 = view.findViewById(R.id.tv_doc22_attachment);
+        img_remove12 = view.findViewById(R.id.img_doc12_remove);
+        img_remove12.setOnClickListener(this);
+        img_remove22 = view.findViewById(R.id.img_doc22_remove);
+        img_remove22.setOnClickListener(this);
 
         ll_data = view.findViewById(R.id.ll_data);
         ll_barcode = view.findViewById(R.id.ll_barcode);
@@ -225,10 +241,26 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             case R.id.img_doc1_remove:
                 tv_attachment_name1.setText("");
                 ll_attachment1.setVisibility(View.GONE);
+                fileImage[0] = null;
+                ftpFileName[0] = "";
                 break;
             case R.id.img_doc2_remove:
                 tv_attachment_name2.setText("");
                 ll_attachment2.setVisibility(View.GONE);
+                fileImage[1] = null;
+                ftpFileName[1] = "";
+                break;
+            case R.id.img_doc12_remove:
+                tv_attachment_name12.setText("");
+                ll_attachment12.setVisibility(View.GONE);
+                fileImage[2] = null;
+                ftpFileName[2] = "";
+                break;
+            case R.id.img_doc22_remove:
+                tv_attachment_name22.setText("");
+                ll_attachment22.setVisibility(View.GONE);
+                fileImage[3] = null;
+                ftpFileName[3] = "";
                 break;
             case R.id.ll_browse1:
                 View sheetView = getLayoutInflater().
@@ -844,6 +876,15 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             params.put("owner_mobile", et_owner_contact_no.getText().toString().trim());
             params.put("dma_contractor", stringContractorId);
             params.put("remarks", et_remarks.getText().toString());
+            /*doc1 {
+                id
+                files[{
+                        name }]}
+
+            doc2 {
+                id
+                files[{
+                        name }]}*/
             params.put("doc1", stringDoc1);
             params.put("doc2", stringDoc2);
             if (!ftpFileName[0].equalsIgnoreCase(""))
@@ -972,15 +1013,29 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         fos.flush();
                         fos.close();
                         if (imageType == 1) {
-                            ftpFileName[0] = file.getName();
-                            fileImage[0] = f;
-                            ll_attachment1.setVisibility(View.VISIBLE);
-                            tv_attachment_name1.setText(file.getName());
+                            if (ll_attachment1.getVisibility() == View.VISIBLE) {
+                                ftpFileName[2] = file.getName();
+                                fileImage[2] = f;
+                                ll_attachment12.setVisibility(View.VISIBLE);
+                                tv_attachment_name12.setText(file.getName());
+                            } else {
+                                ftpFileName[0] = file.getName();
+                                fileImage[0] = f;
+                                ll_attachment1.setVisibility(View.VISIBLE);
+                                tv_attachment_name1.setText(file.getName());
+                            }
                         } else if (imageType == 2) {
-                            ftpFileName[1] = file.getName();
-                            fileImage[1] = f;
-                            ll_attachment2.setVisibility(View.VISIBLE);
-                            tv_attachment_name2.setText(file.getName());
+                            if (ll_attachment2.getVisibility() == View.VISIBLE) {
+                                ftpFileName[3] = file.getName();
+                                fileImage[3] = f;
+                                ll_attachment22.setVisibility(View.VISIBLE);
+                                tv_attachment_name22.setText(file.getName());
+                            } else {
+                                ftpFileName[1] = file.getName();
+                                fileImage[1] = f;
+                                ll_attachment2.setVisibility(View.VISIBLE);
+                                tv_attachment_name2.setText(file.getName());
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -1017,21 +1072,44 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         fos.flush();
                         fos.close();
                         if (imageType == 1) {
-                            ftpFileName[0] = file.getName();
-                            fileImage[0] = f;
-                            ll_attachment1.setVisibility(View.VISIBLE);
-                            tv_attachment_name1.setText(filename);
+                            if (ll_attachment1.getVisibility() == View.VISIBLE) {
+                                ftpFileName[1] = file.getName();
+                                fileImage[1] = f;
+                                ll_attachment12.setVisibility(View.VISIBLE);
+                                tv_attachment_name12.setText(file.getName());
+                            } else {
+                                ftpFileName[0] = file.getName();
+                                fileImage[0] = f;
+                                ll_attachment1.setVisibility(View.VISIBLE);
+                                tv_attachment_name1.setText(file.getName());
+                            }
                         } else if (imageType == 2) {
-                            ftpFileName[1] = file.getName();
-                            fileImage[1] = f;
-                            ll_attachment2.setVisibility(View.VISIBLE);
-                            tv_attachment_name2.setText(filename);
+                            if (ll_attachment2.getVisibility() == View.VISIBLE) {
+                                ftpFileName[4] = file.getName();
+                                fileImage[4] = f;
+                                ll_attachment22.setVisibility(View.VISIBLE);
+                                tv_attachment_name22.setText(file.getName());
+                            } else {
+                                ftpFileName[3] = file.getName();
+                                fileImage[3] = f;
+                                ll_attachment2.setVisibility(View.VISIBLE);
+                                tv_attachment_name2.setText(file.getName());
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!Utility.getAppPrefString(getActivity(), "uid")
+                .equalsIgnoreCase("")) {
+            et_aadhar_no.setMaskedText(Utility.getAppPrefString(getActivity(), "uid"));
         }
     }
 
@@ -1048,15 +1126,17 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 ftpClient.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
 
                 for (int i = 0; i < fileImage.length; i++) {
-                    ftpClient.makeDirectory(ftpDirectory);
-                    ftpClient.changeWorkingDirectory(ftpDirectory);
-                    ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-                    BufferedInputStream buffIn = null;
-                    System.out.println("Name : " + ftpFileName[i]);
-                    buffIn = new BufferedInputStream(new FileInputStream(fileImage[i]));
-                    ftpClient.enterLocalPassiveMode();
-                    ftpClient.storeFile(ftpFileName[i], buffIn);
-                    buffIn.close();
+                    if (fileImage[i] != null) {
+                        ftpClient.makeDirectory(ftpDirectory);
+                        ftpClient.changeWorkingDirectory(ftpDirectory);
+                        ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+                        BufferedInputStream buffIn = null;
+                        System.out.println("Name : " + ftpFileName[i]);
+                        buffIn = new BufferedInputStream(new FileInputStream(fileImage[i]));
+                        ftpClient.enterLocalPassiveMode();
+                        ftpClient.storeFile(ftpFileName[i], buffIn);
+                        buffIn.close();
+                    }
                 }
                 ftpClient.logout();
                 ftpClient.disconnect();
@@ -1074,15 +1154,6 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 mProgressDialog.dismiss();
             Log.v("FTP", "Successfully");
             saveRegistrationDetails();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!Utility.getAppPrefString(getActivity(),"uid")
-                .equalsIgnoreCase("")) {
-            et_aadhar_no.setMaskedText(Utility.getAppPrefString(getActivity(),"uid"));
         }
     }
 }
