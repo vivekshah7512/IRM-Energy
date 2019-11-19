@@ -841,6 +841,22 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             if (!mProgressDialog.isShowing())
                 mProgressDialog.show();
 
+            JSONObject obj = null;
+            JSONArray jsonArray = new JSONArray();
+            try {
+                for (int i = 0; i < ftpFileName.length; i++) {
+                    if (!ftpFileName[i].equalsIgnoreCase("")) {
+                        obj = new JSONObject();
+                        obj.put("name", ftpFileName[i]);
+                        jsonArray.put(obj);
+                    }
+                }
+
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             Map<String, Object> params = new HashMap<>();
             params.put("user_id", Utility.getAppPrefString(getActivity(), Constant.USER_ID));
             params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
@@ -876,21 +892,9 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             params.put("owner_mobile", et_owner_contact_no.getText().toString().trim());
             params.put("dma_contractor", stringContractorId);
             params.put("remarks", et_remarks.getText().toString());
-            /*doc1 {
-                id
-                files[{
-                        name }]}
-
-            doc2 {
-                id
-                files[{
-                        name }]}*/
             params.put("doc1", stringDoc1);
             params.put("doc2", stringDoc2);
-            if (!ftpFileName[0].equalsIgnoreCase(""))
-                params.put("doc1_filename", ftpFileName[0]);
-            if (!ftpFileName[1].equalsIgnoreCase(""))
-                params.put("doc2_filename", ftpFileName[1]);
+            params.put("document_data", obj);
             params.put("payment_mode", paymentType);
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.SAVE_REGISTRATION,

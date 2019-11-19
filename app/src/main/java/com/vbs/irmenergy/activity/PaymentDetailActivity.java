@@ -42,13 +42,13 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
     private Context mContext;
     private Button btn_payment_submit;
     private ImageView img_back;
-    private Spinner sp_plan;
+    private Spinner sp_plan, sp_bank;
     private EditText et_receipt_type, et_receipt_date, et_payment_mode, et_inst_no, et_inst_date,
-            et_amount, et_micr_no, et_bank_name, et_remarks;
+            et_amount, et_micr_no, et_remarks;
     private APIProgressDialog mProgressDialog;
-    private String[] plan_id, plan_name, plan_amount;
+    private String[] plan_id, plan_name, plan_amount, bank_id, bank_name;
     private VolleyAPIClass volleyAPIClass;
-    private String stringPlanId = "0";
+    private String stringPlanId = "0", stringBankId = "0";
     private Calendar myCalendar;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -77,6 +77,8 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
 
         sp_plan = (Spinner) findViewById(R.id.sp_payment_plan);
         sp_plan.setOnItemSelectedListener(this);
+        sp_bank = (Spinner) findViewById(R.id.sp_payment_bank_name);
+        sp_bank.setOnItemSelectedListener(this);
         et_receipt_type = (EditText) findViewById(R.id.et_payment_receipt_type);
         et_receipt_date = (EditText) findViewById(R.id.et_payment_receipt_date);
         et_receipt_date.setOnClickListener(this);
@@ -86,12 +88,12 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
         et_inst_date.setOnClickListener(this);
         et_amount = (EditText) findViewById(R.id.et_payment_amount);
         et_micr_no = (EditText) findViewById(R.id.et_payment_micr_no);
-        et_bank_name = (EditText) findViewById(R.id.et_payment_bank_name);
         et_remarks = (EditText) findViewById(R.id.et_payment_remarks);
 
         img_back = (ImageView) findViewById(R.id.img_back);
         img_back.setOnClickListener(this);
         getPlanList();
+        getBankList();
     }
 
     @Override
@@ -156,6 +158,18 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
             Utility.toast("No Internet Connection", mContext);
     }
 
+    private void getBankList() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            volleyAPIClass.volleyGetJsonAPI(mContext, null,
+                    Constant.GET_BANK_NAME,
+                    Constant.URL_GET_BANK_NAME);
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
     private void savePaymentDetails() {
         if (Utility.isNetworkAvaliable(mContext)) {
             if (!mProgressDialog.isShowing())
@@ -165,7 +179,6 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
             params.put("user_id", Utility.getAppPrefString(mContext, Constant.USER_ID));
             params.put("center_code", Utility.getAppPrefString(mContext, "center_code"));
             params.put("application_no", getIntent().getStringExtra("app_no"));
-            params.put("app_id", "");
             params.put("corporate_id", "0");
             params.put("receipt_type", et_receipt_type.getText().toString());
             params.put("receipt_date", et_receipt_date.getText().toString());
@@ -174,7 +187,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
             params.put("inst_date", et_inst_date.getText().toString());
             params.put("amount", et_amount.getText().toString());
             params.put("micr_no", et_micr_no.getText().toString());
-            params.put("bank_id", et_bank_name.getText().toString());
+            params.put("bank_id", stringBankId);
             params.put("remarks", et_remarks.getText().toString());
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.REGISTRATION_PAYMENT,
                     Constant.URL_REGISTRATION_PAYMENT, params);
@@ -221,6 +234,25 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                     }
                     Utility.setSpinnerAdapter(mContext, sp_plan, plan_name);
                 }
+            } else if (reqCode == Constant.GET_BANK_NAME) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray = jObject.getJSONArray("bank_data");
+                    int lenth = jsonArray.length() + 1;
+                    bank_id = new String[lenth];
+                    bank_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            bank_id[0] = "0";
+                            bank_name[0] = "Select Bank Name";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            bank_id[a] = jsonObjectMessage.getString("bank_id");
+                            bank_name[a] = jsonObjectMessage.getString("bank_name");
+                        }
+                    }
+                    Utility.setSpinnerAdapter(mContext, sp_bank, bank_name);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -245,6 +277,11 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                 if (!plan_id[position].equalsIgnoreCase("0")) {
                     stringPlanId = plan_id[position];
                     et_amount.setText("\u20B9 " + plan_amount[position]);
+                }
+                break;
+            case R.id.sp_payment_bank_name:
+                if (!bank_id[position].equalsIgnoreCase("0")) {
+                    stringBankId = bank_id[position];
                 }
                 break;
             default:

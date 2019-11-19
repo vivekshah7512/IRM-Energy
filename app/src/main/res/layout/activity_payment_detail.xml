@@ -273,20 +273,28 @@
                         android:textSize="@dimen/_12sdp"
                         app:fontName="@string/font_regular" />
 
-                    <com.vbs.irmenergy.utilities.CustomEditText
-                        android:id="@+id/et_payment_bank_name"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/rounded_border_box1"
-                        android:gravity="center_vertical"
-                        android:hint="Enter bank name"
-                        android:padding="8dp"
-                        android:singleLine="true"
-                        android:textColor="@color/colorLightBlack1"
-                        android:textCursorDrawable="@drawable/color_cursor"
-                        android:textSize="@dimen/_11sdp"
-                        app:fontName="@string/font_light" />
+                        android:background="@drawable/rounded_border_box1">
+
+                        <Spinner
+                            android:id="@+id/sp_payment_bank_name"
+                            style="@style/spinner_style1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:paddingEnd="42dp"
+                            android:spinnerMode="dropdown" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="40dp"
+                            android:background="@color/colorLightViolet1" />
+
+                    </RelativeLayout>
 
                     <com.vbs.irmenergy.utilities.CustomTextview
                         android:layout_width="wrap_content"
