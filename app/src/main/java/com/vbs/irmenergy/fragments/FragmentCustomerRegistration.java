@@ -1045,7 +1045,6 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         e.printStackTrace();
                     }
                 }
-
                 break;
             case 102:
                 if (resultCode == RESULT_OK) {

@@ -19,26 +19,40 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 
 import com.kyanogen.signatureview.SignatureView;
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.adapter.ConnectionAdapter;
-import com.vbs.irmenergy.adapter.MaterialEstimationAdapter;
+import com.vbs.irmenergy.utilities.APIProgressDialog;
+import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.ExpandableHeightListView;
 import com.vbs.irmenergy.utilities.Utility;
+import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
+import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ExtraMaterialEstimationActivity extends Activity implements View.OnClickListener {
+public class ExtraMaterialEstimationActivity extends Activity implements View.OnClickListener,
+        VolleyResponseInterface, ConnectionAdapter.AddItem {
 
     private Context mContext;
-    private Button btn_comm_submit;
+    private Button btn_comm_submit, btn_material_calculate;
     private ExpandableHeightListView listView;
-    private ArrayList<String> arrayList;
     private LinearLayout ll_take_sign;
     private ImageView img_sign;
     private ImageView img_back;
+    private APIProgressDialog mProgressDialog;
+    private String woType = "8";
+    private JSONArray jsonArray1 = null, jsonArray2 = null;
+    private ArrayList<String> arrayList, arraylist_work_type, arraylist_material_id,
+            arraylist_material_qty, arraylist_connection_type, arraylist_noof_connection;
+    private ConnectionAdapter adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -57,22 +71,29 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
     private void initUI() {
         btn_comm_submit = (Button) findViewById(R.id.btn_material_submit);
         btn_comm_submit.setOnClickListener(this);
+        btn_material_calculate = (Button) findViewById(R.id.btn_material_calculate);
+        btn_material_calculate.setOnClickListener(this);
         ll_take_sign = (LinearLayout) findViewById(R.id.ll_take_sign);
         ll_take_sign.setOnClickListener(this);
         img_sign = (ImageView) findViewById(R.id.img_sign);
 
+        mProgressDialog = new APIProgressDialog(mContext, R.style.DialogStyle);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCancelable(false);
+
         arrayList = new ArrayList<>();
-        arrayList.add("GI Pipe");
-        arrayList.add("PEO inside");
-        arrayList.add("PEO outside");
-        arrayList.add("PEB inside");
-        arrayList.add("PEB outside");
+        arraylist_work_type = new ArrayList<>();
+        arraylist_material_id = new ArrayList<>();
+        arraylist_material_qty = new ArrayList<>();
+        arraylist_connection_type = new ArrayList<>();
+        arraylist_noof_connection = new ArrayList<>();
+
         listView = (ExpandableHeightListView) findViewById(R.id.list_material);
-        listView.setAdapter(new MaterialEstimationAdapter(mContext, arrayList));
-        listView.setExpanded(true);
 
         img_back = (ImageView) findViewById(R.id.img_back);
         img_back.setOnClickListener(this);
+
+        getWorkType();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -81,6 +102,8 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
         switch (view.getId()) {
             case R.id.img_back:
                 finish();
+                break;
+            case R.id.btn_material_calculate:
                 break;
             case R.id.btn_material_submit:
                 Dialog dialog1 = new Dialog(mContext);
@@ -160,6 +183,85 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                 break;
             default:
                 break;
+        }
+    }
+
+    private void getWorkType() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("WOtype", woType);
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_WORK_TYPE,
+                    Constant.URL_GET_WORK_TYPE, params);
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
+    private void getMaterial() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("WOtype", woType);
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_MATERIAL_DATA,
+                    Constant.URL_GET_MATERIAL_DATA, params);
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
+    @Override
+    public void add(int type, int pos) {
+        if (type == 0) {
+            // Add
+            arrayList.add("1");
+            adapter = new ConnectionAdapter(mContext, arrayList,
+                    jsonArray1, jsonArray2);
+            listView.setAdapter(adapter);
+            listView.setExpanded(true);
+        } else {
+            // Remove
+            arrayList.remove(0);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void vResponse(int reqCode, String result) {
+        String response, message;
+        try {
+            JSONObject jObject = new JSONObject(result);
+            if (reqCode == Constant.GET_WORK_TYPE) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray1 = jObject.getJSONArray("workorder_data");
+                }
+                getMaterial();
+            } else if (reqCode == Constant.GET_MATERIAL_DATA) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray2 = jObject.getJSONArray("material_data");
+                    arrayList.add("1");
+                    adapter = new ConnectionAdapter(mContext, arrayList,
+                            jsonArray1, jsonArray2);
+                    listView.setAdapter(adapter);
+                    listView.setExpanded(true);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void vErrorMsg(int reqCode, String error) {
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
         }
     }
 }

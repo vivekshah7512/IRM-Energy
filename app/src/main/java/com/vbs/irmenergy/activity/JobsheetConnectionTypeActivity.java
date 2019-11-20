@@ -41,7 +41,6 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     private Button btn_comm_submit;
     private ExpandableHeightListView listView;
     private ImageView img_back;
-    private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
     private String woType = "0";
     private JSONArray jsonArray1 = null, jsonArray2 = null;
@@ -66,7 +65,6 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         mProgressDialog = new APIProgressDialog(mContext, R.style.DialogStyle);
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(false);
-        volleyAPIClass = new VolleyAPIClass();
         arrayList = new ArrayList<>();
 
         btn_comm_submit = (Button) findViewById(R.id.btn_jobsheet_submit);

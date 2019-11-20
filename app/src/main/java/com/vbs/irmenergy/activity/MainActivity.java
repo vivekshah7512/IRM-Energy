@@ -39,6 +39,7 @@ import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.fragments.FragmentChangePassword;
+import com.vbs.irmenergy.fragments.FragmentCommissioning;
 import com.vbs.irmenergy.fragments.FragmentCustomerRegistration;
 import com.vbs.irmenergy.fragments.FragmentDashboard;
 import com.vbs.irmenergy.fragments.FragmentJobsheetSearch;
@@ -303,7 +304,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentTransaction.commit();
             }
         } else if (id == R.id.nav_commission) {
-            fr = new FragmentSearch();
+            fr = new FragmentCommissioning();
             Utility.writeSharedPreferences(mContext, "searchFlag", "commission");
             if (fr != null) {
                 fm = getSupportFragmentManager();

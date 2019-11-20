@@ -94,34 +94,27 @@
                             android:textSize="@dimen/_12sdp"
                             app:fontName="@string/font_regular" />
 
-                        <RelativeLayout
+                        <com.vbs.irmenergy.utilities.CustomEditText
+                            android:id="@+id/et_com_contractor_name"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rounded_border_box1">
-
-                            <Spinner
-                                android:id="@+id/sp_com_contractor"
-                                style="@style/spinner_style1"
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:paddingEnd="42dp"
-                                android:spinnerMode="dropdown" />
-
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="40dp"
-                                android:background="@color/colorLightViolet1" />
-
-                        </RelativeLayout>
+                            android:background="@drawable/rounded_border_box1"
+                            android:editable="false"
+                            android:gravity="center_vertical"
+                            android:padding="8dp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorGray"
+                            android:textCursorDrawable="@drawable/color_cursor"
+                            android:textSize="@dimen/_11sdp"
+                            app:fontName="@string/font_light" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="House Type"
+                            android:visibility="gone"
                             android:textColor="@color/colorLightBlack"
                             android:textSize="@dimen/_12sdp"
                             app:fontName="@string/font_regular" />
@@ -129,6 +122,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
+                            android:visibility="gone"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rounded_border_box1">
 
@@ -227,6 +221,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Latitude"
+                            android:visibility="gone"
                             android:textColor="@color/colorLightBlack"
                             android:textSize="@dimen/_12sdp"
                             app:fontName="@string/font_regular" />
@@ -236,6 +231,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
+                            android:visibility="gone"
                             android:background="@drawable/rounded_border_box1"
                             android:editable="false"
                             android:gravity="center_vertical"
@@ -252,6 +248,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Longitude"
+                            android:visibility="gone"
                             android:textColor="@color/colorLightBlack"
                             android:textSize="@dimen/_12sdp"
                             app:fontName="@string/font_regular" />
@@ -266,6 +263,7 @@
                             android:gravity="center_vertical"
                             android:hint="Enter longitude"
                             android:padding="8dp"
+                            android:visibility="gone"
                             android:singleLine="true"
                             android:textColor="@color/colorGray"
                             android:textCursorDrawable="@drawable/color_cursor"
@@ -309,6 +307,7 @@
                 card_view:cardBackgroundColor="@color/colorWhite"
                 card_view:cardCornerRadius="4dp"
                 card_view:cardElevation="3dp"
+                android:visibility="gone"
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -394,6 +393,7 @@
                 android:layout_height="wrap_content"
                 card_view:cardBackgroundColor="@color/colorWhite"
                 card_view:cardCornerRadius="4dp"
+                android:visibility="gone"
                 card_view:cardElevation="3dp"
                 card_view:cardUseCompatPadding="true">
 

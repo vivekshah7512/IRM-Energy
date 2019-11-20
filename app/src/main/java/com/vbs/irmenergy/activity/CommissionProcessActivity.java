@@ -21,13 +21,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +49,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class CommissionProcessActivity extends Activity implements View.OnClickListener,
-        AdapterView.OnItemSelectedListener, VolleyResponseInterface {
+        VolleyResponseInterface {
 
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -63,8 +61,7 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
     private TextView tv_img_title;
     private ImageView img_back;
     private EditText et_app_no, et_com_date, et_meter_no, et_initial_meter_reading, et_latitude,
-            et_longitude, et_remarks;
-    private Spinner sp_contractor, sp_house_type;
+            et_longitude, et_remarks, et_com_contractor_name;
     private APIProgressDialog mProgressDialog;
     private String[] contractor_id, contractor_name, house_id, house_type;
     private String stringContractorId = "0", stringHouseId = "0";
@@ -106,28 +103,26 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
 
         et_app_no = (EditText) findViewById(R.id.et_com_app_no);
         et_app_no.setText(getIntent().getStringExtra("app_no"));
+        et_com_contractor_name = (EditText) findViewById(R.id.et_com_contractor_name);
+        et_com_contractor_name.setText(getIntent().getStringExtra("contractor_name"));
         et_com_date = (EditText) findViewById(R.id.et_com_date);
         et_com_date.setOnClickListener(this);
         et_meter_no = (EditText) findViewById(R.id.et_com_meter_no);
         et_initial_meter_reading = (EditText) findViewById(R.id.et_com_initial_meter_reading);
-        et_latitude = (EditText) findViewById(R.id.et_com_latitude);
-        et_latitude.setText(Utility.getAppPrefString(mContext,"latitude"));
-        et_longitude = (EditText) findViewById(R.id.et_com_longitude);
-        et_longitude.setText(Utility.getAppPrefString(mContext,"longitude"));
+//        et_latitude = (EditText) findViewById(R.id.et_com_latitude);
+//        et_latitude.setText(Utility.getAppPrefString(mContext,"latitude"));
+//        et_longitude = (EditText) findViewById(R.id.et_com_longitude);
+//        et_longitude.setText(Utility.getAppPrefString(mContext,"longitude"));
         et_remarks = (EditText) findViewById(R.id.et_com_remarks);
-        sp_contractor = (Spinner) findViewById(R.id.sp_com_contractor);
-        sp_contractor.setOnItemSelectedListener(this);
-        sp_house_type = (Spinner) findViewById(R.id.sp_com_house_type);
-        sp_house_type.setOnItemSelectedListener(this);
-
-        getContractorName();
-        getHouseType();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_comm_submit:
+                saveCommissionData();
+                break;
             case R.id.et_com_date:
                 DatePickerDialog dialog_date = new DatePickerDialog(mContext, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
                         new DatePickerDialog.OnDateSetListener() {
@@ -210,13 +205,35 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
         }
     }
 
+    private void saveCommissionData() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("user_id", Utility.getAppPrefString(mContext, Constant.USER_ID));
+            params.put("application_no", et_app_no.getText().toString());
+            params.put("app_id", getIntent().getStringExtra("app_id"));
+            params.put("customer_id", getIntent().getStringExtra("customer_id"));
+            params.put("contractor_id", getIntent().getStringExtra("contractor_id"));
+            params.put("commission_date", et_com_date.getText().toString());
+            params.put("meter_sr_no", et_meter_no.getText().toString());
+            params.put("meter_reading", et_initial_meter_reading.getText().toString());
+            params.put("remarks", et_remarks.getText().toString());
+            params.put("center_code", Utility.getAppPrefString(mContext, "center_code"));
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.SAVE_COMMISSION,
+                    Constant.URL_SAVE_COMMISSION, params);
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
     private void getContractorName() {
         if (Utility.isNetworkAvaliable(mContext)) {
             if (!mProgressDialog.isShowing())
                 mProgressDialog.show();
 
             Map<String, String> params = new HashMap<>();
-            params.put("center_code", Utility.getAppPrefString(mContext,"center_code"));
+            params.put("center_code", Utility.getAppPrefString(mContext, "center_code"));
             params.put("WO_type", "");
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_CONTRACTOR,
                     Constant.URL_GET_CONTRACTOR, params);
@@ -260,71 +277,45 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-        String selectedText = adapterView.getItemAtPosition(position).toString();
-        switch (adapterView.getId()) {
-            case R.id.sp_com_contractor:
-                if (!contractor_id[position].equalsIgnoreCase("0")) {
-                    stringContractorId = contractor_id[position];
-                }
-                break;
-            case R.id.sp_com_house_type:
-                if (!house_id[position].equalsIgnoreCase("0")) {
-                    stringHouseId = house_id[position];
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    @Override
     public void vResponse(int reqCode, String result) {
         String response, message;
-        JSONObject jsonObjectMessage;
-        JSONArray jsonArray;
         try {
             JSONObject jObject = new JSONObject(result);
-            if (reqCode == Constant.GET_CONTRACTOR) {
+            if (reqCode == Constant.SAVE_COMMISSION) {
                 response = jObject.getString("response");
+                message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
-                    jsonArray = jObject.getJSONArray("contractor_data");
-                    int lenth = jsonArray.length() + 1;
-                    contractor_id = new String[lenth];
-                    contractor_name = new String[lenth];
-                    for (int a = 0; a < lenth; a++) {
-                        if (a == 0) {
-                            contractor_id[0] = "0";
-                            contractor_name[0] = "Select Contractor";
-                        } else {
-                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
-                            contractor_id[a] = jsonObjectMessage.getString("contractor_id");
-                            contractor_name[a] = jsonObjectMessage.getString("contractor_name");
+                    Dialog dialog1 = new Dialog(mContext);
+                    dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog1.setContentView(R.layout.dialog_sucess);
+                    dialog1.setCanceledOnTouchOutside(false);
+                    dialog1.setCancelable(false);
+
+                    Button btn_dashboard = (Button) dialog1.findViewById(R.id.btn_dashboard);
+                    TextView tv_success_msg = (TextView) dialog1.findViewById(R.id.tv_success_msg);
+                    tv_success_msg.setText("Commission Data Saved Successfully");
+
+                    btn_dashboard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            finish();
+                            Intent i = new Intent(mContext, MainActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
                         }
-                    }
-                    Utility.setSpinnerAdapter(mContext, sp_contractor, contractor_name);
-                }
-            } else if (reqCode == Constant.GET_HOUSE_TYPE) {
-                response = jObject.getString("response");
-                if (response.equalsIgnoreCase("true")) {
-                    jsonArray = jObject.getJSONArray("house_data");
-                    int lenth = jsonArray.length() + 1;
-                    house_id = new String[lenth];
-                    house_type = new String[lenth];
-                    for (int a = 0; a < lenth; a++) {
-                        if (a == 0) {
-                            house_id[0] = "0";
-                            house_type[0] = "Select House Type";
-                        } else {
-                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
-                            house_id[a] = jsonObjectMessage.getString("house_id");
-                            house_type[a] = jsonObjectMessage.getString("house_type");
-                        }
-                    }
-                    Utility.setSpinnerAdapter(mContext, sp_house_type, house_type);
+                    });
+
+                    Window window1 = dialog1.getWindow();
+                    WindowManager.LayoutParams wlp1 = window1.getAttributes();
+                    wlp1.width = ActionBar.LayoutParams.MATCH_PARENT;
+                    wlp1.height = ActionBar.LayoutParams.MATCH_PARENT;
+                    window1.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    window1.setAttributes(wlp1);
+                    dialog1.show();
+                } else {
+                    Utility.toast(message, mContext);
                 }
             }
         } catch (JSONException e) {

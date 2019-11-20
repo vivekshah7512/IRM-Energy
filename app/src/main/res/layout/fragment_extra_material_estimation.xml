@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorWhite"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_search"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/rounded_border_box1">
+
+        <com.vbs.irmenergy.utilities.CustomEditText
+            android:id="@+id/et_app_no"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/btn_search"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="Search Application No."
+            android:inputType="textCapCharacters"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorLightBlack1"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="@dimen/_12sdp"
+            app:fontName="@string/font_regular" />
+
+        <RelativeLayout
+            android:id="@+id/btn_search"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/rounded_box1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="11dp"
+                android:src="@drawable/search_small" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_estimation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_3sdp"/>
+
+</LinearLayout>
+
