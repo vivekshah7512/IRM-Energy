@@ -13,18 +13,19 @@ import android.widget.TextView;
 
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.activity.CommissionProcessActivity;
-import com.vbs.irmenergy.activity.JobsheetDetailsActivity;
 
 public class CommissioningAdapter extends Adapter<CommissioningAdapter.MyViewHolder> {
 
     Context context;
     private LayoutInflater inflater = null;
     private String[] plan_name, application_no, app_id, app_name, app_address,
-            app_area, workorder_no, workorder_contractor_name;
+            app_area, workorder_no, workorder_contractor_name, contractor_id, meter_no;
 
     public CommissioningAdapter(Context context, String[] plan_name, String[] application_no,
                                 String[] app_id, String[] app_name, String[] app_address,
-                                String[] app_area, String[] workorder_no, String[] workorder_contractor_name) {
+                                String[] app_area, String[] workorder_no,
+                                String[] workorder_contractor_name, String[] contractor_id,
+                                String[] meter_no) {
         this.context = context;
         this.plan_name = plan_name;
         this.application_no = application_no;
@@ -34,6 +35,8 @@ public class CommissioningAdapter extends Adapter<CommissioningAdapter.MyViewHol
         this.app_area = app_area;
         this.workorder_no = workorder_no;
         this.workorder_contractor_name = workorder_contractor_name;
+        this.contractor_id = contractor_id;
+        this.meter_no = meter_no;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -59,8 +62,9 @@ public class CommissioningAdapter extends Adapter<CommissioningAdapter.MyViewHol
                 intent.putExtra("app_no", application_no[position]);
                 intent.putExtra("app_id", app_id[position]);
                 intent.putExtra("customer_id", app_id[position]);
-                intent.putExtra("contractor_id", app_id[position]);
+                intent.putExtra("contractor_id", contractor_id[position]);
                 intent.putExtra("contractor_name", workorder_contractor_name[position]);
+                intent.putExtra("meter_no", meter_no[position]);
                 context.startActivity(intent);
             }
         });

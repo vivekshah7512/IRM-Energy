@@ -42,7 +42,7 @@ public class FragmentCommissioning extends Fragment implements OnClickListener,
     private LinearLayoutManager lLayout;
     private EditText et_app_no;
     private String[] plan_name, application_no, app_id, app_name, app_address,
-            app_area, workorder_no, workorder_contractor_name;
+            app_area, workorder_no, workorder_contractor_name, contractor_id, meter_no;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_commissioning, container, false);
@@ -125,6 +125,8 @@ public class FragmentCommissioning extends Fragment implements OnClickListener,
                     workorder_no = new String[lenth];
                     workorder_contractor_name = new String[lenth];
                     plan_name = new String[lenth];
+                    contractor_id = new String[lenth];
+                    meter_no = new String[lenth];
                     for (int j = 0; j < lenth; j++) {
                         jsonObjectMessage = jsonArray.getJSONObject(j);
                         app_id[j] = jsonObjectMessage.getString("app_id");
@@ -135,11 +137,13 @@ public class FragmentCommissioning extends Fragment implements OnClickListener,
                         workorder_no[j] = jsonObjectMessage.getString("workorder_no");
                         workorder_contractor_name[j] = jsonObjectMessage.getString("workorder_contractor_name");
                         plan_name[j] = jsonObjectMessage.getString("plan_name");
+                        contractor_id[j] = jsonObjectMessage.getString("contractor_id");
+                        meter_no[j] = jsonObjectMessage.getString("meter_no");
                     }
                     InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(et_app_no.getWindowToken(), 0);
                     recyclerView.setAdapter(new CommissioningAdapter(getActivity(), plan_name, application_no, app_id, app_name, app_address,
-                            app_area, workorder_no, workorder_contractor_name));
+                            app_area, workorder_no, workorder_contractor_name, contractor_id, meter_no));
                 } else {
                     Utility.toast(message, getActivity());
                 }

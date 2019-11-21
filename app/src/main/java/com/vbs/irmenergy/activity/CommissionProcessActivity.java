@@ -108,6 +108,7 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
         et_com_date = (EditText) findViewById(R.id.et_com_date);
         et_com_date.setOnClickListener(this);
         et_meter_no = (EditText) findViewById(R.id.et_com_meter_no);
+        et_meter_no.setText(getIntent().getStringExtra("meter_no"));
         et_initial_meter_reading = (EditText) findViewById(R.id.et_com_initial_meter_reading);
 //        et_latitude = (EditText) findViewById(R.id.et_com_latitude);
 //        et_latitude.setText(Utility.getAppPrefString(mContext,"latitude"));
@@ -132,7 +133,7 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
                                 myCalendar.set(Calendar.YEAR, year);
                                 myCalendar.set(Calendar.MONTH, monthOfYear);
                                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                String myFormat = "dd-MM-yyyy";
+                                String myFormat = "dd-MMM-yyyy";
                                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                                 et_com_date.setText(sdf.format(myCalendar.getTime()));
                             }
@@ -214,7 +215,7 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
             params.put("user_id", Utility.getAppPrefString(mContext, Constant.USER_ID));
             params.put("application_no", et_app_no.getText().toString());
             params.put("app_id", getIntent().getStringExtra("app_id"));
-            params.put("customer_id", getIntent().getStringExtra("customer_id"));
+            params.put("customer_id", "");
             params.put("contractor_id", getIntent().getStringExtra("contractor_id"));
             params.put("commission_date", et_com_date.getText().toString());
             params.put("meter_sr_no", et_meter_no.getText().toString());
