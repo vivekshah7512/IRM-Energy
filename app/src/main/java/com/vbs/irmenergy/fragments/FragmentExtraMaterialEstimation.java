@@ -59,7 +59,7 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
 
         volleyAPIClass = new VolleyAPIClass();
 
-        Utility.setTitle(getActivity(), "Commissioning");
+        Utility.setTitle(getActivity(), "Extra Material Estimation");
 
         lLayout = new LinearLayoutManager(getActivity(), 1, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_estimation);
@@ -81,7 +81,7 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
                 if (et_app_no.getText().toString().equalsIgnoreCase("")) {
                     Utility.toast("Please enter application no", getActivity());
                 } else {
-                    searchApplicationNo1();
+                    searchApplicationNo();
                 }
                 break;
             default:
@@ -89,7 +89,7 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
         }
     }
 
-    private void searchApplicationNo1() {
+    private void searchApplicationNo() {
         if (Utility.isNetworkAvaliable(getActivity())) {
             if (!mProgressDialog.isShowing())
                 mProgressDialog.show();

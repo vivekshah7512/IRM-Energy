@@ -32,69 +32,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.35"
                     android:gravity="right"
-                    android:text="Request No. :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_application_no"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Customer Id :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_cust_id"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
                     android:text="Application No :"
                     android:textColor="@color/colorLightBlack"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_cust_type"
+                    android:id="@+id/tv_est_app_no"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -116,13 +60,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.35"
                     android:gravity="right"
-                    android:text="Applicant Name :"
+                    android:text="Request No :"
                     android:textColor="@color/colorLightBlack"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_name"
+                    android:id="@+id/tv_est_req_no"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -150,7 +94,7 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_date"
+                    android:id="@+id/tv_est_req_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -178,7 +122,7 @@
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_plan"
+                    android:id="@+id/tv_est_plan_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -200,70 +144,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.35"
                     android:gravity="right"
-                    android:text="Applicant Name :"
+                    android:text="Type :"
                     android:textColor="@color/colorLightBlack"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_regular" />
 
                 <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Applicant Address :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:gravity="top"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Area :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_comm_area"
+                    android:id="@+id/tv_est_conn_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -274,7 +161,7 @@
             </LinearLayout>
 
             <com.vbs.irmenergy.utilities.CustomButton
-                android:id="@+id/btn_comm_verify"
+                android:id="@+id/btn_est_verify"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="35dp"
                 android:layout_gravity="end"

@@ -42,6 +42,7 @@ import com.vbs.irmenergy.fragments.FragmentChangePassword;
 import com.vbs.irmenergy.fragments.FragmentCommissioning;
 import com.vbs.irmenergy.fragments.FragmentCustomerRegistration;
 import com.vbs.irmenergy.fragments.FragmentDashboard;
+import com.vbs.irmenergy.fragments.FragmentExtraMaterialEstimation;
 import com.vbs.irmenergy.fragments.FragmentJobsheetSearch;
 import com.vbs.irmenergy.fragments.FragmentProfile;
 import com.vbs.irmenergy.fragments.FragmentSearch;
@@ -282,7 +283,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentTransaction.commit();
             }
         } else if (id == R.id.nav_estimation) {
-            fr = new FragmentSearch();
+            fr = new FragmentExtraMaterialEstimation();
             Utility.writeSharedPreferences(mContext, "searchFlag", "estimation");
             if (fr != null) {
                 fm = getSupportFragmentManager();

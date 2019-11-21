@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.vbs.irmenergy.R;
-import com.vbs.irmenergy.activity.CommissionProcessActivity;
+import com.vbs.irmenergy.activity.ExtraMaterialEstimationActivity;
 
 public class EstimationAdapter extends Adapter<EstimationAdapter.MyViewHolder> {
 
@@ -46,23 +46,20 @@ public class EstimationAdapter extends Adapter<EstimationAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder myViewHolder, final int position) {
         MyViewHolder holder = myViewHolder;
 
-//        holder.tv_app_no.setText(application_no[position]);
-//        holder.tv_cust_id.setText(workorder_no[position]);
-//        holder.tv_cust_type.setText(app_id[position]);
-//        holder.tv_date.setText(app_id[position]);
-//        holder.tv_name.setText(app_name[position]);
-//        holder.tv_plan.setText(plan_name[position]);
-//        holder.tv_address.setText(app_address[position]);
-//        holder.tv_area.setText(app_area[position]);
-//
-//        holder.btn_verify.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, CommissionProcessActivity.class);
-//                intent.putExtra("app_no", application_no[position]);
-//                context.startActivity(intent);
-//            }
-//        });
+        holder.tv_app_no.setText(estapplication_no[position]);
+        holder.tv_ref_no.setText(estworkorder_refno[position]);
+        holder.tv_ref_date.setText(estworkorder_date[position]);
+        holder.tv_plan.setText(estplan_name[position]);
+        holder.tv_type.setText(estworkorder_type_name[position]);
+
+        holder.btn_verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ExtraMaterialEstimationActivity.class);
+                intent.putExtra("app_no", estapplication_no[position]);
+                context.startActivity(intent);
+            }
+        });
     }
 
     public int getItemCount() {
@@ -70,22 +67,18 @@ public class EstimationAdapter extends Adapter<EstimationAdapter.MyViewHolder> {
     }
 
     public class MyViewHolder extends ViewHolder {
-        TextView tv_app_no, tv_cust_id, tv_cust_type, tv_date, tv_name, tv_plan,
-                tv_address, tv_area;
+        TextView tv_app_no, tv_ref_no, tv_ref_date, tv_plan, tv_type;
         Button btn_verify;
 
         public MyViewHolder(View view) {
             super(view);
 
-            tv_app_no = (TextView) view.findViewById(R.id.tv_comm_application_no);
-            tv_cust_id = (TextView) view.findViewById(R.id.tv_comm_cust_id);
-            tv_cust_type = (TextView) view.findViewById(R.id.tv_comm_cust_type);
-            tv_date = (TextView) view.findViewById(R.id.tv_comm_date);
-            tv_name = (TextView) view.findViewById(R.id.tv_comm_name);
-            tv_plan = (TextView) view.findViewById(R.id.tv_comm_plan);
-            tv_address = (TextView) view.findViewById(R.id.tv_comm_address);
-            tv_area = (TextView) view.findViewById(R.id.tv_comm_area);
-            btn_verify = (Button) view.findViewById(R.id.btn_comm_verify);
+            tv_app_no = (TextView) view.findViewById(R.id.tv_est_app_no);
+            tv_ref_no = (TextView) view.findViewById(R.id.tv_est_req_no);
+            tv_ref_date = (TextView) view.findViewById(R.id.tv_est_req_date);
+            tv_plan = (TextView) view.findViewById(R.id.tv_est_plan_name);
+            tv_type = (TextView) view.findViewById(R.id.tv_est_conn_type);
+            btn_verify = (Button) view.findViewById(R.id.btn_est_verify);
         }
     }
 }
