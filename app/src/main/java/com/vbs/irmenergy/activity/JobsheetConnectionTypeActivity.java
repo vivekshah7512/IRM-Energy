@@ -10,19 +10,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.adapter.ConnectionAdapter;
 import com.vbs.irmenergy.utilities.APIProgressDialog;
 import com.vbs.irmenergy.utilities.Constant;
-import com.vbs.irmenergy.utilities.ExpandableHeightListView;
 import com.vbs.irmenergy.utilities.Utility;
-import com.vbs.irmenergy.utilities.volley.VolleyAPIClass;
 import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
 import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
@@ -38,14 +42,17 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         VolleyResponseInterface, ConnectionAdapter.AddItem {
 
     private Context mContext;
-    private Button btn_comm_submit;
-    private ExpandableHeightListView listView;
+    private Button btn_comm_submit, btn_jobsheet_add_more;
+    //    private ExpandableHeightListView listView;
     private ImageView img_back;
     private APIProgressDialog mProgressDialog;
-    private String woType = "0";
+    private String woType = "0", application_no, workorderid, contractor_id, house_type,
+            installation_date, meter_sr_no, latitude, longitude, remarks, meter_photo;
     private JSONArray jsonArray1 = null, jsonArray2 = null;
     private ArrayList<String> arrayList;
     private ConnectionAdapter adapter;
+    private LinearLayout ll_jobsheet_list;
+    private String[] workorder_id, workorder_name, material_id, material_name, material_amount;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -67,12 +74,30 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         mProgressDialog.setCancelable(false);
         arrayList = new ArrayList<>();
 
+        ll_jobsheet_list = (LinearLayout) findViewById(R.id.ll_jobsheet_list);
         btn_comm_submit = (Button) findViewById(R.id.btn_jobsheet_submit);
         btn_comm_submit.setOnClickListener(this);
-        listView = (ExpandableHeightListView) findViewById(R.id.list_connection);
+        btn_jobsheet_add_more = (Button) findViewById(R.id.btn_jobsheet_add_more);
+        btn_jobsheet_add_more.setOnClickListener(this);
+//        listView = (ExpandableHeightListView) findViewById(R.id.list_connection);
         img_back = (ImageView) findViewById(R.id.img_back);
         img_back.setOnClickListener(this);
         woType = getIntent().getStringExtra("woType");
+
+        try {
+            application_no = getIntent().getStringExtra("application_no");
+            workorderid = getIntent().getStringExtra("workorder_id");
+            contractor_id = getIntent().getStringExtra("contractor_id");
+            house_type = getIntent().getStringExtra("house_type");
+            installation_date = getIntent().getStringExtra("installation_date");
+            meter_sr_no = getIntent().getStringExtra("meter_sr_no");
+            latitude = getIntent().getStringExtra("latitude");
+            longitude = getIntent().getStringExtra("longitude");
+            remarks = getIntent().getStringExtra("remarks");
+            meter_photo = getIntent().getStringExtra("meter_photo");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         getWorkType();
     }
@@ -84,33 +109,27 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
             case R.id.img_back:
                 finish();
                 break;
+            case R.id.btn_jobsheet_add_more:
+                addMore();
+                break;
             case R.id.btn_jobsheet_submit:
-                Dialog dialog = new Dialog(mContext);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.setContentView(R.layout.dialog_sucess);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setCancelable(false);
+                int size = ll_jobsheet_list.getChildCount();
+                View v = null;
+                for (int i = 0; i < size; i++) {
+                    v = ll_jobsheet_list.getChildAt(i);
+//                    Spinner sp_connection_type = (Spinner)((LinearLayout)v).getChildAt(0);
+//                    Spinner sp_work_type = (Spinner)((LinearLayout)v).getChildAt(0);
+//
+//
+//                    Spinner sp_work_type = (Spinner) view.findViewById(R.id.sp_work_type);
+//                    Spinner sp_connection_type = (Spinner) view.findViewById(R.id.sp_conn_type);
+//                    Spinner sp_material_name = (Spinner) view.findViewById(R.id.sp_material_name);
+//                    ImageView img_remove = (ImageView) view.findViewById(R.id.img_remove);
+//                    EditText et_qty = (EditText) view.findViewById(R.id.et_qty_used);
+//                    EditText et_no_conn = (EditText) view.findViewById(R.id.et_no_of_conn);
 
-                Button btn_dashboard = (Button) dialog.findViewById(R.id.btn_dashboard);
-                btn_dashboard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                        Intent i = new Intent(mContext, MainActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                    }
-                });
-
-                Window window = dialog.getWindow();
-                WindowManager.LayoutParams wlp = window.getAttributes();
-                wlp.width = ActionBar.LayoutParams.MATCH_PARENT;
-                wlp.height = ActionBar.LayoutParams.MATCH_PARENT;
-                window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                window.setAttributes(wlp);
-                dialog.show();
+                }
+//                saveJobsheetData();
                 break;
             default:
                 break;
@@ -143,6 +162,43 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
             Utility.toast("No Internet Connection", mContext);
     }
 
+    private void saveJobsheetData() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            JSONObject obj = null;
+            JSONArray jsonArray = new JSONArray();
+                /*for (int i = 0; i < listDocumentID.size(); i++) {
+                    obj = new JSONObject();
+                    obj.put("work_type", listDocumentID.get(i));
+                    obj.put("material_id", listDocRequType.get(i));
+                    obj.put("material_qty", listDocumentName.get(i));
+                    obj.put("connection_type", listDocumentDesc.get(i));
+                    obj.put("noof_connection", listDocumentDesc.get(i));
+                    jsonArray.put(obj);
+                }*/
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("user_id", Utility.getAppPrefString(mContext, Constant.USER_ID));
+            params.put("application_no", application_no);
+            params.put("workorder_id", workorderid);
+            params.put("contractor_id", contractor_id);
+            params.put("house_type", house_type);
+            params.put("installation_date", installation_date);
+            params.put("meter_sr_no", meter_sr_no);
+            params.put("latitude", latitude);
+            params.put("longitude", longitude);
+            params.put("remarks", remarks);
+            params.put("meter_photo", meter_photo);
+            params.put("material_data", jsonArray);
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI1(mContext, Constant.SAVE_JOBSHEET_DATA,
+                    Constant.URL_SAVE_JOBSHEET_DATA, params);
+
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
     @Override
     public void vResponse(int reqCode, String result) {
         String response, message;
@@ -159,10 +215,47 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray2 = jObject.getJSONArray("material_data");
                     arrayList.add("1");
-                    adapter = new ConnectionAdapter(mContext, arrayList,
-                            jsonArray1, jsonArray2);
-                    listView.setAdapter(adapter);
-                    listView.setExpanded(true);
+                    addMore();
+//                    adapter = new ConnectionAdapter(mContext, arrayList,
+//                            jsonArray1, jsonArray2);
+//                    listView.setAdapter(adapter);
+//                    listView.setExpanded(true);
+                }
+            } else if (reqCode == Constant.SAVE_JOBSHEET_DATA) {
+                response = jObject.getString("response");
+                message = jObject.getString("message");
+                if (response.equalsIgnoreCase("true")) {
+                    Dialog dialog1 = new Dialog(mContext);
+                    dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog1.setContentView(R.layout.dialog_sucess);
+                    dialog1.setCanceledOnTouchOutside(false);
+                    dialog1.setCancelable(false);
+
+                    Button btn_dashboard = (Button) dialog1.findViewById(R.id.btn_dashboard);
+                    TextView tv_success_msg = (TextView) dialog1.findViewById(R.id.tv_success_msg);
+                    tv_success_msg.setText("Jobsheet Data Saved Successfully");
+
+                    btn_dashboard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            finish();
+                            Intent i = new Intent(mContext, MainActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+                        }
+                    });
+
+                    Window window1 = dialog1.getWindow();
+                    WindowManager.LayoutParams wlp1 = window1.getAttributes();
+                    wlp1.width = ActionBar.LayoutParams.MATCH_PARENT;
+                    wlp1.height = ActionBar.LayoutParams.MATCH_PARENT;
+                    window1.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    window1.setAttributes(wlp1);
+                    dialog1.show();
+                } else {
+                    Utility.toast(message, mContext);
                 }
             }
         } catch (JSONException e) {
@@ -185,14 +278,75 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         if (type == 0) {
             // Add
             arrayList.add("1");
-            adapter = new ConnectionAdapter(mContext, arrayList,
-                    jsonArray1, jsonArray2);
-            listView.setAdapter(adapter);
-            listView.setExpanded(true);
+//            adapter = new ConnectionAdapter(mContext, arrayList,
+//                    jsonArray1, jsonArray2);
+//            listView.setAdapter(adapter);
+//            listView.setExpanded(true);
         } else {
             // Remove
             arrayList.remove(0);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void addMore() {
+        View view = LayoutInflater.from(this).inflate(R.layout.custom_connection_list_item, null);
+        Spinner sp_work_type = (Spinner) view.findViewById(R.id.sp_work_type);
+        Spinner sp_connection_type = (Spinner) view.findViewById(R.id.sp_conn_type);
+        Spinner sp_material_name = (Spinner) view.findViewById(R.id.sp_material_name);
+        ImageView img_remove = (ImageView) view.findViewById(R.id.img_remove);
+        EditText et_qty = (EditText) view.findViewById(R.id.et_qty_used);
+        EditText et_no_conn = (EditText) view.findViewById(R.id.et_no_of_conn);
+
+        img_remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ll_jobsheet_list.getChildCount() != 1)
+                    ll_jobsheet_list.removeViewAt(0);
+            }
+        });
+
+        Utility.setSpinnerAdapter1(mContext, sp_connection_type, new String[]
+                {"Select", "Geyser Point", "Kitchen Point"});
+
+        try {
+            JSONObject jsonObjectMessage;
+            int lenth = jsonArray1.length() + 1;
+            workorder_id = new String[lenth];
+            workorder_name = new String[lenth];
+            for (int a = 0; a < lenth; a++) {
+                if (a == 0) {
+                    workorder_id[0] = "0";
+                    workorder_name[0] = "Select Work Type";
+                } else {
+                    jsonObjectMessage = jsonArray1.getJSONObject(a - 1);
+                    workorder_id[a] = jsonObjectMessage.getString("workorder_id");
+                    workorder_name[a] = jsonObjectMessage.getString("workorder_name");
+                }
+            }
+            Utility.setSpinnerAdapter1(mContext, sp_work_type, workorder_name);
+
+            int lenth2 = jsonArray2.length() + 1;
+            material_id = new String[lenth2];
+            material_name = new String[lenth2];
+            material_amount = new String[lenth2];
+            for (int a = 0; a < lenth2; a++) {
+                if (a == 0) {
+                    material_id[0] = "0";
+                    material_name[0] = "Select Material Name";
+                    material_amount[0] = "0";
+                } else {
+                    jsonObjectMessage = jsonArray2.getJSONObject(a - 1);
+                    material_id[a] = jsonObjectMessage.getString("material_id");
+                    material_name[a] = jsonObjectMessage.getString("material_name");
+                    material_amount[a] = jsonObjectMessage.getString("material_amount");
+                }
+            }
+            Utility.setSpinnerAdapter1(mContext, sp_material_name, material_name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ll_jobsheet_list.addView(view);
     }
 }

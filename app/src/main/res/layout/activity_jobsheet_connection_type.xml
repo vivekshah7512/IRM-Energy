@@ -46,10 +46,10 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 card_view:cardBackgroundColor="@color/colorWhite"
                 card_view:cardCornerRadius="4dp"
                 card_view:cardElevation="3dp"
-                android:visibility="gone"
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -115,36 +115,59 @@
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
+                    android:id="@+id/ll_jobsheet_list"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.vbs.irmenergy.utilities.ExpandableHeightListView
+                    <!--<com.vbs.irmenergy.utilities.ExpandableHeightListView
                         android:id="@+id/list_connection"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:dividerHeight="1dp"
-                        android:divider="@color/colorGray"
                         android:background="@color/colorWhite"
-                        android:scrollbars="none" />
+                        android:divider="@color/colorGray"
+                        android:dividerHeight="1dp"
+                        android:scrollbars="none"
+                        android:visibility="gone" />-->
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
-            <com.vbs.irmenergy.utilities.CustomButton
-                android:id="@+id/btn_jobsheet_submit"
-                android:layout_width="@dimen/_110sdp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="45dp"
+                android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:background="@drawable/rounded_rectangle_button1"
-                android:text="Submit"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_14sdp"
-                app:fontName="@string/font_semibold" />
+                android:layout_marginBottom="@dimen/_8sdp">
+
+                <com.vbs.irmenergy.utilities.CustomButton
+                    android:id="@+id/btn_jobsheet_submit"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_rectangle_button1"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_14sdp"
+                    app:fontName="@string/font_semibold" />
+
+                <com.vbs.irmenergy.utilities.CustomButton
+                    android:id="@+id/btn_jobsheet_add_more"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_rectangle_button1"
+                    android:text="Add More"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_14sdp"
+                    app:fontName="@string/font_semibold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -53,7 +53,7 @@ public class JobsheetAdapter extends Adapter<JobsheetAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder myViewHolder, final int position) {
         MyViewHolder holder = myViewHolder;
 
-        holder.tv_app_no.setText(app_id[position]);
+        holder.tv_app_no.setText(application_no[position]);
         holder.tv_wo_no.setText(workorder_refno[position]);
         holder.tv_wo_date.setText(workorder_date[position]);
         holder.tv_wo_type.setText(workorder_type[position]);
@@ -68,6 +68,7 @@ public class JobsheetAdapter extends Adapter<JobsheetAdapter.MyViewHolder> {
                 Intent intent = new Intent(context, JobsheetDetailsActivity.class);
                 intent.putExtra("woType", workorder_type_id[position]);
                 intent.putExtra("app_no", application_no[position]);
+                intent.putExtra("workorder_id", workorder_id[position]);
                 context.startActivity(intent);
             }
         });

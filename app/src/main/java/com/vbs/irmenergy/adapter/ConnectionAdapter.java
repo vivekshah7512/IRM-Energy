@@ -38,12 +38,6 @@ public class ConnectionAdapter extends BaseAdapter {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    /*public ConnectionAdapter(Context context, String[] id) {
-        this.context = context;
-        this.id = id;
-        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }*/
-
     public int getCount() {
         return id.size();
     }

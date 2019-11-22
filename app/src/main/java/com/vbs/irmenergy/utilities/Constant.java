@@ -40,6 +40,7 @@ public class Constant {
     public static String URL_GET_COMMISSION_LIST = URL_PARENT + "getCommisioningList";
     public static String URL_GET_ESTIMATE_LIST = URL_PARENT + "getEstimationPendingWorkOrderList";
     public static String URL_SAVE_COMMISSION = URL_PARENT + "saveCommissioningProcess";
+    public static String URL_SAVE_JOBSHEET_DATA = URL_PARENT + "saveJobsheetDetails";
 
     // API CODE
     public static int LOGIN = 1;
@@ -71,6 +72,7 @@ public class Constant {
     public static int GET_COMMISSION_LIST = 27;
     public static int GET_ESTIMATE_LIST = 28;
     public static int SAVE_COMMISSION = 29;
+    public static int SAVE_JOBSHEET_DATA = 30;
 
     // Constant
     public static String USER_EMAIL = "user_email";

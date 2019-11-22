@@ -60,7 +60,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
     private Spinner sp_contractor, sp_house_type, sp_regulator;
     private APIProgressDialog mProgressDialog;
     private String[] contractor_id, contractor_name, house_id, house_type;
-    private String stringContractorId = "0", stringHouseId = "0";
+    private String stringContractorId = "0", stringHouseId = "0", meterPhotoName;
     private Calendar myCalendar;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -171,6 +171,16 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
             case R.id.btn_jobsheet_submit:
                 Intent intent = new Intent(mContext, JobsheetConnectionTypeActivity.class);
                 intent.putExtra("woType", getIntent().getStringExtra("woType"));
+                intent.putExtra("application_no", et_application_no.getText().toString());
+                intent.putExtra("workorder_id", getIntent().getStringExtra("workorder_id"));
+                intent.putExtra("contractor_id", stringContractorId);
+                intent.putExtra("house_type", stringHouseId);
+                intent.putExtra("installation_date", et_inst_date.getText().toString());
+                intent.putExtra("meter_sr_no", et_material_no.getText().toString());
+                intent.putExtra("latitude", et_latitude.getText().toString());
+                intent.putExtra("longitude", et_longitude.getText().toString());
+                intent.putExtra("remarks", et_remarks.getText().toString());
+                intent.putExtra("meter_photo", meterPhotoName);
                 startActivity(intent);
                 break;
             default:
@@ -224,6 +234,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             img_capture.setImageBitmap(photo);
             tv_img_title.setText(Utility.getTimeStamp() + ".jpg");
+            meterPhotoName = tv_img_title.getText().toString();
         }
     }
 
