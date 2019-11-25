@@ -57,6 +57,8 @@ public class EstimationAdapter extends Adapter<EstimationAdapter.MyViewHolder> {
             public void onClick(View view) {
                 Intent intent = new Intent(context, ExtraMaterialEstimationActivity.class);
                 intent.putExtra("app_no", estapplication_no[position]);
+                intent.putExtra("estapp_id", estapp_id[position]);
+                intent.putExtra("workorder_id", estworkorder_id[position]);
                 context.startActivity(intent);
             }
         });

@@ -67,6 +67,7 @@ public class JobsheetAdapter extends Adapter<JobsheetAdapter.MyViewHolder> {
             public void onClick(View view) {
                 Intent intent = new Intent(context, JobsheetDetailsActivity.class);
                 intent.putExtra("woType", workorder_type_id[position]);
+                intent.putExtra("app_id", app_id[position]);
                 intent.putExtra("app_no", application_no[position]);
                 intent.putExtra("workorder_id", workorder_id[position]);
                 context.startActivity(intent);

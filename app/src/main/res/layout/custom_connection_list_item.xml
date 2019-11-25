@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_child"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
     android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
 
     <LinearLayout
@@ -123,6 +124,7 @@
                     android:padding="5dp"
                     android:singleLine="true"
                     android:textColor="@color/colorLightBlack1"
+                    android:textCursorDrawable="@drawable/color_cursor"
                     android:textSize="@dimen/_11sdp"
                     app:fontName="@string/font_light" />
 
@@ -154,6 +156,7 @@
                     android:padding="5dp"
                     android:singleLine="true"
                     android:textColor="@color/colorLightBlack1"
+                    android:textCursorDrawable="@drawable/color_cursor"
                     android:textSize="@dimen/_11sdp"
                     app:fontName="@string/font_light" />
 
@@ -163,8 +166,8 @@
                 android:id="@+id/img_remove"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:padding="6dp"
                 android:layout_weight="0.15"
+                android:padding="6dp"
                 android:src="@drawable/minus"
                 android:tint="@color/colorRed" />
 
@@ -175,6 +178,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorGray"/>
+        android:background="@color/colorGray" />
 
 </LinearLayout>

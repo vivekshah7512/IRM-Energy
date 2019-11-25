@@ -130,7 +130,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                                 myCalendar.set(Calendar.YEAR, year);
                                 myCalendar.set(Calendar.MONTH, monthOfYear);
                                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                String myFormat = "dd-MM-yyyy";
+                                String myFormat = "dd-MMM-yyyy";
                                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                                 et_inst_date.setText(sdf.format(myCalendar.getTime()));
                             }
@@ -148,7 +148,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                                 myCalendar.set(Calendar.YEAR, year);
                                 myCalendar.set(Calendar.MONTH, monthOfYear);
                                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                String myFormat = "dd-MM-yyyy";
+                                String myFormat = "dd-MMM-yyyy";
                                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                                 et_testing_date.setText(sdf.format(myCalendar.getTime()));
                             }
@@ -171,6 +171,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
             case R.id.btn_jobsheet_submit:
                 Intent intent = new Intent(mContext, JobsheetConnectionTypeActivity.class);
                 intent.putExtra("woType", getIntent().getStringExtra("woType"));
+                intent.putExtra("app_id", getIntent().getStringExtra("app_id"));
                 intent.putExtra("application_no", et_application_no.getText().toString());
                 intent.putExtra("workorder_id", getIntent().getStringExtra("workorder_id"));
                 intent.putExtra("contractor_id", stringContractorId);

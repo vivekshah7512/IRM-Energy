@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -35,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,16 +43,17 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
 
     private Context mContext;
     private Button btn_comm_submit, btn_jobsheet_add_more;
-    //    private ExpandableHeightListView listView;
     private ImageView img_back;
     private APIProgressDialog mProgressDialog;
-    private String woType = "0", application_no, workorderid, contractor_id, house_type,
+    private String woType = "0", app_id = "0", application_no, workorderid, contractor_id, house_type,
             installation_date, meter_sr_no, latitude, longitude, remarks, meter_photo;
-    private JSONArray jsonArray1 = null, jsonArray2 = null;
+    private JSONArray jsonArray1 = null, jsonArray2 = null, jsonArray3 = null;
     private ArrayList<String> arrayList;
-    private ConnectionAdapter adapter;
     private LinearLayout ll_jobsheet_list;
-    private String[] workorder_id, workorder_name, material_id, material_name, material_amount;
+    private String[] workorder_id, workorder_name, material_id, material_name,
+            material_amount, connection_id, connection_name;
+    private ArrayList<String> arrayListWorkType, arrayListConnectionType, arrayListMaterial,
+            arrayListUsedQty, arrayListNoConnection;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -79,10 +80,10 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         btn_comm_submit.setOnClickListener(this);
         btn_jobsheet_add_more = (Button) findViewById(R.id.btn_jobsheet_add_more);
         btn_jobsheet_add_more.setOnClickListener(this);
-//        listView = (ExpandableHeightListView) findViewById(R.id.list_connection);
         img_back = (ImageView) findViewById(R.id.img_back);
         img_back.setOnClickListener(this);
         woType = getIntent().getStringExtra("woType");
+        app_id = getIntent().getStringExtra("app_id");
 
         try {
             application_no = getIntent().getStringExtra("application_no");
@@ -100,6 +101,7 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         }
 
         getWorkType();
+        getConnection();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -115,21 +117,35 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
             case R.id.btn_jobsheet_submit:
                 int size = ll_jobsheet_list.getChildCount();
                 View v = null;
+                arrayListWorkType = new ArrayList<>();
+                arrayListConnectionType = new ArrayList<>();
+                arrayListMaterial = new ArrayList<>();
+                arrayListUsedQty = new ArrayList<>();
+                arrayListNoConnection = new ArrayList<>();
                 for (int i = 0; i < size; i++) {
                     v = ll_jobsheet_list.getChildAt(i);
-//                    Spinner sp_connection_type = (Spinner)((LinearLayout)v).getChildAt(0);
-//                    Spinner sp_work_type = (Spinner)((LinearLayout)v).getChildAt(0);
-//
-//
-//                    Spinner sp_work_type = (Spinner) view.findViewById(R.id.sp_work_type);
-//                    Spinner sp_connection_type = (Spinner) view.findViewById(R.id.sp_conn_type);
-//                    Spinner sp_material_name = (Spinner) view.findViewById(R.id.sp_material_name);
-//                    ImageView img_remove = (ImageView) view.findViewById(R.id.img_remove);
-//                    EditText et_qty = (EditText) view.findViewById(R.id.et_qty_used);
-//                    EditText et_no_conn = (EditText) view.findViewById(R.id.et_no_of_conn);
+                    LinearLayout ll_child = (LinearLayout) v.findViewById(R.id.ll_child);
+                    Spinner sp_work_type = (Spinner) ll_child.findViewById(R.id.sp_work_type);
+                    Spinner sp_connection_type = (Spinner) ll_child.findViewById(R.id.sp_conn_type);
+                    Spinner sp_material_name = (Spinner) ll_child.findViewById(R.id.sp_material_name);
+                    EditText et_qty = (EditText) ll_child.findViewById(R.id.et_qty_used);
+                    EditText et_no_conn = (EditText) ll_child.findViewById(R.id.et_no_of_conn);
 
+                    String type = sp_work_type.getSelectedItem().toString();
+                    String connection = sp_connection_type.getSelectedItem().toString();
+                    String material = sp_material_name.getSelectedItem().toString();
+
+                    int indexType = new ArrayList<String>(Arrays.asList(workorder_name)).indexOf(type);
+                    int indexMaterial = new ArrayList<String>(Arrays.asList(material_name)).indexOf(material);
+                    int indexConnection = new ArrayList<String>(Arrays.asList(connection_name)).indexOf(connection);
+
+                    arrayListWorkType.add(workorder_id[indexType]);
+                    arrayListConnectionType.add(connection_id[indexConnection]);
+                    arrayListMaterial.add(material_id[indexMaterial]);
+                    arrayListUsedQty.add(et_qty.getText().toString().trim());
+                    arrayListNoConnection.add(et_no_conn.getText().toString().trim());
                 }
-//                saveJobsheetData();
+                saveJobsheetData();
                 break;
             default:
                 break;
@@ -145,6 +161,20 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
             params.put("WOtype", woType);
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_WORK_TYPE,
                     Constant.URL_GET_WORK_TYPE, params);
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
+    private void getConnection() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("WOtype", woType);
+            params.put("app_id", app_id);
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_CONNECTION_TYPE,
+                    Constant.URL_GET_CONNECTION_TYPE, params);
         } else
             Utility.toast("No Internet Connection", mContext);
     }
@@ -167,34 +197,37 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
             if (!mProgressDialog.isShowing())
                 mProgressDialog.show();
 
-            JSONObject obj = null;
-            JSONArray jsonArray = new JSONArray();
-                /*for (int i = 0; i < listDocumentID.size(); i++) {
+            try {
+                JSONObject obj = null;
+                JSONArray jsonArray = new JSONArray();
+                for (int i = 0; i < arrayListWorkType.size(); i++) {
                     obj = new JSONObject();
-                    obj.put("work_type", listDocumentID.get(i));
-                    obj.put("material_id", listDocRequType.get(i));
-                    obj.put("material_qty", listDocumentName.get(i));
-                    obj.put("connection_type", listDocumentDesc.get(i));
-                    obj.put("noof_connection", listDocumentDesc.get(i));
+                    obj.put("work_type", arrayListWorkType.get(i));
+                    obj.put("material_id", arrayListMaterial.get(i));
+                    obj.put("material_qty", arrayListUsedQty.get(i));
+                    obj.put("connection_type", arrayListConnectionType.get(i));
+                    obj.put("noof_connection", arrayListNoConnection.get(i));
                     jsonArray.put(obj);
-                }*/
+                }
 
-            Map<String, Object> params = new HashMap<>();
-            params.put("user_id", Utility.getAppPrefString(mContext, Constant.USER_ID));
-            params.put("application_no", application_no);
-            params.put("workorder_id", workorderid);
-            params.put("contractor_id", contractor_id);
-            params.put("house_type", house_type);
-            params.put("installation_date", installation_date);
-            params.put("meter_sr_no", meter_sr_no);
-            params.put("latitude", latitude);
-            params.put("longitude", longitude);
-            params.put("remarks", remarks);
-            params.put("meter_photo", meter_photo);
-            params.put("material_data", jsonArray);
-            VolleyCacheRequestClass.getInstance().volleyJsonAPI1(mContext, Constant.SAVE_JOBSHEET_DATA,
-                    Constant.URL_SAVE_JOBSHEET_DATA, params);
-
+                Map<String, Object> params = new HashMap<>();
+                params.put("user_id", Utility.getAppPrefString(mContext, Constant.USER_ID));
+                params.put("application_no", application_no);
+                params.put("workorder_id", workorderid);
+                params.put("contractor_id", contractor_id);
+                params.put("house_type", house_type);
+                params.put("installation_date", installation_date);
+                params.put("meter_sr_no", meter_sr_no);
+                params.put("latitude", latitude);
+                params.put("longitude", longitude);
+                params.put("remarks", remarks);
+                params.put("meter_photo", meter_photo);
+                params.put("material_data", jsonArray);
+                VolleyCacheRequestClass.getInstance().volleyJsonAPI1(mContext, Constant.SAVE_JOBSHEET_DATA,
+                        Constant.URL_SAVE_JOBSHEET_DATA, params);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else
             Utility.toast("No Internet Connection", mContext);
     }
@@ -216,10 +249,11 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                     jsonArray2 = jObject.getJSONArray("material_data");
                     arrayList.add("1");
                     addMore();
-//                    adapter = new ConnectionAdapter(mContext, arrayList,
-//                            jsonArray1, jsonArray2);
-//                    listView.setAdapter(adapter);
-//                    listView.setExpanded(true);
+                }
+            } else if (reqCode == Constant.GET_CONNECTION_TYPE) {
+                response = jObject.getString("response");
+                if (response.equalsIgnoreCase("true")) {
+                    jsonArray3 = jObject.getJSONArray("connection_data");
                 }
             } else if (reqCode == Constant.SAVE_JOBSHEET_DATA) {
                 response = jObject.getString("response");
@@ -278,14 +312,9 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         if (type == 0) {
             // Add
             arrayList.add("1");
-//            adapter = new ConnectionAdapter(mContext, arrayList,
-//                    jsonArray1, jsonArray2);
-//            listView.setAdapter(adapter);
-//            listView.setExpanded(true);
         } else {
             // Remove
             arrayList.remove(0);
-            adapter.notifyDataSetChanged();
         }
     }
 
@@ -305,9 +334,6 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                     ll_jobsheet_list.removeViewAt(0);
             }
         });
-
-        Utility.setSpinnerAdapter1(mContext, sp_connection_type, new String[]
-                {"Select", "Geyser Point", "Kitchen Point"});
 
         try {
             JSONObject jsonObjectMessage;
@@ -343,6 +369,21 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                 }
             }
             Utility.setSpinnerAdapter1(mContext, sp_material_name, material_name);
+
+            int lenth3 = jsonArray3.length() + 1;
+            connection_id = new String[lenth3];
+            connection_name = new String[lenth3];
+            for (int a = 0; a < lenth3; a++) {
+                if (a == 0) {
+                    connection_id[0] = "0";
+                    connection_name[0] = "Select";
+                } else {
+                    jsonObjectMessage = jsonArray3.getJSONObject(a - 1);
+                    connection_id[a] = jsonObjectMessage.getString("connection_id");
+                    connection_name[a] = jsonObjectMessage.getString("connection_name");
+                }
+            }
+            Utility.setSpinnerAdapter1(mContext, sp_connection_type, connection_name);
         } catch (Exception e) {
             e.printStackTrace();
         }
