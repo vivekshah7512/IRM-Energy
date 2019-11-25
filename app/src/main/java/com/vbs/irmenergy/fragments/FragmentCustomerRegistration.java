@@ -813,6 +813,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     if (paymentType.equalsIgnoreCase("cheque")) {
                         Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
                         intent.putExtra("app_no", et_application_no.getText().toString().trim());
+                        intent.putExtra("cust_name", et_firstname.getText().toString().trim() + " " +
+                                et_lastname.getText().toString().trim());
                         startActivity(intent);
                     } else {
                         getActivity().finish();

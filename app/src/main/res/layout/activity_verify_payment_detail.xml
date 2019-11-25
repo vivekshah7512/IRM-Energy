@@ -77,11 +77,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_app_no"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="B12540047"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -105,11 +105,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_cust_nmae"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="Vivek Shah"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -133,11 +133,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_corporate_code"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="C-0245"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -161,11 +161,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_plan"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="Plan A"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -189,11 +189,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_receipt"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="Registration"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -217,11 +217,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_receipt_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="11 Oct 2019"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -245,11 +245,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_mode"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="Cheque / Swipe Card"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -273,11 +273,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_inst_no"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="INS4545487"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -301,11 +301,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_inst_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="11 Oct 2019"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -329,11 +329,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_amount"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="₹ 5000"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -357,11 +357,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_micr_no"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="SBI00045"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -385,11 +385,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_bank_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="SBI Bank, Bodakdev"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />
@@ -414,11 +414,11 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomTextview
+                            android:id="@+id/tv_payment_remarks"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="0.65"
-                            android:text="This section includes a response written by a professor to a student who was working on an independent study project."
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/_10sdp"
                             app:fontName="@string/font_light" />

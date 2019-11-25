@@ -208,6 +208,18 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                 if (response.equalsIgnoreCase("true")) {
                     Utility.toast(message, mContext);
                     Intent intent = new Intent(mContext, VerifyPaymentDetailActivity.class);
+                    intent.putExtra("app_no", getIntent().getStringExtra("app_no"));
+                    intent.putExtra("cust_name", getIntent().getStringExtra("cust_name"));
+                    intent.putExtra("plan", sp_plan.getSelectedItem().toString());
+                    intent.putExtra("receipt", et_receipt_type.getText().toString());
+                    intent.putExtra("receipt_dt", et_receipt_date.getText().toString());
+                    intent.putExtra("payment_mode", et_payment_mode.getText().toString());
+                    intent.putExtra("inst_no", et_inst_no.getText().toString());
+                    intent.putExtra("inst_date", et_inst_date.getText().toString());
+                    intent.putExtra("amount", et_amount.getText().toString());
+                    intent.putExtra("micr_no", et_micr_no.getText().toString());
+                    intent.putExtra("bank_name", sp_bank.getSelectedItem().toString());
+                    intent.putExtra("remarks", et_remarks.getText().toString());
                     startActivity(intent);
                 } else {
                     Utility.toast(message, mContext);
