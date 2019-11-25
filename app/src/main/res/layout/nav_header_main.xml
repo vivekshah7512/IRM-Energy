@@ -13,7 +13,6 @@
         android:padding="@dimen/_18sdp">
 
         <ImageView
-            android:id="@+id/imageView"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             app:srcCompat="@drawable/user" />

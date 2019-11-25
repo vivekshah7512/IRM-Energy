@@ -68,7 +68,6 @@
                         app:fontName="@string/font_regular" />
 
                     <RadioGroup
-                        android:id="@+id/rg_connection"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -76,7 +75,6 @@
                         android:weightSum="1">
 
                         <com.vbs.irmenergy.utilities.CustomRadioButton
-                            android:id="@+id/rb_free"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -89,7 +87,6 @@
                             app:fontName="@string/font_regular" />
 
                         <com.vbs.irmenergy.utilities.CustomRadioButton
-                            android:id="@+id/rb_extra"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"

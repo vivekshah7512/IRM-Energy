@@ -26,7 +26,6 @@ import android.widget.TextView;
 
 import com.kyanogen.signatureview.SignatureView;
 import com.vbs.irmenergy.R;
-import com.vbs.irmenergy.adapter.ConnectionAdapter;
 import com.vbs.irmenergy.utilities.APIProgressDialog;
 import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.Utility;
@@ -43,7 +42,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExtraMaterialEstimationActivity extends Activity implements View.OnClickListener,
-        VolleyResponseInterface, ConnectionAdapter.AddItem {
+        VolleyResponseInterface {
 
     private Context mContext;
     private Button btn_comm_submit, btn_material_calculate, btn_add_more;
@@ -302,17 +301,6 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
             }
         } else
             Utility.toast("No Internet Connection", mContext);
-    }
-
-    @Override
-    public void add(int type, int pos) {
-        if (type == 0) {
-            // Add
-            arrayList.add("1");
-        } else {
-            // Remove
-            arrayList.remove(0);
-        }
     }
 
     @Override

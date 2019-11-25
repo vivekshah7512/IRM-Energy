@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="array_payment">
-        <item>Select One</item>
-        <item>Online</item>
-        <item>Cheque / Swipe Card</item>
-    </string-array>
-</resources>
+<resources></resources>
