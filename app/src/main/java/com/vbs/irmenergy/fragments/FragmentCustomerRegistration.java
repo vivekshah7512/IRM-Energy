@@ -896,7 +896,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             params.put("remarks", et_remarks.getText().toString());
             params.put("doc1", stringDoc1);
             params.put("doc2", stringDoc2);
-            params.put("document_data", obj);
+            params.put("document_data", jsonArray);
             params.put("payment_mode", paymentType);
             volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
                     Constant.SAVE_REGISTRATION,

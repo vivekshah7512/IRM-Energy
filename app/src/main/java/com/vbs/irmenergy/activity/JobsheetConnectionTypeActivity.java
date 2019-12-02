@@ -138,11 +138,13 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                     int indexMaterial = new ArrayList<String>(Arrays.asList(material_name)).indexOf(material);
                     int indexConnection = new ArrayList<String>(Arrays.asList(connection_name)).indexOf(connection);
 
-                    arrayListWorkType.add(workorder_id[indexType]);
-                    arrayListConnectionType.add(connection_id[indexConnection]);
-                    arrayListMaterial.add(material_id[indexMaterial]);
-                    arrayListUsedQty.add(et_qty.getText().toString().trim());
-                    arrayListNoConnection.add(et_no_conn.getText().toString().trim());
+                    if (ll_child.getVisibility() == View.VISIBLE) {
+                        arrayListWorkType.add(workorder_id[indexType]);
+                        arrayListConnectionType.add(connection_id[indexConnection]);
+                        arrayListMaterial.add(material_id[indexMaterial]);
+                        arrayListUsedQty.add(et_qty.getText().toString().trim());
+                        arrayListNoConnection.add(et_no_conn.getText().toString().trim());
+                    }
                 }
                 saveJobsheetData();
                 break;
@@ -314,12 +316,13 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         ImageView img_remove = (ImageView) view.findViewById(R.id.img_remove);
         EditText et_qty = (EditText) view.findViewById(R.id.et_qty_used);
         EditText et_no_conn = (EditText) view.findViewById(R.id.et_no_of_conn);
+        LinearLayout ll_child = (LinearLayout) view.findViewById(R.id.ll_child);
 
         img_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ll_jobsheet_list.getChildCount() != 1)
-                    ll_jobsheet_list.removeViewAt(0);
+                    ll_child.setVisibility(View.GONE);
             }
         });
 
