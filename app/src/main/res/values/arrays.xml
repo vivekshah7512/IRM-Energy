@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <string-array name="payment_type">
+        <item>Select Payment Type</item>
+        <item>Cheque</item>
+        <item>Swipe card</item>
+    </string-array>
+
+</resources>

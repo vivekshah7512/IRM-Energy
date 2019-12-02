@@ -42,13 +42,13 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
     private Context mContext;
     private Button btn_payment_submit;
     private ImageView img_back;
-    private Spinner sp_plan, sp_bank;
-    private EditText et_receipt_type, et_receipt_date, et_payment_mode, et_inst_no, et_inst_date,
+    private Spinner sp_plan, sp_bank, sp_payment_mode;
+    private EditText et_receipt_type, et_receipt_date, et_inst_no, et_inst_date,
             et_amount, et_micr_no, et_remarks;
     private APIProgressDialog mProgressDialog;
     private String[] plan_id, plan_name, plan_amount, bank_id, bank_name;
     private VolleyAPIClass volleyAPIClass;
-    private String stringPlanId = "0", stringBankId = "0";
+    private String stringPlanId = "0", stringBankId = "0", stringAmount = "0", stringType;
     private Calendar myCalendar;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -79,10 +79,11 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
         sp_plan.setOnItemSelectedListener(this);
         sp_bank = (Spinner) findViewById(R.id.sp_payment_bank_name);
         sp_bank.setOnItemSelectedListener(this);
+        sp_payment_mode = (Spinner) findViewById(R.id.et_payment_type);
+        sp_payment_mode.setOnItemSelectedListener(this);
         et_receipt_type = (EditText) findViewById(R.id.et_payment_receipt_type);
         et_receipt_date = (EditText) findViewById(R.id.et_payment_receipt_date);
         et_receipt_date.setOnClickListener(this);
-        et_payment_mode = (EditText) findViewById(R.id.et_payment_type);
         et_inst_no = (EditText) findViewById(R.id.et_payment_inst_no);
         et_inst_date = (EditText) findViewById(R.id.et_payment_inst_date);
         et_inst_date.setOnClickListener(this);
@@ -182,10 +183,10 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
             params.put("corporate_id", "0");
             params.put("receipt_type", et_receipt_type.getText().toString());
             params.put("receipt_date", et_receipt_date.getText().toString());
-            params.put("payment_mode", et_payment_mode.getText().toString());
+            params.put("payment_mode", stringType);
             params.put("inst_no", et_inst_no.getText().toString());
             params.put("inst_date", et_inst_date.getText().toString());
-            params.put("amount", et_amount.getText().toString());
+            params.put("amount", stringAmount);
             params.put("micr_no", et_micr_no.getText().toString());
             params.put("bank_id", stringBankId);
             params.put("remarks", et_remarks.getText().toString());
@@ -213,7 +214,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                     intent.putExtra("plan", sp_plan.getSelectedItem().toString());
                     intent.putExtra("receipt", et_receipt_type.getText().toString());
                     intent.putExtra("receipt_dt", et_receipt_date.getText().toString());
-                    intent.putExtra("payment_mode", et_payment_mode.getText().toString());
+                    intent.putExtra("payment_mode", sp_payment_mode.getSelectedItem().toString());
                     intent.putExtra("inst_no", et_inst_no.getText().toString());
                     intent.putExtra("inst_date", et_inst_date.getText().toString());
                     intent.putExtra("amount", et_amount.getText().toString());
@@ -289,12 +290,19 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                 if (!plan_id[position].equalsIgnoreCase("0")) {
                     stringPlanId = plan_id[position];
                     et_amount.setText("\u20B9 " + plan_amount[position]);
+                    stringAmount = plan_amount[position];
                 }
                 break;
             case R.id.sp_payment_bank_name:
                 if (!bank_id[position].equalsIgnoreCase("0")) {
                     stringBankId = bank_id[position];
                 }
+                break;
+            case R.id.et_payment_type:
+                if (selectedText.equalsIgnoreCase("Cheque"))
+                    stringType = "cheque";
+                else if (selectedText.equalsIgnoreCase("Swipe card"))
+                    stringType = "swipecard";
                 break;
             default:
                 break;
