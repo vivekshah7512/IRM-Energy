@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,7 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
             material_amount, connection_id, connection_name;
     private ArrayList<String> arrayListWorkType, arrayListConnectionType, arrayListMaterial,
             arrayListUsedQty, arrayListNoConnection;
+    private String imageName;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -147,7 +149,11 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                 addMore();
                 break;
             case R.id.btn_material_submit:
-                saveEstimation();
+                if (TextUtils.isEmpty(imageName)) {
+                    Utility.toast("Please draw signature", mContext);
+                } else {
+                    saveEstimation();
+                }
                 break;
             case R.id.ll_take_sign:
                 Dialog dialog = new Dialog(mContext);
@@ -164,8 +170,10 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                 btn_clear.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (signatureView != null)
+                        if (signatureView != null) {
                             signatureView.clearCanvas();
+                            imageName = "";
+                        }
                     }
                 });
 
@@ -176,6 +184,7 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                             dialog.dismiss();
                             Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(signatureView.getSignatureBitmap(), 100, 100);
                             img_sign.setImageBitmap(ThumbImage);
+                            imageName = Utility.getCurrentDateTime1() + ".jpg";
                         } else {
                             Utility.toast("Draw your signature.", mContext);
                         }

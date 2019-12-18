@@ -384,7 +384,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 break;
             case R.id.btn_cust_payment:
                 if (!TextUtils.isEmpty(fileName)) {
-                    ftpDirectory = "IRMenrgy_Test/" + et_application_no.getText().toString().trim();
+                    ftpDirectory = "IRMenrgy_Test/Registration_Documents/" + et_application_no.getText().toString().trim();
                     new uploadFileFTP().execute();
                 } else {
                     saveRegistrationDetails();

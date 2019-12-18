@@ -242,7 +242,7 @@ public class Utility {
         stringBuilder.append("Current time => ");
         stringBuilder.append(c.getTime());
         printStream.println(stringBuilder.toString());
-        return new SimpleDateFormat("dd/mm/yyyy").format(c.getTime());
+        return new SimpleDateFormat("ddMMyyyy_HHmmss").format(c.getTime());
     }
 
     public static boolean isNetworkAvaliable(Context ctx) {

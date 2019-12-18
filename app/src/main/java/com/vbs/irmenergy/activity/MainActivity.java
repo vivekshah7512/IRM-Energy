@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
                 for (int a = 0; a < screen_name.length; a++) {
                     String title = screen_name[a];
                     String isShow = view[a];
-                    if (title.equalsIgnoreCase("Home")) {
+                    /*if (title.equalsIgnoreCase("Home")) {
                     } else if (title.equalsIgnoreCase("Normal Registration")) {
                         if (isShow.equalsIgnoreCase("true")) {
                             menuItem = menu.findItem(R.id.nav_reg);
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     } else if (title.equalsIgnoreCase("Change Password")) {
 
-                    }
+                    }*/
                 }
             }
         } catch (Exception e) {

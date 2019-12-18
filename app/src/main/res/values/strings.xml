@@ -4,6 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="forgot_password"><u>Forgot Password?</u></string>
+    <string name="location"><u>View on Map</u></string>
 
     <string name="font_light">POPPINS-LIGHT.ttf</string>
     <string name="font_regular">POPPINS-REGULAR.ttf</string>

@@ -14,6 +14,7 @@ public class Constant {
     public static String URL_CREATE_LOGIN = URL_PARENT + "createLogin";
     public static String URL_FORGOT_PASS = URL_PARENT + "forgotPassword";
     public static String URL_SEARCH_APPLICATION_NO = URL_PARENT + "searchApplicationNo";
+    public static String URL_VIEW_APPLICATION_NO = URL_PARENT + "getCustomerSurveyDetail";
     public static String URL_GET_CUSTOMER_TYPE = URL_PARENT + "getCustomerType";
     public static String URL_GET_CUSTOMER_CATEGORY = URL_PARENT + "getCustomerCategory";
     public static String URL_GET_CORPORATE_NAME = URL_PARENT + "getCorporateName";
@@ -77,6 +78,7 @@ public class Constant {
     public static int SAVE_JOBSHEET_DATA = 30;
     public static int CALCULATE_AMOUNT = 31;
     public static int SAVE_EXTRA_ESTIMATION = 32;
+    public static int VIEW_APPLICATION_NO = 33;
 
     // Constant
     public static String USER_EMAIL = "user_email";
