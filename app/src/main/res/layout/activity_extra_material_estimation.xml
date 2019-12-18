@@ -309,6 +309,7 @@
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:background="@drawable/rounded_rectangle_button1"
                 android:text="Submit"
+                android:visibility="gone"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_14sdp"

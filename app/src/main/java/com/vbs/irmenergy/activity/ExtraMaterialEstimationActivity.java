@@ -8,11 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.ThumbnailUtils;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +35,17 @@ import com.vbs.irmenergy.utilities.Utility;
 import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
 import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +61,7 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
     private TextView tv_amount;
     private ImageView img_back;
     private APIProgressDialog mProgressDialog;
-    private String woType = "8", estapp_id = "0", workorderid = "0";
+    private String woType = "0", estapp_id = "0", workorderid = "0";
     private JSONArray jsonArray1 = null, jsonArray2 = null, jsonArray3 = null;
     private ArrayList<String> arrayList;
     private LinearLayout ll_material_list;
@@ -60,7 +69,8 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
             material_amount, connection_id, connection_name;
     private ArrayList<String> arrayListWorkType, arrayListConnectionType, arrayListMaterial,
             arrayListUsedQty, arrayListNoConnection;
-    private String imageName;
+    private String fileName, ftpDirectory;
+    private File fileImage;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -98,6 +108,7 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
         img_back.setOnClickListener(this);
         estapp_id = getIntent().getStringExtra("estapp_id");
         workorderid = getIntent().getStringExtra("workorder_id");
+        woType = getIntent().getStringExtra("wo_type");
 
         getWorkType();
         getConnection();
@@ -149,10 +160,11 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                 addMore();
                 break;
             case R.id.btn_material_submit:
-                if (TextUtils.isEmpty(imageName)) {
-                    Utility.toast("Please draw signature", mContext);
+                if (!TextUtils.isEmpty(fileName)) {
+                    ftpDirectory = "IRMenrgy_Test/Customer_Signature/Material_Estimation/" + getIntent().getStringExtra("app_no");
+                    new uploadFileFTP().execute();
                 } else {
-                    saveEstimation();
+                    Utility.toast("Please draw signature", mContext);
                 }
                 break;
             case R.id.ll_take_sign:
@@ -172,7 +184,7 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                     public void onClick(View view) {
                         if (signatureView != null) {
                             signatureView.clearCanvas();
-                            imageName = "";
+                            fileName = "";
                         }
                     }
                 });
@@ -184,7 +196,22 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                             dialog.dismiss();
                             Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(signatureView.getSignatureBitmap(), 100, 100);
                             img_sign.setImageBitmap(ThumbImage);
-                            imageName = Utility.getCurrentDateTime1() + ".jpg";
+                            fileName = Utility.getCurrentDateTime1() + ".png";
+
+                            try {
+                                fileImage = new File(mContext.getCacheDir(), fileName);
+                                fileImage.createNewFile();
+                                Bitmap bitmap = ThumbImage;
+                                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                                bitmap.compress(Bitmap.CompressFormat.PNG, 70, bos);
+                                byte[] bitmapdata = bos.toByteArray();
+                                FileOutputStream fos = new FileOutputStream(fileImage);
+                                fos.write(bitmapdata);
+                                fos.flush();
+                                fos.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             Utility.toast("Draw your signature.", mContext);
                         }
@@ -303,7 +330,7 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                 Map<String, Object> params = new HashMap<>();
                 params.put("user_id", Utility.getAppPrefString(mContext, Constant.USER_ID));
                 params.put("workorder_id", workorderid);
-                params.put("signature", "");
+                params.put("signature", fileName);
                 params.put("material_data", jsonArray);
                 VolleyCacheRequestClass.getInstance().volleyJsonAPI1(mContext, Constant.SAVE_EXTRA_ESTIMATION,
                         Constant.URL_SAVE_EXTRA_ESTIMATION, params);
@@ -342,8 +369,10 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                 message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
                     tv_amount.setText("₹ " + jObject.getString("total_amount"));
+                    btn_comm_submit.setVisibility(View.VISIBLE);
                 } else {
                     Utility.toast(message, mContext);
+                    btn_comm_submit.setVisibility(View.GONE);
                 }
             } else if (reqCode == Constant.SAVE_EXTRA_ESTIMATION) {
                 response = jObject.getString("response");
@@ -470,4 +499,45 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
 
         ll_material_list.addView(view);
     }
+
+    public class uploadFileFTP extends AsyncTask<Void, Void, Void> {
+        protected void onPreExecute() {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+        }
+
+        protected Void doInBackground(Void... params) {
+            try {
+                FTPClient ftpClient = new FTPClient();
+                ftpClient.connect(Constant.FTP_URL);
+                ftpClient.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
+
+                ftpClient.makeDirectory(ftpDirectory);
+                ftpClient.changeWorkingDirectory(ftpDirectory);
+                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+                BufferedInputStream buffIn = null;
+                System.out.println("Name : " + fileName);
+                buffIn = new BufferedInputStream(new FileInputStream(fileImage));
+                ftpClient.enterLocalPassiveMode();
+                ftpClient.storeFile(fileName, buffIn);
+                buffIn.close();
+                ftpClient.logout();
+                ftpClient.disconnect();
+                if (mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            if (mProgressDialog.isShowing())
+                mProgressDialog.dismiss();
+            Log.v("FTP", "Successfully");
+            saveEstimation();
+        }
+    }
+
 }

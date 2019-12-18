@@ -1,11 +1,8 @@
 package com.vbs.irmenergy.activity;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -14,16 +11,13 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.pinball83.maskededittext.MaskedEditText;
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.utilities.APIProgressDialog;
 import com.vbs.irmenergy.utilities.Constant;
@@ -34,10 +28,7 @@ import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class CustomerDetailActivity extends AppCompatActivity implements View.OnClickListener,
@@ -189,4 +180,5 @@ public class CustomerDetailActivity extends AppCompatActivity implements View.On
             mProgressDialog.dismiss();
         }
     }
+
 }

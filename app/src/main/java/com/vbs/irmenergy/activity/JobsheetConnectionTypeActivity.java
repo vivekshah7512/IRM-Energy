@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -28,10 +30,15 @@ import com.vbs.irmenergy.utilities.Utility;
 import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
 import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -45,7 +52,7 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
     private ImageView img_back;
     private APIProgressDialog mProgressDialog;
     private String woType = "0", app_id = "0", application_no, workorderid, contractor_id, house_type,
-            installation_date, meter_sr_no, latitude, longitude, remarks, meter_photo;
+            installation_date, meter_sr_no, latitude, longitude, remarks;
     private JSONArray jsonArray1 = null, jsonArray2 = null, jsonArray3 = null;
     private ArrayList<String> arrayList;
     private LinearLayout ll_jobsheet_list;
@@ -53,6 +60,8 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
             material_amount, connection_id, connection_name;
     private ArrayList<String> arrayListWorkType, arrayListConnectionType, arrayListMaterial,
             arrayListUsedQty, arrayListNoConnection;
+    private String fileName, ftpDirectory;
+    private File fileImage;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -94,7 +103,9 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
             latitude = getIntent().getStringExtra("latitude");
             longitude = getIntent().getStringExtra("longitude");
             remarks = getIntent().getStringExtra("remarks");
-            meter_photo = getIntent().getStringExtra("meter_photo");
+            fileName = getIntent().getStringExtra("meter_photo");
+            ftpDirectory = getIntent().getStringExtra("meter_directory");
+            fileImage = (File) getIntent().getSerializableExtra("meter_file");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,7 +157,7 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                         arrayListNoConnection.add(et_no_conn.getText().toString().trim());
                     }
                 }
-                saveJobsheetData();
+                new uploadFileFTP().execute();
                 break;
             default:
                 break;
@@ -222,7 +233,7 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                 params.put("latitude", latitude);
                 params.put("longitude", longitude);
                 params.put("remarks", remarks);
-                params.put("meter_photo", meter_photo);
+                params.put("meter_photo", fileName);
                 params.put("material_data", jsonArray);
                 VolleyCacheRequestClass.getInstance().volleyJsonAPI1(mContext, Constant.SAVE_JOBSHEET_DATA,
                         Constant.URL_SAVE_JOBSHEET_DATA, params);
@@ -380,5 +391,45 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
         }
 
         ll_jobsheet_list.addView(view);
+    }
+
+    public class uploadFileFTP extends AsyncTask<Void, Void, Void> {
+        protected void onPreExecute() {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+        }
+
+        protected Void doInBackground(Void... params) {
+            try {
+                FTPClient ftpClient = new FTPClient();
+                ftpClient.connect(Constant.FTP_URL);
+                ftpClient.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
+
+                ftpClient.makeDirectory(ftpDirectory);
+                ftpClient.changeWorkingDirectory(ftpDirectory);
+                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+                BufferedInputStream buffIn = null;
+                System.out.println("Name : " + fileName);
+                buffIn = new BufferedInputStream(new FileInputStream(fileImage));
+                ftpClient.enterLocalPassiveMode();
+                ftpClient.storeFile(fileName, buffIn);
+                buffIn.close();
+                ftpClient.logout();
+                ftpClient.disconnect();
+                if (mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            if (mProgressDialog.isShowing())
+                mProgressDialog.dismiss();
+            Log.v("FTP", "Successfully");
+            saveJobsheetData();
+        }
     }
 }

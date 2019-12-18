@@ -59,6 +59,7 @@ public class EstimationAdapter extends Adapter<EstimationAdapter.MyViewHolder> {
                 intent.putExtra("app_no", estapplication_no[position]);
                 intent.putExtra("estapp_id", estapp_id[position]);
                 intent.putExtra("workorder_id", estworkorder_id[position]);
+                intent.putExtra("wo_type", estworkorder_type_id[position]);
                 context.startActivity(intent);
             }
         });

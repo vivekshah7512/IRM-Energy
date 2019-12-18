@@ -1012,7 +1012,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         File f = new File(getActivity().getCacheDir(), filePath);
                         f.createNewFile();
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 40 /*ignored for PNG*/, bos);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 70 /*ignored for PNG*/, bos);
                         byte[] bitmapdata = bos.toByteArray();
                         FileOutputStream fos = new FileOutputStream(f);
                         fos.write(bitmapdata);
@@ -1070,7 +1070,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         File f = new File(getActivity().getCacheDir(), filePath);
                         f.createNewFile();
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 40 /*ignored for PNG*/, bos);
+                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 70 /*ignored for PNG*/, bos);
                         byte[] bitmapdata = bos.toByteArray();
                         FileOutputStream fos = new FileOutputStream(f);
                         fos.write(bitmapdata);

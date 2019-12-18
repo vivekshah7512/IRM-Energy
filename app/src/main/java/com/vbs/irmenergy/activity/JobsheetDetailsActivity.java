@@ -37,6 +37,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -62,6 +65,8 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
     private String[] contractor_id, contractor_name, house_id, house_type;
     private String stringContractorId = "0", stringHouseId = "0", meterPhotoName;
     private Calendar myCalendar;
+    private String fileName, ftpDirectory;
+    private File fileImage;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -181,7 +186,9 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                 intent.putExtra("latitude", et_latitude.getText().toString());
                 intent.putExtra("longitude", et_longitude.getText().toString());
                 intent.putExtra("remarks", et_remarks.getText().toString());
-                intent.putExtra("meter_photo", meterPhotoName);
+                intent.putExtra("meter_photo", fileName);
+                intent.putExtra("meter_directory", ftpDirectory);
+                intent.putExtra("meter_file", fileImage);
                 startActivity(intent);
                 break;
             default:
@@ -235,7 +242,24 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             img_capture.setImageBitmap(photo);
             tv_img_title.setText(Utility.getTimeStamp() + ".jpg");
-            meterPhotoName = tv_img_title.getText().toString();
+            fileName = tv_img_title.getText().toString();
+            ftpDirectory = "IRMenrgy_Test/Meter_Document/Jobsheet/" +
+                    getIntent().getStringExtra("app_no");
+
+            try {
+                fileImage = new File(mContext.getCacheDir(), fileName);
+                fileImage.createNewFile();
+                Bitmap bitmap = photo;
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+                byte[] bitmapdata = bos.toByteArray();
+                FileOutputStream fos = new FileOutputStream(fileImage);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
