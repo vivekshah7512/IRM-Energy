@@ -46,7 +46,7 @@ public class FragmentSearch extends Fragment implements OnClickListener,
     private TextView tv_application_no, tv_customer_name, tv_address, tv_area, tv_city,
             tv_contact_no, tv_email;
     private TextView tv_app_no, tv_cust_name, tv_meter_no, tv_meter_reading, tv_tube,
-            tv_date, tv_remarks, tv_location;
+            tv_date, tv_remarks, tv_location, tv_cust_address, tv_cust_area, tv_cust_city;
     private String latitude, longitude, geoUri;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,6 +98,9 @@ public class FragmentSearch extends Fragment implements OnClickListener,
 
         tv_app_no = (TextView) view.findViewById(R.id.tv_view_application_no);
         tv_cust_name = (TextView) view.findViewById(R.id.tv_view_customer_name);
+        tv_cust_address = (TextView) view.findViewById(R.id.tv_view_customer_address);
+        tv_cust_area = (TextView) view.findViewById(R.id.tv_view_customer_area);
+        tv_cust_city = (TextView) view.findViewById(R.id.tv_view_customer_city);
         tv_meter_no = (TextView) view.findViewById(R.id.tv_view_meter_no);
         tv_meter_reading = (TextView) view.findViewById(R.id.tv_view_meter_reading);
         tv_tube = (TextView) view.findViewById(R.id.tv_view_rubber_tube);
@@ -221,7 +224,10 @@ public class FragmentSearch extends Fragment implements OnClickListener,
                     cardView_data.setVisibility(View.GONE);
                     cardView_data1.setVisibility(View.VISIBLE);
                     tv_app_no.setText(jObject.getString("application_no"));
-                    tv_cust_name.setText(jObject.getString("user_name"));
+                    tv_cust_name.setText(jObject.getString("customer_name"));
+                    tv_cust_address.setText(jObject.getString("customer_address"));
+                    tv_cust_area.setText(jObject.getString("customer_area"));
+                    tv_cust_city.setText(jObject.getString("customer_city"));
                     tv_meter_no.setText(jObject.getString("meter_no"));
                     tv_meter_reading.setText(jObject.getString("meter_reading"));
                     tv_tube.setText(jObject.getString("cs_rubberTube"));

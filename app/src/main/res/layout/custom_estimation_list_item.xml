@@ -160,6 +160,118 @@
                     app:fontName="@string/font_light" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.35"
+                    android:gravity="right"
+                    android:text="Customer Name :"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_regular" />
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_est_conn_cust_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="0.65"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.35"
+                    android:gravity="right"
+                    android:text="Address :"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_regular" />
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_est_conn_cust_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="0.65"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.35"
+                    android:gravity="right"
+                    android:text="Area :"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_regular" />
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_est_conn_cust_area"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="0.65"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.35"
+                    android:gravity="right"
+                    android:text="City :"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_regular" />
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_est_conn_cust_city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="0.65"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_light" />
+            </LinearLayout>
+
             <com.vbs.irmenergy.utilities.CustomButton
                 android:id="@+id/btn_est_verify"
                 android:layout_width="@dimen/_80sdp"

@@ -28,7 +28,7 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
     private Spinner sp_center;
     private VolleyAPIClass volleyAPIClass;
     private APIProgressDialog mProgressDialog;
-    private String[] center_code, center_name;
+    private String[] center_code, center_name, center_prefix;
     private LinearLayout ll_center, ll_no_center;
     private String stringCenterId = "0";
 
@@ -42,8 +42,10 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 if (!center_code[position].equalsIgnoreCase("0")) {
                     stringCenterId = center_code[position];
-                    Utility.writeSharedPreferences(getActivity(),"center_code",
+                    Utility.writeSharedPreferences(getActivity(), "center_code",
                             stringCenterId);
+                    Utility.writeSharedPreferences(getActivity(), "center_prefix",
+                            center_prefix[position]);
                 }
             }
 
@@ -111,18 +113,21 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
                     int lenth = jsonArray.length() + 1;
                     center_code = new String[lenth];
                     center_name = new String[lenth];
+                    center_prefix = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
                         if (a == 0) {
                             center_code[0] = "0";
                             center_name[0] = "Select Center";
+                            center_prefix[0] = "XX";
                         } else {
                             jsonObjectMessage = jsonArray.getJSONObject(a - 1);
                             center_code[a] = jsonObjectMessage.getString("center_code");
                             center_name[a] = jsonObjectMessage.getString("center_name");
+                            center_prefix[a] = jsonObjectMessage.getString("center_prefix");
                         }
                     }
                     Utility.setSpinnerAdapter2(getActivity(), sp_center, center_name);
-                    Utility.writeSharedPreferences(getActivity(),"center_code",
+                    Utility.writeSharedPreferences(getActivity(), "center_code",
                             "1");
                     sp_center.setSelection(1);
                 }

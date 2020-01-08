@@ -189,6 +189,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
             params.put("amount", stringAmount);
             params.put("micr_no", et_micr_no.getText().toString());
             params.put("bank_id", stringBankId);
+            params.put("plan_id", stringPlanId);
             params.put("remarks", et_remarks.getText().toString());
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.REGISTRATION_PAYMENT,
                     Constant.URL_REGISTRATION_PAYMENT, params);

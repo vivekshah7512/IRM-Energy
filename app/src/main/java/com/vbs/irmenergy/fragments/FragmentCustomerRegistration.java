@@ -97,6 +97,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
     private File[] fileImage;
     private int imageType = 0;
     private String[] ftpFileName;
+    private Button btn_verify_app_no;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_customer_registration, container, false);
@@ -158,6 +160,9 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
         img_remove22 = view.findViewById(R.id.img_doc22_remove);
         img_remove22.setOnClickListener(this);
 
+        btn_verify_app_no = view.findViewById(R.id.btn_verify_app_no);
+        btn_verify_app_no.setOnClickListener(this);
+
         ll_data = view.findViewById(R.id.ll_data);
         ll_barcode = view.findViewById(R.id.ll_barcode);
         ll_scan = view.findViewById(R.id.ll_scan);
@@ -205,6 +210,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
         sp_area.setOnItemSelectedListener(this);
 
         et_application_no = (EditText) view.findViewById(R.id.et_reg_application_no);
+        et_application_no.setTag(Utility.getAppPrefString(getActivity(), "center_prefix"));
         et_date = (EditText) view.findViewById(R.id.et_reg_application_date);
         et_date.setOnClickListener(this);
         et_firstname = (EditText) view.findViewById(R.id.et_reg_first_name);
@@ -235,6 +241,14 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
 
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_verify_app_no:
+                if (!et_application_no.getText().toString().trim()
+                        .equalsIgnoreCase("")) {
+                    verifyAppNo();
+                } else {
+                    Utility.toast("Please enter application no.", getActivity());
+                }
+                break;
             case R.id.ll_scan:
                 startActivity(new Intent(getActivity(), ScanActivity.class));
                 break;
@@ -383,11 +397,45 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 dialog1.show();
                 break;
             case R.id.btn_cust_payment:
-                if (!TextUtils.isEmpty(fileName)) {
-                    ftpDirectory = "IRMenrgy_Test/Registration_Documents/" + et_application_no.getText().toString().trim();
-                    new uploadFileFTP().execute();
-                } else {
-                    saveRegistrationDetails();
+                if (et_application_no.getText().toString().equalsIgnoreCase(""))
+                    Utility.toast("Please enter application no.", getActivity());
+                else if (et_date.getText().toString().equalsIgnoreCase(""))
+                    Utility.toast("Please select application date", getActivity());
+                else if (TextUtils.isEmpty(stringCategoryId))
+                    Utility.toast("Please select customer type", getActivity());
+                else if (TextUtils.isEmpty(stringBillingTo))
+                    Utility.toast("Please select billing to", getActivity());
+                else if (et_firstname.getText().toString().equalsIgnoreCase(""))
+                    Utility.toast("Please enter first name", getActivity());
+                else if (et_lastname.getText().toString().equalsIgnoreCase(""))
+                    Utility.toast("Please enter last name", getActivity());
+                else if (TextUtils.isEmpty(stringDoc1))
+                    Utility.toast("Please select document1", getActivity());
+                else if (TextUtils.isEmpty(stringDoc2))
+                    Utility.toast("Please select document2", getActivity());
+                else if (TextUtils.isEmpty(stringDoc2))
+                    Utility.toast("Please select document2", getActivity());
+                else if (et_address1.getText().toString().equalsIgnoreCase(""))
+                    Utility.toast("Please enter society name", getActivity());
+                else if (TextUtils.isEmpty(stringState))
+                    Utility.toast("Please select state", getActivity());
+                else if (TextUtils.isEmpty(stringCity))
+                    Utility.toast("Please select city", getActivity());
+                else if (TextUtils.isEmpty(stringArea))
+                    Utility.toast("Please select area", getActivity());
+                else if (et_pincode.getText().toString().equalsIgnoreCase(""))
+                    Utility.toast("Please enter area pincode", getActivity());
+                else if (TextUtils.isEmpty(stringPropertyId))
+                    Utility.toast("Please select property type", getActivity());
+                else if (TextUtils.isEmpty(stringOwnerId))
+                    Utility.toast("Please select ownership type", getActivity());
+                else {
+                    if (!TextUtils.isEmpty(fileName)) {
+                        ftpDirectory = "IRMenrgy_Test/Registration_Documents/" + et_application_no.getText().toString().trim();
+                        new uploadFileFTP().execute();
+                    } else {
+                        saveRegistrationDetails();
+                    }
                 }
                 break;
             case R.id.img_reg1:
@@ -580,6 +628,22 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             volleyAPIClass.volleyGetJsonAPI(getActivity(), FragmentCustomerRegistration.this,
                     Constant.GET_DOCUMENT_LIST,
                     Constant.URL_GET_DOCUMENT_LIST);
+        } else
+            Utility.toast("No Internet Connection", getActivity());
+    }
+
+    private void verifyAppNo() {
+        if (Utility.isNetworkAvaliable(getActivity())) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
+            params.put("application_no", et_application_no.getTag().toString() + ""
+                    + et_application_no.getText().toString().trim());
+            volleyAPIClass.volleyAPICall(getActivity(), FragmentCustomerRegistration.this,
+                    Constant.VERIFY_APP_NO,
+                    Constant.URL_VERIFY_APP_NO, params);
         } else
             Utility.toast("No Internet Connection", getActivity());
     }
@@ -805,6 +869,28 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     Utility.setSpinnerAdapter(getActivity(), sp_doc1, doc_name);
                     Utility.setSpinnerAdapter(getActivity(), sp_doc2, doc_name);
                 }
+            } else if (reqCode == Constant.VERIFY_APP_NO) {
+                response = jObject.getString("response");
+                message = jObject.getString("message");
+                if (response.equalsIgnoreCase("true")) {
+                    Utility.toast(message, getActivity());
+                    /*jsonArray = jObject.getJSONArray("doc_data");
+                    int lenth = jsonArray.length() + 1;
+                    doc_id = new String[lenth];
+                    doc_name = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            doc_id[0] = "0";
+                            doc_name[0] = "Select Document";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            doc_id[a] = jsonObjectMessage.getString("doc_id");
+                            doc_name[a] = jsonObjectMessage.getString("doc_name");
+                        }
+                    }*/
+                } else {
+                    Utility.toast(message, getActivity());
+                }
             } else if (reqCode == Constant.SAVE_REGISTRATION) {
                 response = jObject.getString("response");
                 message = jObject.getString("message");
@@ -812,7 +898,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     Utility.toast(message, getActivity());
                     if (paymentType.equalsIgnoreCase("cheque")) {
                         Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
-                        intent.putExtra("app_no", et_application_no.getText().toString().trim());
+                        intent.putExtra("app_no", et_application_no.getTag().toString() + ""
+                                + et_application_no.getText().toString().trim());
                         intent.putExtra("cust_name", et_firstname.getText().toString().trim() + " " +
                                 et_lastname.getText().toString().trim());
                         startActivity(intent);
@@ -862,7 +949,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             Map<String, Object> params = new HashMap<>();
             params.put("user_id", Utility.getAppPrefString(getActivity(), Constant.USER_ID));
             params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
-            params.put("application_no", et_application_no.getText().toString().trim());
+            params.put("application_no", et_application_no.getTag().toString() + ""
+                    + et_application_no.getText().toString().trim());
             params.put("application_date", et_date.getText().toString().trim());
             params.put("customer_type", stringTypeId);
             params.put("customer_category", stringCategoryId);

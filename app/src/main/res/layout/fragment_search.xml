@@ -1,571 +1,663 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/colorWhite"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
-
-    <ImageView
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:src="@drawable/search" />
-
-    <com.vbs.irmenergy.utilities.CustomTextview
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:text="Search Application No/Workorder No"
-        android:textColor="@color/colorLightBlack"
-        android:textSize="@dimen/_13sdp"
-        app:fontName="@string/font_regular" />
-
-    <com.vbs.irmenergy.utilities.CustomEditText
-        android:id="@+id/et_app_no"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_margin="@dimen/_15sdp"
-        android:background="@drawable/rounded_border_box1"
-        android:drawableRight="@android:drawable/ic_menu_search"
-        android:drawablePadding="8dp"
-        android:drawableTint="@color/colorLightViolet1"
-        android:hint="Search Application No."
-        android:inputType="textCapCharacters"
-        android:padding="8dp"
-        android:singleLine="true"
-        android:textColor="@color/colorLightBlack1"
-        android:textCursorDrawable="@drawable/color_cursor"
-        android:textSize="@dimen/_12sdp"
-        app:fontName="@string/font_regular" />
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <com.vbs.irmenergy.utilities.CustomButton
-            android:id="@+id/btn_search"
-            android:layout_width="@dimen/_110sdp"
-            android:layout_height="40dp"
-            android:background="@drawable/rounded_rectangle_button1"
-            android:text="Search"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_14sdp"
-            app:fontName="@string/font_semibold" />
+        <ImageView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:src="@drawable/search" />
 
-        <com.vbs.irmenergy.utilities.CustomButton
-            android:id="@+id/btn_view"
-            android:layout_width="@dimen/_110sdp"
-            android:layout_height="40dp"
-            android:background="@drawable/rounded_rectangle_button1"
-            android:text="View"
-            android:layout_marginStart="10dp"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_14sdp"
-            app:fontName="@string/font_semibold" />
+        <com.vbs.irmenergy.utilities.CustomTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Search Application No/Workorder No"
+            android:textColor="@color/colorLightBlack"
+            android:textSize="@dimen/_13sdp"
+            app:fontName="@string/font_regular" />
+
+        <com.vbs.irmenergy.utilities.CustomEditText
+            android:id="@+id/et_app_no"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="@dimen/_15sdp"
+            android:background="@drawable/rounded_border_box1"
+            android:drawableRight="@android:drawable/ic_menu_search"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/colorLightViolet1"
+            android:hint="Search Application No."
+            android:inputType="textCapCharacters"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorLightBlack1"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="@dimen/_12sdp"
+            app:fontName="@string/font_regular" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.vbs.irmenergy.utilities.CustomButton
+                android:id="@+id/btn_search"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_rectangle_button1"
+                android:text="Search"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14sdp"
+                app:fontName="@string/font_semibold" />
+
+            <com.vbs.irmenergy.utilities.CustomButton
+                android:id="@+id/btn_view"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/rounded_rectangle_button1"
+                android:text="View"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14sdp"
+                app:fontName="@string/font_semibold" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_search_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@color/colorLightViolet"
+            android:visibility="gone"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:text="Customer Details"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="@dimen/_13sdp"
+                    app:fontName="@string/font_semibold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Application No. :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_application_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Customer Name :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_customer_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Address :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Area :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_area"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="City :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_city"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Contact No. :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_contact_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Email Id :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_email_id"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <com.vbs.irmenergy.utilities.CustomButton
+                    android:id="@+id/btn_verify"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_rectangle_button1"
+                    android:text="Verify"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_12sdp"
+                    app:fontName="@string/font_semibold" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_view_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@color/colorLightViolet"
+            android:visibility="gone"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:text="Customer Details"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="@dimen/_13sdp"
+                    app:fontName="@string/font_semibold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Application No. :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_application_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Customer Name :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_customer_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Address :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_customer_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Customer Area :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_customer_area"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Customer City :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_customer_city"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Meter No :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_meter_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Meter Reading :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_meter_reading"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Rubber Tube :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_rubber_tube"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Date :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Location :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:text="@string/location"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0">
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_weight="0.35"
+                        android:gravity="right"
+                        android:text="Remarks :"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_regular" />
+
+                    <com.vbs.irmenergy.utilities.CustomTextview
+                        android:id="@+id/tv_view_remarks"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="0.65"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontName="@string/font_light" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv_search_data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:background="@color/colorLightViolet"
-        android:visibility="gone"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="3dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="vertical">
-
-            <com.vbs.irmenergy.utilities.CustomTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
-                android:text="Customer Details"
-                android:textColor="@color/colorLightBlack"
-                android:textSize="@dimen/_13sdp"
-                app:fontName="@string/font_semibold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Application No. :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_application_no"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="top"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Customer Name :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_customer_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="top"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Address :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Area :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_area"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="City :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_city"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Contact No. :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_contact_no"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Email Id :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_email_id"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <com.vbs.irmenergy.utilities.CustomButton
-                android:id="@+id/btn_verify"
-                android:layout_width="@dimen/_90sdp"
-                android:layout_height="35dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_rectangle_button1"
-                android:text="Verify"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_12sdp"
-                app:fontName="@string/font_semibold" />
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv_view_data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:background="@color/colorLightViolet"
-        android:visibility="gone"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="3dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="vertical">
-
-            <com.vbs.irmenergy.utilities.CustomTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
-                android:text="Customer Details"
-                android:textColor="@color/colorLightBlack"
-                android:textSize="@dimen/_13sdp"
-                app:fontName="@string/font_semibold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Application No. :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_view_application_no"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Customer Name :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_view_customer_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Meter No :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_view_meter_no"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Meter Reading :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_view_meter_reading"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Rubber Tube :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_view_rubber_tube"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Date :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_view_date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Location :"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_view_location"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:text="@string/location"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="1.0">
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:gravity="right"
-                    android:text="Remarks :"
-                    android:layout_gravity="top"
-                    android:textColor="@color/colorLightBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_regular" />
-
-                <com.vbs.irmenergy.utilities.CustomTextview
-                    android:id="@+id/tv_view_remarks"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.65"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontName="@string/font_light" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+</ScrollView>
 

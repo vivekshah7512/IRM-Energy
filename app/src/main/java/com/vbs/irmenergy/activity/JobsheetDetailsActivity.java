@@ -53,7 +53,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private Context mContext;
     private VolleyAPIClass volleyAPIClass;
-    private Button btn_comm_submit;
+    private Button btn_comm_submit, btn_verify_meter_no;
     private LinearLayout ll_take_photo;
     private ImageView img_capture;
     private TextView tv_img_title;
@@ -91,6 +91,8 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
 
         btn_comm_submit = (Button) findViewById(R.id.btn_jobsheet_submit);
         btn_comm_submit.setOnClickListener(this);
+        btn_verify_meter_no = (Button) findViewById(R.id.btn_verify_meter_no);
+        btn_verify_meter_no.setOnClickListener(this);
         ll_take_photo = (LinearLayout) findViewById(R.id.ll_take_photo);
         ll_take_photo.setOnClickListener(this);
         img_capture = (ImageView) findViewById(R.id.img_meter);
@@ -126,6 +128,14 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_verify_meter_no:
+                if (!et_material_no.getText().toString().trim()
+                        .equalsIgnoreCase("")) {
+                    verifyAppNo();
+                } else {
+                    Utility.toast("Please enter meter sr no.", mContext);
+                }
+                break;
             case R.id.et_job_inst_date:
                 DatePickerDialog dialog_date = new DatePickerDialog(mContext, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
                         new DatePickerDialog.OnDateSetListener() {
@@ -218,6 +228,20 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
             volleyAPIClass.volleyGetJsonAPI(mContext, null,
                     Constant.GET_HOUSE_TYPE,
                     Constant.URL_GET_HOUSE_TYPE);
+        } else
+            Utility.toast("No Internet Connection", mContext);
+    }
+
+    private void verifyAppNo() {
+        if (Utility.isNetworkAvaliable(mContext)) {
+            if (!mProgressDialog.isShowing())
+                mProgressDialog.show();
+
+            Map<String, String> params = new HashMap<>();
+            params.put("meter_sr_no", Utility.getAppPrefString(mContext, "center_code"));
+            params.put("contractor_id", getIntent().getStringExtra("woType"));
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.VERIFY_METER_NO,
+                    Constant.URL_VERIFY_METER_NO, params);
         } else
             Utility.toast("No Internet Connection", mContext);
     }
@@ -329,6 +353,29 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(mContext, sp_house_type, house_type);
+                }
+            } else if (reqCode == Constant.VERIFY_METER_NO) {
+                response = jObject.getString("response");
+                message = jObject.getString("message");
+                if (response.equalsIgnoreCase("true")) {
+                    Utility.toast(message, mContext);
+                    /*jsonArray = jObject.getJSONArray("house_data");
+                    int lenth = jsonArray.length() + 1;
+                    house_id = new String[lenth];
+                    house_type = new String[lenth];
+                    for (int a = 0; a < lenth; a++) {
+                        if (a == 0) {
+                            house_id[0] = "0";
+                            house_type[0] = "Select House Type";
+                        } else {
+                            jsonObjectMessage = jsonArray.getJSONObject(a - 1);
+                            house_id[a] = jsonObjectMessage.getString("house_id");
+                            house_type[a] = jsonObjectMessage.getString("house_type");
+                        }
+                    }
+                    Utility.setSpinnerAdapter(mContext, sp_house_type, house_type);*/
+                } else {
+                    Utility.toast(message, mContext);
                 }
             }
         } catch (JSONException e) {

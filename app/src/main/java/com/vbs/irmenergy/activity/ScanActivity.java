@@ -42,7 +42,6 @@ public class ScanActivity extends AppCompatActivity implements BarcodeReader.Bar
         int width = displayMetrics.widthPixels;
 
         rl_scan = (RelativeLayout) findViewById(R.id.rl_scan);
-//        rl_scan.setLayoutParams(new RelativeLayout.LayoutParams(width,height));
 
         barcodeReader = (BarcodeReader) getSupportFragmentManager().findFragmentById(R.id.barcode_scanner);
     }
@@ -51,7 +50,7 @@ public class ScanActivity extends AppCompatActivity implements BarcodeReader.Bar
     public void onScanned(Barcode barcode) {
         barcodeReader.playBeep();
         Log.v("Barcode", barcode.displayValue);
-        parseXml(barcode.displayValue);
+//        parseXml(barcode.displayValue);
     }
 
     @Override

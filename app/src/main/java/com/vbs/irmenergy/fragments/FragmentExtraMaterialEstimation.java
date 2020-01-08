@@ -42,7 +42,8 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
     private EditText et_app_no;
     private String[] estworkorder_refno, estworkorder_id, estworkorder_date,
             estworkorder_type_id, estworkorder_type_name, estplan_name,
-            estapplication_no, estapp_id;
+            estapplication_no, estapp_id, estcustomer_name, estcustomer_address,
+            estcustomer_area, estcustomer_city;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_extra_material_estimation, container, false);
@@ -125,6 +126,10 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
                     estplan_name = new String[lenth];
                     estapplication_no = new String[lenth];
                     estapp_id = new String[lenth];
+                    estcustomer_name = new String[lenth];
+                    estcustomer_address = new String[lenth];
+                    estcustomer_area = new String[lenth];
+                    estcustomer_city = new String[lenth];
                     for (int j = 0; j < lenth; j++) {
                         jsonObjectMessage = jsonArray.getJSONObject(j);
                         estworkorder_refno[j] = jsonObjectMessage.getString("estworkorder_refno");
@@ -135,12 +140,17 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
                         estplan_name[j] = jsonObjectMessage.getString("estplan_name");
                         estapplication_no[j] = jsonObjectMessage.getString("estapplication_no");
                         estapp_id[j] = jsonObjectMessage.getString("estapp_id");
+                        estcustomer_name[j] = jsonObjectMessage.getString("estcustomer_name");
+                        estcustomer_address[j] = jsonObjectMessage.getString("estcustomer_address");
+                        estcustomer_area[j] = jsonObjectMessage.getString("estcustomer_area");
+                        estcustomer_city[j] = jsonObjectMessage.getString("estcustomer_city");
                     }
                     InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(et_app_no.getWindowToken(), 0);
                     recyclerView.setAdapter(new EstimationAdapter(getActivity(), estworkorder_refno, estworkorder_id, estworkorder_date,
                             estworkorder_type_id, estworkorder_type_name, estplan_name,
-                            estapplication_no, estapp_id));
+                            estapplication_no, estapp_id, estcustomer_name, estcustomer_address,
+                            estcustomer_area, estcustomer_city));
                 } else {
                     Utility.toast(message, getActivity());
                 }

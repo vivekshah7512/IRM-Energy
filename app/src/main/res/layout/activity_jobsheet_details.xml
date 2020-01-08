@@ -210,20 +210,42 @@
                             android:textSize="@dimen/_12sdp"
                             app:fontName="@string/font_regular" />
 
-                        <com.vbs.irmenergy.utilities.CustomEditText
-                            android:id="@+id/et_job_material_no"
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/rounded_border_box1"
-                            android:gravity="center_vertical"
-                            android:hint="Enter meter sr. no."
-                            android:padding="8dp"
-                            android:singleLine="true"
-                            android:textColor="@color/colorLightBlack1"
-                            android:textCursorDrawable="@drawable/color_cursor"
-                            android:textSize="@dimen/_11sdp"
-                            app:fontName="@string/font_light" />
+                            android:layout_marginTop="5dp">
+
+                            <com.vbs.irmenergy.utilities.CustomEditText
+                                android:id="@+id/et_job_material_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_toLeftOf="@+id/btn_verify_meter_no"
+                                android:background="@drawable/rounded_border_box1"
+                                android:gravity="center_vertical"
+                                android:hint="Enter meter sr. no."
+                                android:padding="8dp"
+                                android:singleLine="true"
+                                android:layout_marginEnd="8dp"
+                                android:textColor="@color/colorLightBlack1"
+                                android:textCursorDrawable="@drawable/color_cursor"
+                                android:textSize="@dimen/_11sdp"
+                                app:fontName="@string/font_light" />
+
+                            <com.vbs.irmenergy.utilities.CustomButton
+                                android:id="@+id/btn_verify_meter_no"
+                                android:layout_width="80dp"
+                                android:layout_height="35dp"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/rounded_rectangle_button1"
+                                android:text="Verify"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/_11sdp"
+                                app:fontName="@string/font_semibold" />
+
+                        </RelativeLayout>
 
                         <com.vbs.irmenergy.utilities.CustomTextview
                             android:layout_width="wrap_content"

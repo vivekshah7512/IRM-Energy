@@ -44,6 +44,8 @@ public class Constant {
     public static String URL_SAVE_JOBSHEET_DATA = URL_PARENT + "saveJobsheetDetails";
     public static String URL_CALCULATE_AMOUNT = URL_PARENT + "getEstimationMaterialCalculation";
     public static String URL_SAVE_EXTRA_ESTIMATION = URL_PARENT + "getEstimation";
+    public static String URL_VERIFY_APP_NO = URL_PARENT + "getApplicationDetail";
+    public static String URL_VERIFY_METER_NO = URL_PARENT + "verifyMeterNo";
 
     // API CODE
     public static int LOGIN = 1;
@@ -79,6 +81,8 @@ public class Constant {
     public static int CALCULATE_AMOUNT = 31;
     public static int SAVE_EXTRA_ESTIMATION = 32;
     public static int VIEW_APPLICATION_NO = 33;
+    public static int VERIFY_APP_NO = 34;
+    public static int VERIFY_METER_NO = 35;
 
     // Constant
     public static String USER_EMAIL = "user_email";
