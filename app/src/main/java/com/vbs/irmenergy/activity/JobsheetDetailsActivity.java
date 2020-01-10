@@ -275,7 +275,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                 fileImage.createNewFile();
                 Bitmap bitmap = photo;
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                 byte[] bitmapdata = bos.toByteArray();
                 FileOutputStream fos = new FileOutputStream(fileImage);
                 fos.write(bitmapdata);

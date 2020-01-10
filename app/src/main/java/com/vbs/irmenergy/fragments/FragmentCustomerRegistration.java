@@ -113,6 +113,9 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             lpg_omc, property_type, property_name1, ownership_type,
             ownership_name1, owner_mobile, dma_contractor, remarks,
             center_code, doc1, doc2, customer_phone, plan_id;
+    private int indexCity = 0, indexArea = 0, indexState = 0, indexPropType = 0,
+            indexOwnerType = 0, indexDMA = 0;
+    private boolean flag = false;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_customer_registration, container, false);
@@ -415,45 +418,66 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 dialog1.show();
                 break;
             case R.id.btn_cust_payment:
-                if (et_application_no.getText().toString().equalsIgnoreCase(""))
-                    Utility.toast("Please enter application no.", getActivity());
-                else if (et_date.getText().toString().equalsIgnoreCase(""))
-                    Utility.toast("Please select application date", getActivity());
-                else if (TextUtils.isEmpty(stringCategoryId))
-                    Utility.toast("Please select customer type", getActivity());
-                else if (TextUtils.isEmpty(stringBillingTo))
-                    Utility.toast("Please select billing to", getActivity());
-                else if (et_firstname.getText().toString().equalsIgnoreCase(""))
-                    Utility.toast("Please enter first name", getActivity());
-                else if (et_lastname.getText().toString().equalsIgnoreCase(""))
-                    Utility.toast("Please enter last name", getActivity());
-                else if (TextUtils.isEmpty(stringDoc1))
-                    Utility.toast("Please select document1", getActivity());
-                else if (TextUtils.isEmpty(stringDoc2))
-                    Utility.toast("Please select document2", getActivity());
-                else if (TextUtils.isEmpty(stringDoc2))
-                    Utility.toast("Please select document2", getActivity());
-                else if (et_address1.getText().toString().equalsIgnoreCase(""))
-                    Utility.toast("Please enter society name", getActivity());
-                else if (TextUtils.isEmpty(stringState))
-                    Utility.toast("Please select state", getActivity());
-                else if (TextUtils.isEmpty(stringCity))
-                    Utility.toast("Please select city", getActivity());
-                else if (TextUtils.isEmpty(stringArea))
-                    Utility.toast("Please select area", getActivity());
-                else if (et_pincode.getText().toString().equalsIgnoreCase(""))
-                    Utility.toast("Please enter area pincode", getActivity());
-                else if (TextUtils.isEmpty(stringPropertyId))
-                    Utility.toast("Please select property type", getActivity());
-                else if (TextUtils.isEmpty(stringOwnerId))
-                    Utility.toast("Please select ownership type", getActivity());
-                else {
-                    if (!TextUtils.isEmpty(fileName)) {
-                        ftpDirectory = et_application_no.getTag().toString() + ""
-                                + et_application_no.getText().toString().trim();
-                        new uploadFileFTP().execute();
+                if (!flag) {
+                    if (et_application_no.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter application no.", getActivity());
+                    else if (et_date.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please select application date", getActivity());
+                    else if (TextUtils.isEmpty(stringCategoryId))
+                        Utility.toast("Please select customer type", getActivity());
+                    else if (TextUtils.isEmpty(stringBillingTo))
+                        Utility.toast("Please select billing to", getActivity());
+                    else if (et_firstname.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter first name", getActivity());
+                    else if (et_lastname.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter last name", getActivity());
+                    else if (TextUtils.isEmpty(stringDoc1))
+                        Utility.toast("Please select document1", getActivity());
+                    else if (TextUtils.isEmpty(stringDoc2))
+                        Utility.toast("Please select document2", getActivity());
+                    else if (TextUtils.isEmpty(stringDoc2))
+                        Utility.toast("Please select document2", getActivity());
+                    else if (et_address1.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter society name", getActivity());
+                    else if (TextUtils.isEmpty(stringState))
+                        Utility.toast("Please select state", getActivity());
+                    else if (TextUtils.isEmpty(stringCity))
+                        Utility.toast("Please select city", getActivity());
+                    else if (TextUtils.isEmpty(stringArea))
+                        Utility.toast("Please select area", getActivity());
+                    else if (et_pincode.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter area pincode", getActivity());
+                    else if (TextUtils.isEmpty(stringPropertyId))
+                        Utility.toast("Please select property type", getActivity());
+                    else if (TextUtils.isEmpty(stringOwnerId))
+                        Utility.toast("Please select ownership type", getActivity());
+                    else {
+                        if (ftpFileName[0].equalsIgnoreCase("") &&
+                                ftpFileName[1].equalsIgnoreCase("") &&
+                                ftpFileName[2].equalsIgnoreCase("") &&
+                                ftpFileName[3].equalsIgnoreCase("")) {
+                            saveRegistrationDetails();
+                        } else {
+                            ftpDirectory = et_application_no.getTag().toString() + ""
+                                    + et_application_no.getText().toString().trim();
+                            new uploadFileFTP().execute();
+                        }
+                    }
+                } else {
+                    if (paymentType.equalsIgnoreCase("cheque")) {
+                        Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
+                        intent.putExtra("app_no", et_application_no.getTag().toString() + ""
+                                + et_application_no.getText().toString().trim());
+                        intent.putExtra("cust_name", et_firstname.getText().toString().trim() + " " +
+                                et_lastname.getText().toString().trim());
+                        startActivity(intent);
                     } else {
-                        saveRegistrationDetails();
+                        Utility.toast("Your data saved successfully", getActivity());
+                        getActivity().finish();
+                        Intent i = new Intent(getActivity(), MainActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
                     }
                 }
                 break;
@@ -748,6 +772,10 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_property_type, property_name);
+                    if (indexPropType != 0) {
+                        indexPropType = Arrays.asList(property_type).indexOf(property_id);
+                        sp_property_type.setSelection(indexPropType);
+                    }
                 }
             } else if (reqCode == Constant.GET_OWNER_TYPE) {
                 response = jObject.getString("response");
@@ -767,6 +795,10 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_owner_type, ownership_name);
+                    if (indexOwnerType != 0) {
+                        indexOwnerType = Arrays.asList(ownership_type).indexOf(ownership_id);
+                        sp_owner_type.setSelection(indexOwnerType);
+                    }
                 }
             } else if (reqCode == Constant.GET_CONTRACTOR) {
                 response = jObject.getString("response");
@@ -786,7 +818,12 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_contractor, contractor_name);
-                    sp_contractor.setSelection(1);
+
+                    if (indexDMA != 0) {
+                        indexDMA = Arrays.asList(dma_contractor).indexOf(contractor_id);
+                        sp_contractor.setSelection(indexCity);
+                    } else
+                        sp_contractor.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_BILLING_INFO) {
                 response = jObject.getString("response");
@@ -826,7 +863,11 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_state, state_name);
-                    sp_state.setSelection(1);
+                    if (indexState != 0) {
+                        indexState = Arrays.asList(state_id).indexOf(state);
+                        sp_state.setSelection(indexCity);
+                    } else
+                        sp_state.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_CITY) {
                 response = jObject.getString("response");
@@ -846,7 +887,11 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_city, city_name);
-                    sp_city.setSelection(1);
+                    if (indexCity != 0) {
+                        indexCity = Arrays.asList(city_id).indexOf(city);
+                        sp_city.setSelection(indexCity);
+                    } else
+                        sp_city.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_AREA) {
                 response = jObject.getString("response");
@@ -866,6 +911,11 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_area, area_name);
+                    if (indexArea != 0) {
+                        indexArea = Arrays.asList(area_id).indexOf(area);
+                        sp_area.setSelection(indexArea);
+                    } else
+                        sp_area.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_DOCUMENT_LIST) {
                 response = jObject.getString("response");
@@ -954,24 +1004,66 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         int indexBillingTo = Arrays.asList(billing_id).indexOf(billing_to);
                         int indexDoc1 = Arrays.asList(doc_id).indexOf(doc1);
                         int indexDoc2 = Arrays.asList(doc_id).indexOf(doc2);
-                        int indexPropType = Arrays.asList(property_type).indexOf(property_id);
-                        int indexOwnerType = Arrays.asList(ownership_type).indexOf(ownership_id);
-                        int indexDMA = Arrays.asList(dma_contractor).indexOf(contractor_id);
-                        int indexState = Arrays.asList(state_id).indexOf(state);
-                        int indexCity = Arrays.asList(city_id).indexOf(city);
-                        int indexArea = Arrays.asList(area_id).indexOf(area);
+                        indexPropType = 1;
+                        indexOwnerType = 1;
+                        indexDMA = 1;
+                        indexState = 1;
+                        indexCity = 1;
+                        indexArea = 1;
 
                         sp_customer_type.setSelection(indexCustType);
                         sp_customer_category.setSelection(indexCustCat);
                         sp_billing_to.setSelection(indexBillingTo);
                         sp_doc1.setSelection(indexDoc1);
                         sp_doc2.setSelection(indexDoc2);
-                        sp_state.setSelection(indexState);
-                        sp_city.setSelection(indexCity);
-                        sp_area.setSelection(indexArea);
-                        sp_property_type.setSelection(indexPropType);
-                        sp_owner_type.setSelection(indexOwnerType);
-                        sp_contractor.setSelection(indexDMA);
+//                        sp_state.setSelection(indexState);
+//                        sp_city.setSelection(indexCity);
+//                        sp_area.setSelection(indexArea);
+//                        sp_property_type.setSelection(indexPropType);
+//                        sp_owner_type.setSelection(indexOwnerType);
+//                        sp_contractor.setSelection(indexDMA);
+
+                        flag = true;
+                    } else {
+                        et_date.setText("");
+                        et_firstname.setText("");
+                        et_middlename.setText("");
+                        et_lastname.setText("");
+                        et_dob.setText("");
+                        et_aadhar_no.setMaskedText("");
+                        et_block_no.setText("");
+                        et_address1.setText("");
+                        et_address2.setText("");
+                        et_pincode.setText("");
+                        et_mobile_no.setText("");
+                        et_contact_no.setText("");
+                        et_email.setText("");
+                        et_lpg_no.setText("");
+                        et_lpg_distributor.setText("");
+                        et_lpg_omc.setText("");
+                        et_owner_name.setText("");
+                        et_owner_contact_no.setText("");
+                        et_remarks.setText("");
+
+                        indexPropType = 0;
+                        indexOwnerType = 0;
+                        indexDMA = 0;
+                        indexState = 0;
+                        indexCity = 0;
+                        indexArea = 0;
+
+                        sp_customer_type.setSelection(1);
+                        sp_customer_category.setSelection(1);
+                        sp_billing_to.setSelection(1);
+                        sp_doc1.setSelection(0);
+                        sp_doc2.setSelection(0);
+                        sp_state.setSelection(1);
+                        sp_city.setSelection(1);
+                        sp_area.setSelection(0);
+                        sp_property_type.setSelection(0);
+                        sp_owner_type.setSelection(0);
+                        sp_contractor.setSelection(1);
+
                     }
 
                     /*jsonArray = jObject.getJSONArray("document_data");
@@ -1232,7 +1324,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         File f = new File(getActivity().getCacheDir(), filePath);
                         f.createNewFile();
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 70 /*ignored for PNG*/, bos);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
                         byte[] bitmapdata = bos.toByteArray();
                         FileOutputStream fos = new FileOutputStream(f);
                         fos.write(bitmapdata);
@@ -1290,7 +1382,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         File f = new File(getActivity().getCacheDir(), filePath);
                         f.createNewFile();
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 70 /*ignored for PNG*/, bos);
+                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
                         byte[] bitmapdata = bos.toByteArray();
                         FileOutputStream fos = new FileOutputStream(f);
                         fos.write(bitmapdata);
@@ -1349,22 +1441,32 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 FTPClient ftpClient = new FTPClient();
                 ftpClient.connect(Constant.FTP_URL);
                 ftpClient.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
-                ftpClient.enterLocalPassiveMode();
                 ftpClient.changeWorkingDirectory("IRMenrgy_Test/Registration_Documents/");
-                Log.e("FTP Dir: ", ftpClient.printWorkingDirectory());
+                Log.e("FTP Dir1: ", ftpClient.printWorkingDirectory());
                 ftpClient.makeDirectory(ftpDirectory);
+
+                FTPClient ftpClient1 = new FTPClient();
+                ftpClient1.connect(Constant.FTP_URL);
+                ftpClient1.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
+                ftpClient1.changeWorkingDirectory("IRMenrgy_Test/Registration_Documents/" + ftpDirectory + "/");
+                Log.e("FTP Dir1: ", ftpClient1.printWorkingDirectory());
+
+                ftpClient.enterLocalPassiveMode();
                 ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+
                 for (int i = 0; i < fileImage.length; i++) {
                     if (fileImage[i] != null) {
                         BufferedInputStream buffIn = null;
                         System.out.println("Name : " + ftpFileName[i]);
                         buffIn = new BufferedInputStream(new FileInputStream(fileImage[i]));
-                        ftpClient.storeFile(ftpFileName[i], buffIn);
+                        ftpClient1.storeFile(ftpFileName[i], buffIn);
                         buffIn.close();
                     }
                 }
                 ftpClient.logout();
                 ftpClient.disconnect();
+                ftpClient1.logout();
+                ftpClient1.disconnect();
                 if (mProgressDialog.isShowing()) {
                     mProgressDialog.dismiss();
                 }

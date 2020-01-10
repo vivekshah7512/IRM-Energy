@@ -194,7 +194,9 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                     public void onClick(View view) {
                         if (signatureView.getSignatureBitmap() != null) {
                             dialog.dismiss();
-                            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(signatureView.getSignatureBitmap(), 100, 100);
+                            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(signatureView.getSignatureBitmap(),
+                                    signatureView.getWidth(),
+                                    signatureView.getHeight());
                             img_sign.setImageBitmap(ThumbImage);
                             fileName = Utility.getCurrentDateTime1() + ".png";
 
@@ -203,7 +205,7 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                                 fileImage.createNewFile();
                                 Bitmap bitmap = ThumbImage;
                                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                                bitmap.compress(Bitmap.CompressFormat.PNG, 70, bos);
+                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
                                 byte[] bitmapdata = bos.toByteArray();
                                 FileOutputStream fos = new FileOutputStream(fileImage);
                                 fos.write(bitmapdata);

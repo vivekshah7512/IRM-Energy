@@ -38,7 +38,6 @@ import com.vbs.irmenergy.utilities.volley.VolleyAPIClass;
 import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
 import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -178,7 +177,9 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
                     public void onClick(View view) {
                         if (signatureView.getSignatureBitmap() != null) {
                             dialog.dismiss();
-                            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(signatureView.getSignatureBitmap(), 100, 100);
+                            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(signatureView.getSignatureBitmap(),
+                                    signatureView.getWidth(),
+                                    signatureView.getHeight());
                             img_sign.setImageBitmap(ThumbImage);
                         } else {
                             Utility.toast("Draw your signature.", mContext);
