@@ -38,6 +38,7 @@ public class Constant {
     public static String URL_GET_PLAN = URL_PARENT + "getPlan";
     public static String URL_SAVE_SURVEY = URL_PARENT + "saveCustomerSurvey";
     public static String URL_GET_BANK_NAME = URL_PARENT + "getBankList";
+//    public static String URL_GET_BANK_NAME = URL_PARENT + "getBankListbyMCIRNo";
     public static String URL_GET_COMMISSION_LIST = URL_PARENT + "getCommisioningList";
     public static String URL_GET_ESTIMATE_LIST = URL_PARENT + "getEstimationPendingWorkOrderList";
     public static String URL_SAVE_COMMISSION = URL_PARENT + "saveCommissioningProcess";

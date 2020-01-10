@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -81,6 +83,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
         sp_bank.setOnItemSelectedListener(this);
         sp_payment_mode = (Spinner) findViewById(R.id.et_payment_type);
         sp_payment_mode.setOnItemSelectedListener(this);
+        Utility.setSpinnerAdapter(mContext, sp_payment_mode, getResources().getStringArray(R.array.payment_type));
         et_receipt_type = (EditText) findViewById(R.id.et_payment_receipt_type);
         et_receipt_date = (EditText) findViewById(R.id.et_payment_receipt_date);
         et_receipt_date.setOnClickListener(this);
@@ -164,9 +167,12 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
             if (!mProgressDialog.isShowing())
                 mProgressDialog.show();
 
-            volleyAPIClass.volleyGetJsonAPI(mContext, null,
-                    Constant.GET_BANK_NAME,
-                    Constant.URL_GET_BANK_NAME);
+            Map<String, String> params = new HashMap<>();
+            params.put("center_code", Utility.getAppPrefString(mContext, "center_code"));
+//            params.put("micr_no", et_micr_no.getText().toString().trim());
+
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_BANK_NAME,
+                    Constant.URL_GET_BANK_NAME, params);
         } else
             Utility.toast("No Internet Connection", mContext);
     }

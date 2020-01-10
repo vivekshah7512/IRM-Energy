@@ -1,9 +1,14 @@
 package com.vbs.irmenergy.activity;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -99,6 +104,36 @@ public class VerifyPaymentDetailActivity extends AppCompatActivity implements Vi
                 finish();
                 break;
             case R.id.btn_cust_verify:
+                Dialog dialog1 = new Dialog(mContext);
+                dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog1.setContentView(R.layout.dialog_sucess);
+                dialog1.setCanceledOnTouchOutside(false);
+                dialog1.setCancelable(false);
+
+                Button btn_dashboard = (Button) dialog1.findViewById(R.id.btn_dashboard);
+                TextView tv_success_msg = (TextView) dialog1.findViewById(R.id.tv_success_msg);
+                tv_success_msg.setText("Your Data Saved Successfully");
+
+                btn_dashboard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog1.dismiss();
+                        finish();
+                        Intent i = new Intent(mContext, MainActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                    }
+                });
+
+                Window window1 = dialog1.getWindow();
+                WindowManager.LayoutParams wlp1 = window1.getAttributes();
+                wlp1.width = ActionBar.LayoutParams.MATCH_PARENT;
+                wlp1.height = ActionBar.LayoutParams.MATCH_PARENT;
+                window1.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                window1.setAttributes(wlp1);
+                dialog1.show();
                 break;
             default:
                 break;

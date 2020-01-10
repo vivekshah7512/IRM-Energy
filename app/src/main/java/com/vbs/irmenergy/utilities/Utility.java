@@ -193,21 +193,10 @@ public class Utility {
         return imageEncoded;
     }
 
-    public static String parseDateToddMMyyyy(String time) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
-        try {
-            return new SimpleDateFormat("dd MMM, yyyy hh:mm a").format(inputFormat.parse(time));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public static String parseDate(String date) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MMM-yyyy");
         try {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm").
-                    format(inputFormat.parse(date));
+            return new SimpleDateFormat("dd-MM-yyyy").format(inputFormat.parse(date));
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

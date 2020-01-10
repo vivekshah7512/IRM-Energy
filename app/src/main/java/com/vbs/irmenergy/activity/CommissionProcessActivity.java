@@ -300,6 +300,7 @@ public class CommissionProcessActivity extends Activity implements View.OnClickL
                     btn_dashboard.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            dialog1.dismiss();
                             finish();
                             Intent i = new Intent(mContext, MainActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |

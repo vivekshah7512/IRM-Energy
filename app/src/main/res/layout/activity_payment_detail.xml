@@ -162,7 +162,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:paddingEnd="42dp"
-                            android:entries="@array/payment_type"
                             android:spinnerMode="dropdown" />
 
                         <View

@@ -270,20 +270,39 @@
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/_10sdp"
                     app:fontName="@string/font_light" />
+
             </LinearLayout>
 
-            <com.vbs.irmenergy.utilities.CustomButton
-                android:id="@+id/btn_est_verify"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="35dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_rectangle_button1"
-                android:text="Verify"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_12sdp"
-                app:fontName="@string/font_semibold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <com.vbs.irmenergy.utilities.CustomTextview
+                    android:id="@+id/tv_est_conn_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toLeftOf="@+id/btn_est_verify"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontName="@string/font_regular" />
+
+                <com.vbs.irmenergy.utilities.CustomButton
+                    android:id="@+id/btn_est_verify"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:background="@drawable/rounded_rectangle_button1"
+                    android:text="Verify"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_12sdp"
+                    app:fontName="@string/font_semibold" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

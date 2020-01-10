@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.adapter.CommissioningAdapter;
-import com.vbs.irmenergy.adapter.JobsheetAdapter;
 import com.vbs.irmenergy.utilities.APIProgressDialog;
 import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.Utility;
@@ -150,6 +149,7 @@ public class FragmentCommissioning extends Fragment implements OnClickListener,
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            Utility.toast("No Records Found.", getActivity());
         }
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();

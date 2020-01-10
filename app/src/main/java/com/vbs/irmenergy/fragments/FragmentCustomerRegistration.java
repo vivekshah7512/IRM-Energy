@@ -2,22 +2,28 @@ package com.vbs.irmenergy.fragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -31,6 +37,7 @@ import android.widget.TextView;
 import com.github.javiersantos.bottomdialogs.BottomDialog;
 import com.github.pinball83.maskededittext.MaskedEditText;
 import com.vbs.irmenergy.R;
+import com.vbs.irmenergy.activity.MainActivity;
 import com.vbs.irmenergy.activity.PaymentDetailActivity;
 import com.vbs.irmenergy.activity.ScanActivity;
 import com.vbs.irmenergy.utilities.APIProgressDialog;
@@ -51,6 +58,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -98,7 +106,13 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
     private int imageType = 0;
     private String[] ftpFileName;
     private Button btn_verify_app_no;
-
+    private String application_date, customer_type, customer_category, corporation_name,
+            billing_to, first_name, middle_name, last_name, dob, adhar_no,
+            block_no, address, society, landmark, state, city, area, pincode,
+            customer_mobile, customer_email, lpg_cust_no, lpg_distributor,
+            lpg_omc, property_type, property_name1, ownership_type,
+            ownership_name1, owner_mobile, dma_contractor, remarks,
+            center_code, doc1, doc2, customer_phone, plan_id;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_customer_registration, container, false);
@@ -237,6 +251,10 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
 
         getCustomerType();
         getDocumentList();
+        getState();
+        getPropertyType();
+        getOwnershipType();
+        getContractorName();
     }
 
     public void onClick(View view) {
@@ -431,7 +449,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     Utility.toast("Please select ownership type", getActivity());
                 else {
                     if (!TextUtils.isEmpty(fileName)) {
-                        ftpDirectory = "IRMenrgy_Test/Registration_Documents/" + et_application_no.getTag().toString() + ""
+                        ftpDirectory = et_application_no.getTag().toString() + ""
                                 + et_application_no.getText().toString().trim();
                         new uploadFileFTP().execute();
                     } else {
@@ -460,7 +478,6 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 img_reg2.setRotation(90);
                 img_reg3.setImageResource(R.drawable.right);
                 img_reg3.setRotation(0);
-                getState();
                 break;
             case R.id.img_reg3:
                 ll_reg1.setVisibility(View.GONE);
@@ -472,9 +489,6 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 img_reg2.setRotation(0);
                 img_reg3.setImageResource(R.drawable.right);
                 img_reg3.setRotation(90);
-                getPropertyType();
-                getOwnershipType();
-                getContractorName();
                 break;
             default:
                 return;
@@ -772,6 +786,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_contractor, contractor_name);
+                    sp_contractor.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_BILLING_INFO) {
                 response = jObject.getString("response");
@@ -811,6 +826,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_state, state_name);
+                    sp_state.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_CITY) {
                 response = jObject.getString("response");
@@ -830,6 +846,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_city, city_name);
+                    sp_city.setSelection(1);
                 }
             } else if (reqCode == Constant.GET_AREA) {
                 response = jObject.getString("response");
@@ -875,7 +892,89 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
                     Utility.toast(message, getActivity());
-                    /*jsonArray = jObject.getJSONArray("doc_data");
+                    if (!jObject.getString("application_Id").equalsIgnoreCase("null")) {
+                        application_date = jObject.getString("application_date");
+                        customer_type = jObject.getString("customer_type");
+                        customer_category = jObject.getString("customer_category");
+                        corporation_name = jObject.getString("corporation_name");
+                        billing_to = jObject.getString("billing_to");
+                        first_name = jObject.getString("first_name");
+                        middle_name = jObject.getString("middle_name");
+                        last_name = jObject.getString("last_name");
+                        dob = jObject.getString("dob");
+                        adhar_no = jObject.getString("adhar_no");
+                        block_no = jObject.getString("block_no");
+                        address = jObject.getString("address");
+                        society = jObject.getString("society");
+                        landmark = jObject.getString("landmark");
+                        state = jObject.getString("state");
+                        city = jObject.getString("city");
+                        area = jObject.getString("area");
+                        pincode = jObject.getString("pincode");
+                        customer_mobile = jObject.getString("customer_mobile");
+                        customer_email = jObject.getString("customer_email");
+                        lpg_cust_no = jObject.getString("lpg_cust_no");
+                        lpg_distributor = jObject.getString("lpg_distributor");
+                        lpg_omc = jObject.getString("lpg_omc");
+                        property_type = jObject.getString("property_type");
+                        property_name1 = jObject.getString("property_name");
+                        ownership_type = jObject.getString("ownership_type");
+                        ownership_name1 = jObject.getString("ownership_name");
+                        owner_mobile = jObject.getString("owner_mobile");
+                        dma_contractor = jObject.getString("dma_contractor");
+                        remarks = jObject.getString("remarks");
+                        center_code = jObject.getString("center_code");
+                        doc1 = jObject.getString("doc1");
+                        doc2 = jObject.getString("doc2");
+                        customer_phone = jObject.getString("customer_phone");
+                        plan_id = jObject.getString("plan_id");
+
+                        et_date.setText(Utility.parseDate(application_date));
+                        et_firstname.setText(first_name);
+                        et_middlename.setText(middle_name);
+                        et_lastname.setText(last_name);
+                        et_dob.setText(Utility.parseDate(dob));
+                        et_aadhar_no.setMaskedText(adhar_no);
+                        et_block_no.setText(block_no);
+                        et_address1.setText(address + " " + society);
+                        et_address2.setText(landmark);
+                        et_pincode.setText(pincode);
+                        et_mobile_no.setText(customer_mobile);
+                        et_contact_no.setText("");
+                        et_email.setText(customer_email);
+                        et_lpg_no.setText(lpg_cust_no);
+                        et_lpg_distributor.setText(lpg_distributor);
+                        et_lpg_omc.setText(lpg_omc);
+                        et_owner_name.setText(ownership_name1);
+                        et_owner_contact_no.setText(owner_mobile);
+                        et_remarks.setText(remarks);
+
+                        int indexCustType = Arrays.asList(type_id).indexOf(customer_type);
+                        int indexCustCat = Arrays.asList(category_id).indexOf(customer_category);
+                        int indexBillingTo = Arrays.asList(billing_id).indexOf(billing_to);
+                        int indexDoc1 = Arrays.asList(doc_id).indexOf(doc1);
+                        int indexDoc2 = Arrays.asList(doc_id).indexOf(doc2);
+                        int indexPropType = Arrays.asList(property_type).indexOf(property_id);
+                        int indexOwnerType = Arrays.asList(ownership_type).indexOf(ownership_id);
+                        int indexDMA = Arrays.asList(dma_contractor).indexOf(contractor_id);
+                        int indexState = Arrays.asList(state_id).indexOf(state);
+                        int indexCity = Arrays.asList(city_id).indexOf(city);
+                        int indexArea = Arrays.asList(area_id).indexOf(area);
+
+                        sp_customer_type.setSelection(indexCustType);
+                        sp_customer_category.setSelection(indexCustCat);
+                        sp_billing_to.setSelection(indexBillingTo);
+                        sp_doc1.setSelection(indexDoc1);
+                        sp_doc2.setSelection(indexDoc2);
+                        sp_state.setSelection(indexState);
+                        sp_city.setSelection(indexCity);
+                        sp_area.setSelection(indexArea);
+                        sp_property_type.setSelection(indexPropType);
+                        sp_owner_type.setSelection(indexOwnerType);
+                        sp_contractor.setSelection(indexDMA);
+                    }
+
+                    /*jsonArray = jObject.getJSONArray("document_data");
                     int lenth = jsonArray.length() + 1;
                     doc_id = new String[lenth];
                     doc_name = new String[lenth];
@@ -896,8 +995,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 response = jObject.getString("response");
                 message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
-                    Utility.toast(message, getActivity());
                     if (paymentType.equalsIgnoreCase("cheque")) {
+                        Utility.toast(message, getActivity());
                         Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
                         intent.putExtra("app_no", et_application_no.getTag().toString() + ""
                                 + et_application_no.getText().toString().trim());
@@ -905,7 +1004,36 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                                 et_lastname.getText().toString().trim());
                         startActivity(intent);
                     } else {
-                        getActivity().finish();
+                        Dialog dialog1 = new Dialog(getActivity());
+                        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog1.setContentView(R.layout.dialog_sucess);
+                        dialog1.setCanceledOnTouchOutside(false);
+                        dialog1.setCancelable(false);
+
+                        Button btn_dashboard = (Button) dialog1.findViewById(R.id.btn_dashboard);
+                        TextView tv_success_msg = (TextView) dialog1.findViewById(R.id.tv_success_msg);
+                        tv_success_msg.setText("Customer Registration Saved Successfully");
+
+                        btn_dashboard.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog1.dismiss();
+                                getActivity().finish();
+                                Intent i = new Intent(getActivity(), MainActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
+                            }
+                        });
+
+                        Window window1 = dialog1.getWindow();
+                        WindowManager.LayoutParams wlp1 = window1.getAttributes();
+                        wlp1.width = ActionBar.LayoutParams.MATCH_PARENT;
+                        wlp1.height = ActionBar.LayoutParams.MATCH_PARENT;
+                        window1.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        window1.setAttributes(wlp1);
+                        dialog1.show();
                     }
                 } else {
                     Utility.toast(message, getActivity());
@@ -913,6 +1041,9 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            if (mProgressDialog.isShowing()) {
+                mProgressDialog.dismiss();
+            }
         }
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
@@ -1218,16 +1349,16 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 FTPClient ftpClient = new FTPClient();
                 ftpClient.connect(Constant.FTP_URL);
                 ftpClient.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
-
+                ftpClient.enterLocalPassiveMode();
+                ftpClient.changeWorkingDirectory("IRMenrgy_Test/Registration_Documents/");
+                Log.e("FTP Dir: ", ftpClient.printWorkingDirectory());
+                ftpClient.makeDirectory(ftpDirectory);
+                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
                 for (int i = 0; i < fileImage.length; i++) {
                     if (fileImage[i] != null) {
-                        ftpClient.makeDirectory(ftpDirectory);
-                        ftpClient.changeWorkingDirectory(ftpDirectory);
-                        ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
                         BufferedInputStream buffIn = null;
                         System.out.println("Name : " + ftpFileName[i]);
                         buffIn = new BufferedInputStream(new FileInputStream(fileImage[i]));
-                        ftpClient.enterLocalPassiveMode();
                         ftpClient.storeFile(ftpFileName[i], buffIn);
                         buffIn.close();
                     }

@@ -43,7 +43,8 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
     private String[] estworkorder_refno, estworkorder_id, estworkorder_date,
             estworkorder_type_id, estworkorder_type_name, estplan_name,
             estapplication_no, estapp_id, estcustomer_name, estcustomer_address,
-            estcustomer_area, estcustomer_city;
+            estcustomer_area, estcustomer_city, estworkorder_estimationstatus,
+            estworkorder_pdfpath, estworkorder_estamount;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_extra_material_estimation, container, false);
@@ -98,6 +99,7 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
             Map<String, Object> params = new HashMap<>();
             params.put("center_code", Utility.getAppPrefString(getActivity(), "center_code"));
             params.put("application_no", et_app_no.getText().toString().trim());
+            params.put("user_id", Utility.getAppPrefString(getActivity(), Constant.USER_ID));
             volleyAPIClass.volleyAPICall(getActivity(), FragmentExtraMaterialEstimation.this,
                     Constant.GET_ESTIMATE_LIST,
                     Constant.URL_GET_ESTIMATE_LIST, params);
@@ -130,6 +132,9 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
                     estcustomer_address = new String[lenth];
                     estcustomer_area = new String[lenth];
                     estcustomer_city = new String[lenth];
+                    estworkorder_estimationstatus = new String[lenth];
+                    estworkorder_pdfpath = new String[lenth];
+                    estworkorder_estamount = new String[lenth];
                     for (int j = 0; j < lenth; j++) {
                         jsonObjectMessage = jsonArray.getJSONObject(j);
                         estworkorder_refno[j] = jsonObjectMessage.getString("estworkorder_refno");
@@ -144,19 +149,24 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
                         estcustomer_address[j] = jsonObjectMessage.getString("estcustomer_address");
                         estcustomer_area[j] = jsonObjectMessage.getString("estcustomer_area");
                         estcustomer_city[j] = jsonObjectMessage.getString("estcustomer_city");
+                        estworkorder_estimationstatus[j] = jsonObjectMessage.getString("estworkorder_estimationstatus");
+                        estworkorder_pdfpath[j] = jsonObjectMessage.getString("estworkorder_pdfpath");
+                        estworkorder_estamount[j] = jsonObjectMessage.getString("estworkorder_estamount");
                     }
                     InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(et_app_no.getWindowToken(), 0);
                     recyclerView.setAdapter(new EstimationAdapter(getActivity(), estworkorder_refno, estworkorder_id, estworkorder_date,
                             estworkorder_type_id, estworkorder_type_name, estplan_name,
                             estapplication_no, estapp_id, estcustomer_name, estcustomer_address,
-                            estcustomer_area, estcustomer_city));
+                            estcustomer_area, estcustomer_city, estworkorder_estimationstatus,
+                            estworkorder_pdfpath, estworkorder_estamount));
                 } else {
                     Utility.toast(message, getActivity());
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            Utility.toast("No Records Found.", getActivity());
         }
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
