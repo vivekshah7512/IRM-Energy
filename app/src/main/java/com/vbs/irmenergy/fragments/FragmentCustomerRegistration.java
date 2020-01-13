@@ -254,10 +254,6 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
 
         getCustomerType();
         getDocumentList();
-        getState();
-        getPropertyType();
-        getOwnershipType();
-        getContractorName();
     }
 
     public void onClick(View view) {
@@ -451,6 +447,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         Utility.toast("Please select property type", getActivity());
                     else if (TextUtils.isEmpty(stringOwnerId))
                         Utility.toast("Please select ownership type", getActivity());
+                    else if (TextUtils.isEmpty(stringContractorId))
+                        Utility.toast("Please select DMA contractor", getActivity());
                     else {
                         if (ftpFileName[0].equalsIgnoreCase("") &&
                                 ftpFileName[1].equalsIgnoreCase("") &&
@@ -464,20 +462,81 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         }
                     }
                 } else {
-                    if (paymentType.equalsIgnoreCase("cheque")) {
-                        Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
-                        intent.putExtra("app_no", et_application_no.getTag().toString() + ""
-                                + et_application_no.getText().toString().trim());
-                        intent.putExtra("cust_name", et_firstname.getText().toString().trim() + " " +
-                                et_lastname.getText().toString().trim());
-                        startActivity(intent);
-                    } else {
-                        Utility.toast("Your data saved successfully", getActivity());
-                        getActivity().finish();
-                        Intent i = new Intent(getActivity(), MainActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
+                    if (et_application_no.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter application no.", getActivity());
+                    else if (et_date.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please select application date", getActivity());
+                    else if (TextUtils.isEmpty(stringCategoryId))
+                        Utility.toast("Please select customer type", getActivity());
+                    else if (TextUtils.isEmpty(stringBillingTo))
+                        Utility.toast("Please select billing to", getActivity());
+                    else if (et_firstname.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter first name", getActivity());
+                    else if (et_lastname.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter last name", getActivity());
+                    else if (TextUtils.isEmpty(stringDoc1))
+                        Utility.toast("Please select document1", getActivity());
+                    else if (TextUtils.isEmpty(stringDoc2))
+                        Utility.toast("Please select document2", getActivity());
+                    else if (TextUtils.isEmpty(stringDoc2))
+                        Utility.toast("Please select document2", getActivity());
+                    else if (et_address1.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter society name", getActivity());
+                    else if (TextUtils.isEmpty(stringState))
+                        Utility.toast("Please select state", getActivity());
+                    else if (TextUtils.isEmpty(stringCity))
+                        Utility.toast("Please select city", getActivity());
+                    else if (TextUtils.isEmpty(stringArea))
+                        Utility.toast("Please select area", getActivity());
+                    else if (et_pincode.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter area pincode", getActivity());
+                    else if (TextUtils.isEmpty(stringPropertyId))
+                        Utility.toast("Please select property type", getActivity());
+                    else if (TextUtils.isEmpty(stringOwnerId))
+                        Utility.toast("Please select ownership type", getActivity());
+                    else if (TextUtils.isEmpty(stringContractorId))
+                        Utility.toast("Please select DMA contractor", getActivity());
+                    else {
+                        if (paymentType.equalsIgnoreCase("cheque")) {
+                            Intent intent = new Intent(getActivity(), PaymentDetailActivity.class);
+                            intent.putExtra("app_no", et_application_no.getTag().toString() + ""
+                                    + et_application_no.getText().toString().trim());
+                            intent.putExtra("cust_name", et_firstname.getText().toString().trim() + " " +
+                                    et_lastname.getText().toString().trim());
+                            startActivity(intent);
+                        } else {
+
+                            Dialog dialog2 = new Dialog(getActivity());
+                            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog2.setContentView(R.layout.dialog_sucess);
+                            dialog2.setCanceledOnTouchOutside(false);
+                            dialog2.setCancelable(false);
+
+                            Button btn_dashboard = (Button) dialog2.findViewById(R.id.btn_dashboard);
+                            TextView tv_success_msg = (TextView) dialog2.findViewById(R.id.tv_success_msg);
+                            tv_success_msg.setText("Customer Registration Updated Successfully");
+
+                            btn_dashboard.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog2.dismiss();
+                                    getActivity().finish();
+                                    Intent i = new Intent(getActivity(), MainActivity.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(i);
+                                }
+                            });
+
+                            Window window1 = dialog2.getWindow();
+                            WindowManager.LayoutParams wlp1 = window1.getAttributes();
+                            wlp1.width = ActionBar.LayoutParams.MATCH_PARENT;
+                            wlp1.height = ActionBar.LayoutParams.MATCH_PARENT;
+                            window1.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                            window1.setAttributes(wlp1);
+                            dialog2.show();
+                        }
                     }
                 }
                 break;
@@ -502,6 +561,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 img_reg2.setRotation(90);
                 img_reg3.setImageResource(R.drawable.right);
                 img_reg3.setRotation(0);
+                getState();
                 break;
             case R.id.img_reg3:
                 ll_reg1.setVisibility(View.GONE);
@@ -513,6 +573,9 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 img_reg2.setRotation(0);
                 img_reg3.setImageResource(R.drawable.right);
                 img_reg3.setRotation(90);
+                getPropertyType();
+                getOwnershipType();
+                getContractorName();
                 break;
             default:
                 return;
@@ -773,7 +836,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_property_type, property_name);
                     if (indexPropType != 0) {
-                        indexPropType = Arrays.asList(property_type).indexOf(property_id);
+                        indexPropType = Arrays.asList(property_id).indexOf(property_type);
                         sp_property_type.setSelection(indexPropType);
                     }
                 }
@@ -796,7 +859,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_owner_type, ownership_name);
                     if (indexOwnerType != 0) {
-                        indexOwnerType = Arrays.asList(ownership_type).indexOf(ownership_id);
+                        indexOwnerType = Arrays.asList(ownership_id).indexOf(ownership_type);
                         sp_owner_type.setSelection(indexOwnerType);
                     }
                 }
@@ -820,8 +883,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     Utility.setSpinnerAdapter(getActivity(), sp_contractor, contractor_name);
 
                     if (indexDMA != 0) {
-                        indexDMA = Arrays.asList(dma_contractor).indexOf(contractor_id);
-                        sp_contractor.setSelection(indexCity);
+                        indexDMA = Arrays.asList(contractor_id).indexOf(dma_contractor);
+                        sp_contractor.setSelection(indexDMA);
                     } else
                         sp_contractor.setSelection(1);
                 }
@@ -865,7 +928,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     Utility.setSpinnerAdapter(getActivity(), sp_state, state_name);
                     if (indexState != 0) {
                         indexState = Arrays.asList(state_id).indexOf(state);
-                        sp_state.setSelection(indexCity);
+                        sp_state.setSelection(indexState);
                     } else
                         sp_state.setSelection(1);
                 }
@@ -1245,33 +1308,45 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             case R.id.sp_property_type:
                 if (!property_id[position].equalsIgnoreCase("0")) {
                     stringPropertyId = property_id[position];
+                    property_type = stringPropertyId;
+                    indexPropType = 1;
                 }
                 break;
             case R.id.sp_owner_type:
                 if (!ownership_id[position].equalsIgnoreCase("0")) {
                     stringOwnerId = ownership_id[position];
+                    ownership_type = stringOwnerId;
+                    indexOwnerType = 1;
                 }
                 break;
             case R.id.sp_contractor:
                 if (!contractor_id[position].equalsIgnoreCase("0")) {
                     stringContractorId = contractor_id[position];
+                    dma_contractor = stringContractorId;
+                    indexDMA = 1;
                 }
                 break;
             case R.id.sp_reg_state:
                 if (!state_id[position].equalsIgnoreCase("0")) {
                     stringState = state_id[position];
+                    state = stringState;
+                    indexState = 1;
                     getCity();
                 }
                 break;
             case R.id.sp_reg_city:
                 if (!city_id[position].equalsIgnoreCase("0")) {
                     stringCity = city_id[position];
+                    city = stringCity;
+                    indexCity = 1;
                     getArea();
                 }
                 break;
             case R.id.sp_reg_area:
                 if (!area_id[position].equalsIgnoreCase("0")) {
                     stringArea = area_id[position];
+                    area = stringArea;
+                    indexArea = 1;
                 }
                 break;
             case R.id.sp_doc1:

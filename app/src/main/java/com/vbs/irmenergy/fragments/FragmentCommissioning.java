@@ -141,15 +141,18 @@ public class FragmentCommissioning extends Fragment implements OnClickListener,
                     }
                     InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(et_app_no.getWindowToken(), 0);
+                    recyclerView.setVisibility(View.VISIBLE);
                     recyclerView.setAdapter(new CommissioningAdapter(getActivity(), plan_name, application_no, app_id, app_name, app_address,
                             app_area, workorder_no, workorder_contractor_name, contractor_id, meter_no));
                 } else {
                     Utility.toast(message, getActivity());
+                    recyclerView.setVisibility(View.GONE);
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
             Utility.toast("No Records Found.", getActivity());
+            recyclerView.setVisibility(View.GONE);
         }
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();

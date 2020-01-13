@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -184,22 +185,33 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.btn_jobsheet_submit:
-                Intent intent = new Intent(mContext, JobsheetConnectionTypeActivity.class);
-                intent.putExtra("woType", getIntent().getStringExtra("woType"));
-                intent.putExtra("app_id", getIntent().getStringExtra("app_id"));
-                intent.putExtra("application_no", et_application_no.getText().toString());
-                intent.putExtra("workorder_id", getIntent().getStringExtra("workorder_id"));
-                intent.putExtra("contractor_id", stringContractorId);
-                intent.putExtra("house_type", stringHouseId);
-                intent.putExtra("installation_date", et_inst_date.getText().toString());
-                intent.putExtra("meter_sr_no", et_material_no.getText().toString());
-                intent.putExtra("latitude", et_latitude.getText().toString());
-                intent.putExtra("longitude", et_longitude.getText().toString());
-                intent.putExtra("remarks", et_remarks.getText().toString());
-                intent.putExtra("meter_photo", fileName);
-                intent.putExtra("meter_directory", ftpDirectory);
-                intent.putExtra("meter_file", fileImage);
-                startActivity(intent);
+                if (stringContractorId.equalsIgnoreCase("0")) {
+                    Utility.toast("Please select contractor", mContext);
+                } else if (stringHouseId.equalsIgnoreCase("0")) {
+                    Utility.toast("Please select house type", mContext);
+                } else if (et_inst_date.getText().toString()
+                        .equalsIgnoreCase("")) {
+                    Utility.toast("please select installation date", mContext);
+                } else if (TextUtils.isEmpty(fileName)) {
+                    Utility.toast("please take meter photo", mContext);
+                } else {
+                    Intent intent = new Intent(mContext, JobsheetConnectionTypeActivity.class);
+                    intent.putExtra("woType", getIntent().getStringExtra("woType"));
+                    intent.putExtra("app_id", getIntent().getStringExtra("app_id"));
+                    intent.putExtra("application_no", et_application_no.getText().toString());
+                    intent.putExtra("workorder_id", getIntent().getStringExtra("workorder_id"));
+                    intent.putExtra("contractor_id", stringContractorId);
+                    intent.putExtra("house_type", stringHouseId);
+                    intent.putExtra("installation_date", et_inst_date.getText().toString());
+                    intent.putExtra("meter_sr_no", et_material_no.getText().toString());
+                    intent.putExtra("latitude", et_latitude.getText().toString());
+                    intent.putExtra("longitude", et_longitude.getText().toString());
+                    intent.putExtra("remarks", et_remarks.getText().toString());
+                    intent.putExtra("meter_photo", fileName);
+                    intent.putExtra("meter_directory", ftpDirectory);
+                    intent.putExtra("meter_file", fileImage);
+                    startActivity(intent);
+                }
                 break;
             default:
                 break;

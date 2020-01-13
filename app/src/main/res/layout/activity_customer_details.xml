@@ -62,13 +62,28 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.vbs.irmenergy.utilities.CustomTextview
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Meter Serial No."
-                            android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_12sdp"
-                            app:fontName="@string/font_regular" />
+                            android:orientation="horizontal">
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Meter Serial No. "
+                                android:textColor="@color/colorLightBlack"
+                                android:textSize="@dimen/_12sdp"
+                                app:fontName="@string/font_regular" />
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*"
+                                android:textColor="@color/colorRed"
+                                android:textSize="@dimen/_12sdp"
+                                app:fontName="@string/font_regular" />
+
+                        </LinearLayout>
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_survey_meter_no"
@@ -85,14 +100,29 @@
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 
-                        <com.vbs.irmenergy.utilities.CustomTextview
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Meter Reading"
-                            android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_12sdp"
-                            app:fontName="@string/font_regular" />
+                            android:orientation="horizontal">
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Meter Reading "
+                                android:textColor="@color/colorLightBlack"
+                                android:textSize="@dimen/_12sdp"
+                                app:fontName="@string/font_regular" />
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*"
+                                android:textColor="@color/colorRed"
+                                android:textSize="@dimen/_12sdp"
+                                app:fontName="@string/font_regular" />
+
+                        </LinearLayout>
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_survey_meter_reading"
@@ -159,14 +189,29 @@
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 
-                        <com.vbs.irmenergy.utilities.CustomTextview
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Rubber Tube Mf. "
-                            android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_12sdp"
-                            app:fontName="@string/font_regular" />
+                            android:orientation="horizontal">
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rubber Tube Mf. "
+                                android:textColor="@color/colorLightBlack"
+                                android:textSize="@dimen/_12sdp"
+                                app:fontName="@string/font_regular" />
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*"
+                                android:textColor="@color/colorRed"
+                                android:textSize="@dimen/_12sdp"
+                                app:fontName="@string/font_regular" />
+
+                        </LinearLayout>
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_survey_rubber_mf"
@@ -176,8 +221,8 @@
                             android:background="@drawable/rounded_border_box1"
                             android:gravity="center_vertical"
                             android:hint="Enter length"
-                            android:padding="8dp"
                             android:inputType="number"
+                            android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack1"
                             android:textCursorDrawable="@drawable/color_cursor"

@@ -155,6 +155,7 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
                     }
                     InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(et_app_no.getWindowToken(), 0);
+                    recyclerView.setVisibility(View.VISIBLE);
                     recyclerView.setAdapter(new EstimationAdapter(getActivity(), estworkorder_refno, estworkorder_id, estworkorder_date,
                             estworkorder_type_id, estworkorder_type_name, estplan_name,
                             estapplication_no, estapp_id, estcustomer_name, estcustomer_address,
@@ -162,11 +163,13 @@ public class FragmentExtraMaterialEstimation extends Fragment implements OnClick
                             estworkorder_pdfpath, estworkorder_estamount));
                 } else {
                     Utility.toast(message, getActivity());
+                    recyclerView.setVisibility(View.GONE);
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
             Utility.toast("No Records Found.", getActivity());
+            recyclerView.setVisibility(View.GONE);
         }
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();

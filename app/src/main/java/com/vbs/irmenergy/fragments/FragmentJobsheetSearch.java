@@ -147,12 +147,14 @@ public class FragmentJobsheetSearch extends Fragment implements OnClickListener,
                     }
                     InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(et_app_no.getWindowToken(), 0);
+                    recyclerView.setVisibility(View.VISIBLE);
                     recyclerView.setAdapter(new JobsheetAdapter(getActivity(), workorder_id,
                             workorder_refno, workorder_date, workorder_type, workorder_type_id, plan_name,
                             application_no, workorder_contractorID, app_id, customer_name,
                             customer_address, customer_area));
                 } else {
                     Utility.toast(message, getActivity());
+                    recyclerView.setVisibility(View.GONE);
                 }
             }
         } catch (JSONException e) {
