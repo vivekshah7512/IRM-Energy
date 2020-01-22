@@ -55,7 +55,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
     private Context mContext;
     private VolleyAPIClass volleyAPIClass;
     private Button btn_comm_submit, btn_verify_meter_no;
-    private LinearLayout ll_take_photo;
+    private LinearLayout ll_take_photo, ll_meter_no;
     private ImageView img_capture;
     private TextView tv_img_title;
     private ImageView img_back;
@@ -94,6 +94,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
         btn_comm_submit.setOnClickListener(this);
         btn_verify_meter_no = (Button) findViewById(R.id.btn_verify_meter_no);
         btn_verify_meter_no.setOnClickListener(this);
+        ll_meter_no = (LinearLayout) findViewById(R.id.ll_meter_no);
         ll_take_photo = (LinearLayout) findViewById(R.id.ll_take_photo);
         ll_take_photo.setOnClickListener(this);
         img_capture = (ImageView) findViewById(R.id.img_meter);
@@ -120,6 +121,14 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
         sp_house_type.setOnItemSelectedListener(this);
         sp_regulator = (Spinner) findViewById(R.id.sp_job_regulator);
         sp_regulator.setOnItemSelectedListener(this);
+
+        if (getIntent().getStringExtra("woType").equalsIgnoreCase("7")) {
+            // Normal Connection
+            ll_meter_no.setVisibility(View.VISIBLE);
+        } else {
+            // Other
+            ll_meter_no.setVisibility(View.GONE);
+        }
 
         getContractorName();
         getHouseType();

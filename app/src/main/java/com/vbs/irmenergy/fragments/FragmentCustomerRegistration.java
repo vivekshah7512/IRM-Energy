@@ -86,7 +86,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             city_id, city_name, area_id, area_name, doc_id, doc_name;
     private String stringTypeId = "0", stringCategoryId = "0",
             stringCorporateId = "0", stringPropertyId = "0", stringOwnerId = "0",
-            stringContractorId = "0", stringBillingTo = "0", stringState = "0",
+            stringContractorId = "0", stringBillingTo = "-1", stringState = "0",
             stringCity = "0", stringArea = "0", stringDoc1 = "0", stringDoc2 = "0",
             stringDocName1 = "", stringDocName2 = "";
     private Spinner sp_customer_type, sp_customer_category, sp_corporate_name,
@@ -429,8 +429,6 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         Utility.toast("Please enter last name", getActivity());
                     else if (TextUtils.isEmpty(stringDoc1))
                         Utility.toast("Please select document1", getActivity());
-                    else if (TextUtils.isEmpty(stringDoc2))
-                        Utility.toast("Please select document2", getActivity());
                     else if (TextUtils.isEmpty(stringDoc2))
                         Utility.toast("Please select document2", getActivity());
                     else if (et_address1.getText().toString().equalsIgnoreCase(""))
@@ -897,7 +895,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     billing_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
                         if (a == 0) {
-                            billing_id[0] = "0";
+                            billing_id[0] = "-1";
                             billing_name[0] = "Select Billing To";
                         } else {
                             jsonObjectMessage = jsonArray.getJSONObject(a - 1);
@@ -1046,7 +1044,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         et_firstname.setText(first_name);
                         et_middlename.setText(middle_name);
                         et_lastname.setText(last_name);
-                        et_dob.setText(Utility.parseDate(dob));
+                        if (!dob.equalsIgnoreCase(""))
+                            et_dob.setText(Utility.parseDate(dob));
                         et_aadhar_no.setMaskedText(adhar_no);
                         et_block_no.setText(block_no);
                         et_address1.setText(address + " " + society);

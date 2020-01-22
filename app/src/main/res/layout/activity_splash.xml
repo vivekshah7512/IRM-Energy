@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="© 2019 IREMPL, All Rights Reserved"
+            android:text="© 2020 IREMPL, All Rights Reserved"
             android:textColor="@color/colorLightBlack"
             android:textSize="@dimen/_10sdp"
             app:fontName="@string/font_regular" />

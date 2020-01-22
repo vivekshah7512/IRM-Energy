@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -33,10 +34,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PaymentDetailActivity extends AppCompatActivity implements View.OnClickListener,
         VolleyResponseInterface, AdapterView.OnItemSelectedListener {
@@ -48,10 +52,11 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
     private EditText et_receipt_type, et_receipt_date, et_inst_no, et_inst_date,
             et_amount, et_micr_no, et_remarks;
     private APIProgressDialog mProgressDialog;
-    private String[] plan_id, plan_name, plan_amount, bank_id, bank_name;
+    private String[] plan_id, plan_name, plan_amount, bank_id, bank_name, bank_name_temp;
     private VolleyAPIClass volleyAPIClass;
     private String stringPlanId = "0", stringBankId = "0", stringAmount = "0", stringType;
     private Calendar myCalendar;
+    private ArrayList<String> arrayListBankName, arrayListBankID;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -64,6 +69,46 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
         mContext = this;
 
         initUI();
+
+        et_micr_no.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (et_micr_no.getText().toString().trim().length() > 0) {
+                    for (int j = 0; j < bank_name.length; j++) {
+                        String text = bank_name[j];
+                        Pattern word = Pattern.compile(et_micr_no.getText().toString());
+                        Matcher match = word.matcher(text);
+                        if (match.find()) {
+                            String t1 = String.valueOf(text.charAt(0));
+                            String t2 = String.valueOf(et_micr_no.getText().toString().charAt(0));
+                            if (t1.equalsIgnoreCase(t2)) {
+                                sp_bank.setSelection(j);
+                                Log.v("Bank : ", text);
+                                break;
+                            } else {
+                                sp_bank.setSelection(0);
+                            }
+                            break;
+                        } else {
+                            sp_bank.setSelection(0);
+                            Log.v("Bank : ", text);
+                        }
+                    }
+                } else {
+                    sp_bank.setSelection(0);
+                }
+            }
+        });
 
     }
 
@@ -81,6 +126,7 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
         sp_plan.setOnItemSelectedListener(this);
         sp_bank = (Spinner) findViewById(R.id.sp_payment_bank_name);
         sp_bank.setOnItemSelectedListener(this);
+        sp_bank.setEnabled(false);
         sp_payment_mode = (Spinner) findViewById(R.id.et_payment_type);
         sp_payment_mode.setOnItemSelectedListener(this);
         Utility.setSpinnerAdapter(mContext, sp_payment_mode, getResources().getStringArray(R.array.payment_type));
@@ -143,7 +189,11 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                 finish();
                 break;
             case R.id.btn_payment_submit:
-                savePaymentDetails();
+                if (et_micr_no.getText().toString().trim().length() == 9) {
+                    savePaymentDetails();
+                } else {
+                    Utility.toast("Please enter valid MICR No.", mContext);
+                }
                 break;
             default:
                 break;
@@ -169,8 +219,6 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
 
             Map<String, String> params = new HashMap<>();
             params.put("center_code", Utility.getAppPrefString(mContext, "center_code"));
-//            params.put("micr_no", et_micr_no.getText().toString().trim());
-
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_BANK_NAME,
                     Constant.URL_GET_BANK_NAME, params);
         } else
@@ -261,17 +309,21 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
                     int lenth = jsonArray.length() + 1;
                     bank_id = new String[lenth];
                     bank_name = new String[lenth];
+                    bank_name_temp = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
                         if (a == 0) {
                             bank_id[0] = "0";
                             bank_name[0] = "Select Bank Name";
+                            bank_name_temp[0] = "Bank Name";
                         } else {
                             jsonObjectMessage = jsonArray.getJSONObject(a - 1);
                             bank_id[a] = jsonObjectMessage.getString("bank_id");
                             bank_name[a] = jsonObjectMessage.getString("bank_name");
+                            String[] separated = bank_name[a].split("-");
+                            bank_name_temp[a] = separated[1].trim();
                         }
                     }
-                    Utility.setSpinnerAdapter(mContext, sp_bank, bank_name);
+                    Utility.setSpinnerAdapter(mContext, sp_bank, bank_name_temp);
                 }
             }
         } catch (JSONException e) {
