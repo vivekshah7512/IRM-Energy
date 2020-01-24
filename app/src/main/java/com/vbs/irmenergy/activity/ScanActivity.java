@@ -50,7 +50,7 @@ public class ScanActivity extends AppCompatActivity implements BarcodeReader.Bar
     public void onScanned(Barcode barcode) {
         barcodeReader.playBeep();
         Log.v("Barcode", barcode.displayValue);
-//        parseXml(barcode.displayValue);
+        parseXml(barcode.displayValue);
     }
 
     @Override

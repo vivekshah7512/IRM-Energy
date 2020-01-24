@@ -70,6 +70,7 @@ public class JobsheetAdapter extends Adapter<JobsheetAdapter.MyViewHolder> {
                 intent.putExtra("app_id", app_id[position]);
                 intent.putExtra("app_no", application_no[position]);
                 intent.putExtra("workorder_id", workorder_id[position]);
+                intent.putExtra("contractor_id", workorder_contractorID[position]);
                 context.startActivity(intent);
             }
         });
