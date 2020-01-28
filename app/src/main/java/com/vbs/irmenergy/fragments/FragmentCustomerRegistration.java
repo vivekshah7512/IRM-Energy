@@ -86,7 +86,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
             city_id, city_name, area_id, area_name, doc_id, doc_name;
     private String stringTypeId = "0", stringCategoryId = "0",
             stringCorporateId = "0", stringPropertyId = "0", stringOwnerId = "0",
-            stringContractorId = "0", stringBillingTo = "-1", stringState = "0",
+            stringContractorId = "-2", stringBillingTo = "-1", stringState = "0",
             stringCity = "0", stringArea = "0", stringDoc1 = "0", stringDoc2 = "0",
             stringDocName1 = "", stringDocName2 = "";
     private Spinner sp_customer_type, sp_customer_category, sp_corporate_name,
@@ -870,7 +870,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     contractor_name = new String[lenth];
                     for (int a = 0; a < lenth; a++) {
                         if (a == 0) {
-                            contractor_id[0] = "0";
+                            contractor_id[0] = "-1";
                             contractor_name[0] = "Select DMA Contractor";
                         } else {
                             jsonObjectMessage = jsonArray.getJSONObject(a - 1);
@@ -1319,7 +1319,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 }
                 break;
             case R.id.sp_contractor:
-                if (!contractor_id[position].equalsIgnoreCase("0")) {
+                if (!contractor_id[position].equalsIgnoreCase("-2")) {
                     stringContractorId = contractor_id[position];
                     dma_contractor = stringContractorId;
                     indexDMA = 1;

@@ -141,7 +141,11 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
             case R.id.btn_verify_meter_no:
                 if (!et_material_no.getText().toString().trim()
                         .equalsIgnoreCase("")) {
-                    verifyAppNo();
+                    if (!stringContractorId.equalsIgnoreCase("0")) {
+                        verifyAppNo();
+                    } else {
+                        Utility.toast("Please select contractor", mContext);
+                    }
                 } else {
                     Utility.toast("Please enter meter sr no.", mContext);
                 }
@@ -260,7 +264,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
 
             Map<String, String> params = new HashMap<>();
             params.put("meter_sr_no", et_material_no.getText().toString().trim());
-            params.put("contractor_id", getIntent().getStringExtra("contractor_id"));
+            params.put("contractor_id", stringContractorId);
             VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.VERIFY_METER_NO,
                     Constant.URL_VERIFY_METER_NO, params);
         } else

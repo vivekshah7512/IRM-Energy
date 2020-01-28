@@ -147,11 +147,21 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                     int indexConnection = new ArrayList<String>(Arrays.asList(connection_name)).indexOf(connection);
 
                     if (ll_child.getVisibility() == View.VISIBLE) {
-                        arrayListWorkType.add(workorder_id[indexType]);
-                        arrayListConnectionType.add(connection_id[indexConnection]);
-                        arrayListMaterial.add(material_id[indexMaterial]);
-                        arrayListUsedQty.add(et_qty.getText().toString().trim());
-                        arrayListNoConnection.add(et_no_conn.getText().toString().trim());
+                        if (woType.equalsIgnoreCase("72")) {
+                            // Alteration & Modification
+                            arrayListWorkType.add(workorder_id[indexType]);
+                            arrayListConnectionType.add("0");
+                            arrayListMaterial.add(material_id[indexMaterial]);
+                            arrayListUsedQty.add(et_qty.getText().toString().trim());
+                            arrayListNoConnection.add("0");
+                        } else {
+                            // Normal & External
+                            arrayListWorkType.add(workorder_id[indexType]);
+                            arrayListConnectionType.add(connection_id[indexConnection]);
+                            arrayListMaterial.add(material_id[indexMaterial]);
+                            arrayListUsedQty.add(et_qty.getText().toString().trim());
+                            arrayListNoConnection.add(et_no_conn.getText().toString().trim());
+                        }
                     }
                 }
                 calculateAmount();
@@ -498,6 +508,16 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
             Utility.setSpinnerAdapter1(mContext, sp_connection_type, connection_name);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (woType.equalsIgnoreCase("72")) {
+            // Alteration & Modification
+            sp_connection_type.setEnabled(false);
+            et_no_conn.setEnabled(false);
+        } else {
+            // Normal & External
+            sp_connection_type.setEnabled(true);
+            et_no_conn.setEnabled(true);
         }
 
         ll_material_list.addView(view);
