@@ -1003,7 +1003,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 message = jObject.getString("message");
                 if (response.equalsIgnoreCase("true")) {
                     Utility.toast(message, getActivity());
-                    if (!jObject.getString("application_Id").equalsIgnoreCase("null")) {
+                    if (!jObject.getString("application_Id")
+                            .equalsIgnoreCase("null")) {
                         application_date = jObject.getString("application_date");
                         customer_type = jObject.getString("customer_type");
                         customer_category = jObject.getString("customer_category");
@@ -1115,7 +1116,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         indexArea = 0;
 
                         sp_customer_type.setSelection(1);
-                        sp_customer_category.setSelection(1);
+                        sp_customer_category.setSelection(2);
                         sp_billing_to.setSelection(1);
                         sp_doc1.setSelection(0);
                         sp_doc2.setSelection(0);
