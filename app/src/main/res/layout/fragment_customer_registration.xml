@@ -1140,14 +1140,29 @@
                             android:textSize="@dimen/_11sdp"
                             app:fontName="@string/font_light" />
 
-                        <com.vbs.irmenergy.utilities.CustomTextview
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Mobile Number"
-                            android:textColor="@color/colorLightBlack"
-                            android:textSize="@dimen/_12sdp"
-                            app:fontName="@string/font_regular" />
+                            android:orientation="horizontal">
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mobile Number "
+                                android:textColor="@color/colorLightBlack1"
+                                android:textSize="@dimen/_12sdp"
+                                app:fontName="@string/font_regular" />
+
+                            <com.vbs.irmenergy.utilities.CustomTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*"
+                                android:textColor="@color/colorRed"
+                                android:textSize="@dimen/_12sdp"
+                                app:fontName="@string/font_regular" />
+
+                        </LinearLayout>
 
                         <com.vbs.irmenergy.utilities.CustomEditText
                             android:id="@+id/et_reg_mobile_no"
@@ -1158,6 +1173,7 @@
                             android:gravity="center_vertical"
                             android:hint="Enter mobile number"
                             android:inputType="number"
+                            android:maxLength="10"
                             android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack1"
@@ -1183,6 +1199,7 @@
                             android:gravity="center_vertical"
                             android:hint="Enter contact number"
                             android:inputType="number"
+                            android:maxLength="10"
                             android:padding="8dp"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack1"
@@ -1500,6 +1517,7 @@
                             android:gravity="center_vertical"
                             android:hint="Enter owner contact no."
                             android:padding="8dp"
+                            android:maxLength="10"
                             android:singleLine="true"
                             android:textColor="@color/colorLightBlack1"
                             android:textCursorDrawable="@drawable/color_cursor"

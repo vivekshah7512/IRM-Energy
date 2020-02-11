@@ -1,8 +1,10 @@
 package com.vbs.irmenergy.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -263,8 +265,26 @@ public class JobsheetConnectionTypeActivity extends Activity implements View.OnC
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
                     jsonArray1 = jObject.getJSONArray("workorder_data");
+                    getMaterial();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext,
+                            R.style.AlertDialogTheme);
+                    builder.setTitle("Timeout");
+                    builder.setMessage("You have to refresh this page due to server timeout.");
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            recreate();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    });
+                    builder.show();
                 }
-                getMaterial();
             } else if (reqCode == Constant.GET_MATERIAL_DATA) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {

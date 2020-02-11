@@ -205,9 +205,10 @@ public class PaymentDetailActivity extends AppCompatActivity implements View.OnC
             if (!mProgressDialog.isShowing())
                 mProgressDialog.show();
 
-            volleyAPIClass.volleyGetJsonAPI(mContext, null,
-                    Constant.GET_PLAN,
-                    Constant.URL_GET_PLAN);
+            Map<String, String> params = new HashMap<>();
+            params.put("center_code", Utility.getAppPrefString(mContext, "center_code"));
+            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.GET_PLAN,
+                    Constant.URL_GET_PLAN, params);
         } else
             Utility.toast("No Internet Connection", mContext);
     }

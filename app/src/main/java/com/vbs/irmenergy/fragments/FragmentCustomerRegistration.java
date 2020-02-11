@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,9 +13,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -441,6 +444,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         Utility.toast("Please select area", getActivity());
                     else if (et_pincode.getText().toString().equalsIgnoreCase(""))
                         Utility.toast("Please enter area pincode", getActivity());
+                    else if (et_mobile_no.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter mobile no.", getActivity());
                     else if (TextUtils.isEmpty(stringPropertyId))
                         Utility.toast("Please select property type", getActivity());
                     else if (TextUtils.isEmpty(stringOwnerId))
@@ -488,6 +493,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         Utility.toast("Please select area", getActivity());
                     else if (et_pincode.getText().toString().equalsIgnoreCase(""))
                         Utility.toast("Please enter area pincode", getActivity());
+                    else if (et_mobile_no.getText().toString().equalsIgnoreCase(""))
+                        Utility.toast("Please enter mobile no.", getActivity());
                     else if (TextUtils.isEmpty(stringPropertyId))
                         Utility.toast("Please select property type", getActivity());
                     else if (TextUtils.isEmpty(stringOwnerId))
@@ -794,6 +801,29 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                     }
                     Utility.setSpinnerAdapter(getActivity(), sp_customer_category, category_name);
                     sp_customer_category.setSelection(2);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+                            R.style.AlertDialogTheme);
+                    builder.setTitle("Timeout");
+                    builder.setMessage("You have to refresh this page due to server timeout.");
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            if (Build.VERSION.SDK_INT >= 26) {
+                                ft.setReorderingAllowed(false);
+                            }
+                            ft.detach(FragmentCustomerRegistration.this)
+                                    .attach(FragmentCustomerRegistration.this).commit();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            getFragmentManager().popBackStack();
+                        }
+                    });
+                    builder.show();
                 }
             } else if (reqCode == Constant.GET_CORPORATE_NAME) {
                 response = jObject.getString("response");
@@ -1126,7 +1156,6 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         sp_property_type.setSelection(0);
                         sp_owner_type.setSelection(0);
                         sp_contractor.setSelection(1);
-
                     }
 
                     /*jsonArray = jObject.getJSONArray("document_data");
@@ -1519,12 +1548,8 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 ftpClient.changeWorkingDirectory("IRMenrgy_Test/Registration_Documents/");
                 Log.e("FTP Dir1: ", ftpClient.printWorkingDirectory());
                 ftpClient.makeDirectory(ftpDirectory);
-
-                FTPClient ftpClient1 = new FTPClient();
-                ftpClient1.connect(Constant.FTP_URL);
-                ftpClient1.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
-                ftpClient1.changeWorkingDirectory("IRMenrgy_Test/Registration_Documents/" + ftpDirectory + "/");
-                Log.e("FTP Dir1: ", ftpClient1.printWorkingDirectory());
+                ftpClient.changeWorkingDirectory(ftpDirectory + "/");
+                Log.e("FTP Dir2: ", ftpClient.printWorkingDirectory());
 
                 ftpClient.enterLocalPassiveMode();
                 ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
@@ -1534,14 +1559,12 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         BufferedInputStream buffIn = null;
                         System.out.println("Name : " + ftpFileName[i]);
                         buffIn = new BufferedInputStream(new FileInputStream(fileImage[i]));
-                        ftpClient1.storeFile(ftpFileName[i], buffIn);
+                        ftpClient.storeFile(ftpFileName[i], buffIn);
                         buffIn.close();
                     }
                 }
                 ftpClient.logout();
                 ftpClient.disconnect();
-                ftpClient1.logout();
-                ftpClient1.disconnect();
                 if (mProgressDialog.isShowing()) {
                     mProgressDialog.dismiss();
                 }

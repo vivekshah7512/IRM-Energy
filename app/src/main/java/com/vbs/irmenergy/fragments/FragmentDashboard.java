@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 public class FragmentDashboard extends Fragment implements OnClickListener,
         VolleyResponseInterface {
 
@@ -127,9 +129,18 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
                         }
                     }
                     Utility.setSpinnerAdapter2(getActivity(), sp_center, center_name);
-                    Utility.writeSharedPreferences(getActivity(), "center_code",
-                            "1");
-                    sp_center.setSelection(1);
+                    if (!Utility.getAppPrefString(getActivity(), "center_code")
+                            .equalsIgnoreCase("") ||
+                            !Utility.getAppPrefString(getActivity(), "center_code")
+                                    .equalsIgnoreCase("0")) {
+                        int index = Arrays.asList(center_code).
+                                indexOf(Utility.getAppPrefString(getActivity(), "center_code"));
+                        sp_center.setSelection(index);
+                    } else {
+                        Utility.writeSharedPreferences(getActivity(), "center_code",
+                                center_code[1]);
+                        sp_center.setSelection(1);
+                    }
                 }
             }
         } catch (JSONException e) {
