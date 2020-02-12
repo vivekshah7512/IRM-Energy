@@ -130,7 +130,7 @@ public class FragmentDashboard extends Fragment implements OnClickListener,
                     }
                     Utility.setSpinnerAdapter2(getActivity(), sp_center, center_name);
                     if (!Utility.getAppPrefString(getActivity(), "center_code")
-                            .equalsIgnoreCase("") ||
+                            .equalsIgnoreCase("") &&
                             !Utility.getAppPrefString(getActivity(), "center_code")
                                     .equalsIgnoreCase("0")) {
                         int index = Arrays.asList(center_code).

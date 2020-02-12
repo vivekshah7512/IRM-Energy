@@ -272,6 +272,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent i = new Intent(mContext, MainActivity.class);
                     Utility.writeSharedPreferences(mContext,"menuArray",jsonArray.toString());
                     startActivity(i);
+                    finish();
                 } else {
                     Utility.toast(message, mContext);
                 }
