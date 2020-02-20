@@ -1545,7 +1545,7 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                 FTPClient ftpClient = new FTPClient();
                 ftpClient.connect(Constant.FTP_URL);
                 ftpClient.login(Constant.FTP_USERNAME, Constant.FTP_PASSWORD);
-                ftpClient.changeWorkingDirectory("IRMenrgy_Test/Registration_Documents/");
+                ftpClient.changeWorkingDirectory(Constant.FTP_FOLDER + "/Registration_Documents/");
                 Log.e("FTP Dir1: ", ftpClient.printWorkingDirectory());
                 ftpClient.makeDirectory(ftpDirectory);
                 ftpClient.changeWorkingDirectory(ftpDirectory + "/");

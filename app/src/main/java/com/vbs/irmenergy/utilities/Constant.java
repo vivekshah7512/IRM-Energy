@@ -5,10 +5,19 @@ public class Constant {
     public static String TAG = "IMREnergy";
     public static int MY_SOCKET_TIMEOUT_MS = 30000;
 
-    public static String URL_PARENT = "http://pngnet.irmenergy.com/IRMEPLTest/IRMEPL_MobileApp_API_Test/IRMMobileAppService/"; // Testing
+    // Test
+//    public static String URL_PARENT = "http://pngnet.irmenergy.com/IRMEPLTest/IRMEPL_MobileApp_API_Test/IRMMobileAppService/";
+//    public static String FTP_URL = "login.irmenergy.com";
+//    public static String FTP_USERNAME = "ftpuser";
+//    public static String FTP_PASSWORD = "S-#s&K2j6BS-k_N!";
+//    public static String FTP_FOLDER = "IRMenrgy_Test";
+
+    // Live
+    public static String URL_PARENT = "http://pngnet.irmenergy.com/IRMEPL/IRMEPL_MobileApp_API/IRMMobileAppService/";
     public static String FTP_URL = "login.irmenergy.com";
     public static String FTP_USERNAME = "ftpuser";
     public static String FTP_PASSWORD = "S-#s&K2j6BS-k_N!";
+    public static String FTP_FOLDER = "IRMenrgy_Live";
 
     // URL
     public static String URL_CREATE_LOGIN = URL_PARENT + "createLogin";
@@ -47,6 +56,7 @@ public class Constant {
     public static String URL_SAVE_EXTRA_ESTIMATION = URL_PARENT + "getEstimation";
     public static String URL_VERIFY_APP_NO = URL_PARENT + "getApplicationDetail";
     public static String URL_VERIFY_METER_NO = URL_PARENT + "verifyMeterNo";
+    public static String URL_VERIFY_VERSION = URL_PARENT + "";
 
     // API CODE
     public static int LOGIN = 1;
@@ -84,6 +94,7 @@ public class Constant {
     public static int VIEW_APPLICATION_NO = 33;
     public static int VERIFY_APP_NO = 34;
     public static int VERIFY_METER_NO = 35;
+    public static int VERIFY_VERSION = 36;
 
     // Constant
     public static String USER_EMAIL = "user_email";

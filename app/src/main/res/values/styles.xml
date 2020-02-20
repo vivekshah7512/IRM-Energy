@@ -77,6 +77,10 @@
 
     <style name="Widget.GifView" parent="@android:style/Widget"></style>
 
+    <style name="AppTheme.WhiteAccent">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
     <declare-styleable name="GifView">
         <attr name="gif" format="reference" />
         <attr name="paused" format="boolean" />

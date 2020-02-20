@@ -173,7 +173,7 @@ public class ExtraMaterialEstimationActivity extends Activity implements View.On
                 break;
             case R.id.btn_material_submit:
                 if (!TextUtils.isEmpty(fileName)) {
-                    ftpDirectory = "IRMenrgy_Test/Customer_Signature/Material_Estimation/" + getIntent().getStringExtra("app_no");
+                    ftpDirectory = Constant.FTP_FOLDER + "/Customer_Signature/Material_Estimation/" + getIntent().getStringExtra("app_no");
                     new uploadFileFTP().execute();
                 } else {
                     Utility.toast("Please draw signature", mContext);

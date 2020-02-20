@@ -292,7 +292,7 @@ public class JobsheetDetailsActivity extends Activity implements View.OnClickLis
             img_capture.setImageBitmap(photo);
             tv_img_title.setText(Utility.getTimeStamp() + ".jpg");
             fileName = tv_img_title.getText().toString();
-            ftpDirectory = "IRMenrgy_Test/Meter_Document/Jobsheet/" +
+            ftpDirectory = Constant.FTP_FOLDER + "/Meter_Document/Jobsheet/" +
                     getIntent().getStringExtra("app_no");
 
             try {
