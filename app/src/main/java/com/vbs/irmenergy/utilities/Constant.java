@@ -56,7 +56,7 @@ public class Constant {
     public static String URL_SAVE_EXTRA_ESTIMATION = URL_PARENT + "getEstimation";
     public static String URL_VERIFY_APP_NO = URL_PARENT + "getApplicationDetail";
     public static String URL_VERIFY_METER_NO = URL_PARENT + "verifyMeterNo";
-    public static String URL_VERIFY_VERSION = URL_PARENT + "";
+    public static String URL_VERIFY_VERSION = URL_PARENT + "getMobileAppVersion";
 
     // API CODE
     public static int LOGIN = 1;

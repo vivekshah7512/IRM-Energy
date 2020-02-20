@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import com.vbs.irmenergy.R;
 import com.vbs.irmenergy.utilities.Constant;
 import com.vbs.irmenergy.utilities.Utility;
+import com.vbs.irmenergy.utilities.volley.VolleyAPIClass;
 import com.vbs.irmenergy.utilities.volley.VolleyCacheRequestClass;
 import com.vbs.irmenergy.utilities.volley.VolleyResponseInterface;
 
@@ -33,6 +34,7 @@ public class SplashActivity extends Activity implements VolleyResponseInterface 
     private Context mContext;
     private ProgressBar progressBar;
     private String version;
+    private VolleyAPIClass volleyAPIClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class SplashActivity extends Activity implements VolleyResponseInterface 
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         mContext = this;
+        volleyAPIClass = new VolleyAPIClass();
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         PackageInfo pInfo = null;
@@ -58,36 +61,61 @@ public class SplashActivity extends Activity implements VolleyResponseInterface 
 
     private void verifyVersion() {
         if (Utility.isNetworkAvaliable(mContext)) {
-            Map<String, String> params = new HashMap<>();
-            VolleyCacheRequestClass.getInstance().volleyJsonAPI(mContext, Constant.VERIFY_VERSION,
-                    Constant.URL_VERIFY_VERSION, params);
+            volleyAPIClass.volleyGetJsonAPI(mContext, null,
+                    Constant.VERIFY_VERSION, Constant.URL_VERIFY_VERSION);
         } else
             Utility.toast("No Internet Connection", mContext);
     }
 
     @Override
     public void vResponse(int reqCode, String result) {
-        String response, message;
+        String response, app_version;
         try {
             JSONObject jObject = new JSONObject(result);
             if (reqCode == Constant.VERIFY_VERSION) {
                 response = jObject.getString("response");
                 if (response.equalsIgnoreCase("true")) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (Utility.getAppPrefString(mContext, Constant.isLogin)
-                                    .equalsIgnoreCase("true")) {
-                                Intent i = new Intent(mContext, MainActivity.class);
-                                startActivity(i);
-                                finish();
-                            } else {
-                                Intent i = new Intent(mContext, LoginActivity.class);
-                                startActivity(i);
-                                finish();
+                    app_version = jObject.getString("app_version");
+                    if (app_version.equalsIgnoreCase("1")){
+                        app_version = "1.0";
+                    }
+                    if (app_version.equalsIgnoreCase(version)) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (Utility.getAppPrefString(mContext, Constant.isLogin)
+                                        .equalsIgnoreCase("true")) {
+                                    Intent i = new Intent(mContext, MainActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                } else {
+                                    Intent i = new Intent(mContext, LoginActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }
                             }
-                        }
-                    }, 1000);
+                        }, 1000);
+                    } else {
+                        new AlertDialog.Builder(SplashActivity.this, R.style.AlertDialogTheme)
+                                .setCancelable(false)
+                                .setTitle("New version available")
+                                .setMessage("Your IRM Energy app is of older version. Please update the latest version to continue using services.")
+                                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("https://play.google.com/store/apps/details?id=com.vbs.irmenergy"));
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        moveTaskToBack(true);
+                                        android.os.Process.killProcess(android.os.Process.myPid());
+                                        System.exit(1);
+                                    }
+                                }).show();
+                    }
                 } else {
                     new AlertDialog.Builder(SplashActivity.this, R.style.AlertDialogTheme)
                             .setCancelable(false)
