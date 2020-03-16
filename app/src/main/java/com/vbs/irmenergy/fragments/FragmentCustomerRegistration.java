@@ -959,6 +959,29 @@ public class FragmentCustomerRegistration extends Fragment implements OnClickLis
                         sp_state.setSelection(indexState);
                     } else
                         sp_state.setSelection(1);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+                            R.style.AlertDialogTheme);
+                    builder.setTitle("Timeout");
+                    builder.setMessage("You have to refresh this page due to server timeout.");
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            if (Build.VERSION.SDK_INT >= 26) {
+                                ft.setReorderingAllowed(false);
+                            }
+                            ft.detach(FragmentCustomerRegistration.this)
+                                    .attach(FragmentCustomerRegistration.this).commit();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            getFragmentManager().popBackStack();
+                        }
+                    });
+                    builder.show();
                 }
             } else if (reqCode == Constant.GET_CITY) {
                 response = jObject.getString("response");
